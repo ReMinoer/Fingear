@@ -1,0 +1,3 @@
+[submodule "External/Stave"]
+	path = External/Stave
+	url = https://github.com/ReMinoer/Stave
