@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Les informations générales relatives à un assembly dépendent de 
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
-[assembly: AssemblyTitle("Fingear.Tests")]
+[assembly: AssemblyTitle("Fingear.Monogame")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Fingear.Tests")]
+[assembly: AssemblyProduct("Fingear.Monogame")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Le GUID suivant est pour l'ID de la typelib si ce projet est exposé à COM
-[assembly: Guid("29f1c5ab-f724-4c31-a7c7-838ecf704323")]
+[assembly: Guid("9eef1863-44be-423e-a29d-088c23aac45e")]
 
 // Les informations de version pour un assembly se composent des quatre valeurs suivantes :
 //

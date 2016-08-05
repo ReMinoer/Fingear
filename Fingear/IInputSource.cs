@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace Fingear
+﻿namespace Fingear
 {
-    public interface IInputSource : IEnumerable<IInputDevice>
+    public interface IInputSource
     {
     }
 }

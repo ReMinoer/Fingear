@@ -34,10 +34,48 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IInputDevice.cs" />
+    <Compile Include="Controls\ActivityControl.cs" />
+    <Compile Include="Controls\ValueControl.cs" />
+    <Compile Include="Inputs\Base\ContinousInputBase.cs" />
+    <Compile Include="Controls\Base\ControlDecoratorBase.cs" />
+    <Compile Include="Controls\Base\ControlContainerBase.cs" />
+    <Compile Include="Controls\Base\ControlCompositeBase.cs" />
+    <Compile Include="Controls\Base\ControlBase.cs" />
+    <Compile Include="Controls\Composites\ControlSet.cs" />
+    <Compile Include="Customizables\CustomizableCursor.cs" />
+    <Compile Include="Customizables\CustomizableIntensity.cs" />
+    <Compile Include="Customizables\CustomizableJoystick.cs" />
+    <Compile Include="Customizables\CustomizableScalar.cs" />
+    <Compile Include="Customizables\CustomizableSwitch.cs" />
+    <Compile Include="Customizables\CustomizableButton.cs" />
+    <Compile Include="Customizables\Base\CustomizableInputBase.cs" />
+    <Compile Include="IControlContainer.cs" />
+    <Compile Include="IInputSourceEnumerable.cs" />
+    <Compile Include="Inputs\Base\PonctualInputBase.cs" />
+    <Compile Include="IControlComposite.cs" />
+    <Compile Include="IControlDecorator.cs" />
+    <Compile Include="IInput.cs" />
+    <Compile Include="IControl.cs" />
+    <Compile Include="IControlParent.cs" />
     <Compile Include="IInputSource.cs" />
+    <Compile Include="InputActivity.cs" />
+    <Compile Include="InputActivity.Extension.cs" />
+    <Compile Include="Inputs\JoystickInputBase.cs" />
+    <Compile Include="Inputs\IntensityInputBase.cs" />
+    <Compile Include="Inputs\CursorInputBase.cs" />
+    <Compile Include="Inputs\ScaleInputBase.cs" />
+    <Compile Include="Inputs\SwitchInputBase.cs" />
+    <Compile Include="Inputs\ButtonInputBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\DeadZone.cs" />
+    <Compile Include="Utils\MathUtils.cs" />
     <Compile Include="Vector2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\External\Stave\Stave.csproj">
+      <Project>{38A041E6-5AA9-4C22-B96F-35167F171959}</Project>
+      <Name>Stave</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

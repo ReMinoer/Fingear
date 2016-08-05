@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{29F1C5AB-F724-4C31-A7C7-838ECF704323}</ProjectGuid>
+    <ProjectGuid>{9EEF1863-44BE-423E-A29D-088C23AAC45E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fingear.Tests</RootNamespace>
-    <AssemblyName>Fingear.Tests</AssemblyName>
+    <RootNamespace>Fingear.MonoGame</RootNamespace>
+    <AssemblyName>Fingear.MonoGame</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -32,11 +32,36 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FingearTest.cs" />
+    <Compile Include="GamePadSource.cs" />
+    <Compile Include="InputStates.cs" />
+    <Compile Include="Inputs\GamePad\GamePadButtonInput.cs" />
+    <Compile Include="Inputs\GamePad\GamePadJoystickInput.cs" />
+    <Compile Include="Inputs\GamePad\GamePadTriggerInput.cs" />
+    <Compile Include="Inputs\Keyboard\KeyInput.cs" />
+    <Compile Include="Inputs\Mouse\MouseButton.cs" />
+    <Compile Include="Inputs\Mouse\MouseButtonInput.cs" />
+    <Compile Include="Inputs\GamePad\GamePadThumbstick.cs" />
+    <Compile Include="Inputs\GamePad\GamePadTrigger.cs" />
+    <Compile Include="Inputs\Mouse\MouseCursorInput.cs" />
+    <Compile Include="Inputs\Mouse\MouseWheelInput.cs" />
+    <Compile Include="KeyboardSource.cs" />
+    <Compile Include="MouseSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Point.Extension.cs" />
+    <Compile Include="Vector2.Extension.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fingear\Fingear.csproj">
+      <Project>{7ee0b116-6b49-4073-99d8-827dd68b8ae0}</Project>
+      <Name>Fingear</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
