@@ -1,37 +1,50 @@
-﻿using Fingear.Controls.Base;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Fingear.Controls.Base;
 
 namespace Fingear.Controls.Composites
 {
-    public class ControlSet<TControls> : ControlCompositeBase<TControls>
-        where TControls : class, IControl
+    public class ControlSet : ControlCompositeBase<IControl>
     {
-        public override bool IsTriggered()
+        protected override bool UpdateControl(float elapsedTime)
         {
-            foreach (TControls component in Components)
-                if (component.IsTriggered())
-                {
-                    Source = component.Source;
-                    return true;
-                }
-            
-            return false;
+            Sources = Components.Where(x => x.IsTriggered()).SelectMany(x => x.Sources).Distinct().ToArray();
+            return Sources.Any();
         }
     }
 
-    public class ControlSet<TControls, TValue> : ControlCompositeBase<TControls, TValue>
-        where TControls : class, IControl<TValue>
+    public class ControlSet<TValue> : ControlCompositeBase<IControl<TValue>, TValue>
     {
-        public override bool IsTriggered(out TValue value)
-        {
-            foreach (TControls component in Components)
-                if (component.IsTriggered(out value))
-                {
-                    Source = component.Source;
-                    return true;
-                }
+        private readonly Selector<TValue> _valueSelector;
 
-            value = default(TValue);
-            return false;
+        public ControlSet()
+        {
+            _valueSelector = enumerable => enumerable.FirstOrDefault();
+        }
+
+        public ControlSet(Selector<TValue> valueSelector)
+        {
+            _valueSelector = valueSelector;
+        }
+
+        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        {
+            var valuesList = new List<TValue>();
+            var sourcesList = new List<IInputSource>();
+
+            foreach (IControl<TValue> component in Components)
+            {
+                TValue componentValue;
+                if (!component.IsTriggered(out componentValue))
+                    continue;
+
+                valuesList.Add(componentValue);
+                sourcesList.AddRange(component.Sources);
+            }
+
+            value = _valueSelector(valuesList);
+            Sources = sourcesList.Distinct().ToList();
+            return sourcesList.Count > 0;
         }
     }
 }

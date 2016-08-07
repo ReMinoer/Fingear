@@ -5,7 +5,7 @@ namespace Fingear
 {
     public interface IControl : IComponent<IControl, IControlParent>
     {
-        IInputSource Source { get; }
+        IEnumerable<IInputSource> Sources { get; }
         IEnumerable<IInput> Inputs { get; }
         void Update(float elapsedTime);
         bool IsTriggered();

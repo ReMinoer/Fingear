@@ -8,7 +8,7 @@ namespace Fingear.Controls
     {
         public IInput<TValue> Input { get; set; }
         public Predicate<TValue> ValueFilter { get; set; }
-        public override IInputSource Source => Input?.Source;
+        public override IEnumerable<IInputSource> Sources => Input?.Source.ToEnumerable();
 
         public override IEnumerable<IInput> Inputs
         {
@@ -21,7 +21,7 @@ namespace Fingear.Controls
             ValueFilter = valueFilter;
         }
 
-        public override bool IsTriggered(out TValue value)
+        protected override bool UpdateControl(float elapsedTime, out TValue value)
         {
             if (Input != null && ValueFilter(Input.Value))
             {

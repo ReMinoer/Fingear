@@ -7,7 +7,7 @@ namespace Fingear.Controls
     {
         public IInput Input { get; set; }
         public InputActivity DesiredActivity { get; set; }
-        public override IInputSource Source => Input?.Source;
+        public override IEnumerable<IInputSource> Sources => Input?.Source.ToEnumerable();
 
         public override IEnumerable<IInput> Inputs
         {
@@ -20,7 +20,7 @@ namespace Fingear.Controls
             DesiredActivity = desiredActivity;
         }
 
-        public override bool IsTriggered()
+        protected override bool UpdateControl(float elapsedTime)
         {
             return Input?.Activity.Is(DesiredActivity) ?? false;
         }

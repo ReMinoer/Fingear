@@ -35,7 +35,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ActivityControl.cs" />
+    <Compile Include="Controls\Composites\ControlSimultaneous.cs" />
+    <Compile Include="Selector.cs" />
     <Compile Include="Controls\ValueControl.cs" />
+    <Compile Include="InputSource.Extension.cs" />
     <Compile Include="Inputs\Base\ContinousInputBase.cs" />
     <Compile Include="Controls\Base\ControlDecoratorBase.cs" />
     <Compile Include="Controls\Base\ControlContainerBase.cs" />
@@ -50,7 +53,6 @@
     <Compile Include="Customizables\CustomizableButton.cs" />
     <Compile Include="Customizables\Base\CustomizableInputBase.cs" />
     <Compile Include="IControlContainer.cs" />
-    <Compile Include="IInputSourceEnumerable.cs" />
     <Compile Include="Inputs\Base\PonctualInputBase.cs" />
     <Compile Include="IControlComposite.cs" />
     <Compile Include="IControlDecorator.cs" />

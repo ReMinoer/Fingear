@@ -5,26 +5,52 @@ namespace Fingear.Controls.Base
 {
     public abstract class ControlBase : Component<IControl, IControlParent>, IControl
     {
-        public abstract IInputSource Source { get; }
+        protected internal bool _isTriggered;
+        public abstract IEnumerable<IInputSource> Sources { get; }
         public abstract IEnumerable<IInput> Inputs { get; }
 
-        public virtual void Update(float elapsedTime)
+        public void Update(float elapsedTime)
         {
             foreach (IInput input in Inputs)
                 input.Update();
+
+            _isTriggered = UpdateControl(elapsedTime);
         }
 
-        public abstract bool IsTriggered();
+        protected abstract bool UpdateControl(float elapsedTime);
+
+        public bool IsTriggered()
+        {
+            return _isTriggered;
+        }
     }
 
     public abstract class ControlBase<TValue> : ControlBase, IControl<TValue>
     {
-        public override sealed bool IsTriggered()
+        private TValue _value;
+
+        new public void Update(float elapsedTime)
         {
+            foreach (IInput input in Inputs)
+                input.Update();
+
             TValue value;
-            return IsTriggered(out value);
+            _isTriggered = UpdateControl(elapsedTime, out value);
+            _value = value;
         }
 
-        public abstract bool IsTriggered(out TValue value);
+        protected override sealed bool UpdateControl(float elapsedTime)
+        {
+            TValue value;
+            return UpdateControl(elapsedTime, out value);
+        }
+
+        protected abstract bool UpdateControl(float elapsedTime, out TValue value);
+
+        public bool IsTriggered(out TValue value)
+        {
+            value = _value;
+            return _isTriggered;
+        }
     }
 }

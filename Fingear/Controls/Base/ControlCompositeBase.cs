@@ -7,30 +7,59 @@ namespace Fingear.Controls.Base
     public abstract class ControlCompositeBase<TControls> : Composite<IControl, IControlParent, TControls>, IControlComposite<TControls>
         where TControls : class, IControl
     {
-        public IInputSource Source { get; protected set; }
+        protected internal bool _isTriggered;
+        public IEnumerable<IInputSource> Sources { get; protected set; }
         public virtual IEnumerable<IInput> Inputs => Components.SelectMany(x => x.Inputs);
 
-        public virtual void Update(float elapsedTime)
+        public void Update(float elapsedTime)
         {
             foreach (IInput input in Inputs)
                 input.Update();
 
             foreach (TControls control in Components)
                 control.Update(elapsedTime);
+
+            _isTriggered = UpdateControl(elapsedTime);
         }
 
-        public abstract bool IsTriggered();
+        protected abstract bool UpdateControl(float elapsedTime);
+
+        public bool IsTriggered()
+        {
+            return _isTriggered;
+        }
     }
 
     public abstract class ControlCompositeBase<TControls, TValue> : ControlCompositeBase<TControls>, IControlComposite<TControls, TValue>
         where TControls : class, IControl
     {
-        public override sealed bool IsTriggered()
+        private TValue _value;
+
+        new public void Update(float elapsedTime)
         {
+            foreach (IInput input in Inputs)
+                input.Update();
+
+            foreach (TControls control in Components)
+                control.Update(elapsedTime);
+
             TValue value;
-            return IsTriggered(out value);
+            _isTriggered = UpdateControl(elapsedTime, out value);
+            _value = value;
         }
 
-        public abstract bool IsTriggered(out TValue value);
+        protected override sealed bool UpdateControl(float elapsedTime)
+        {
+            TValue value;
+            return UpdateControl(elapsedTime, out value);
+        }
+
+        protected abstract bool UpdateControl(float elapsedTime, out TValue value);
+
+        public bool IsTriggered(out TValue value)
+        {
+            value = _value;
+            return _isTriggered;
+        }
     }
 }
