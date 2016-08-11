@@ -2,6 +2,7 @@
 {
     public interface IInput
     {
+        string DisplayName { get; }
         InputActivity Activity { get; }
         IInputSource Source { get; }
         void Update();

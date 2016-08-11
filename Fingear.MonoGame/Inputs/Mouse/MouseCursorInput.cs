@@ -4,6 +4,7 @@ namespace Fingear.MonoGame.Inputs.Mouse
 {
     public class MouseCursorInput : CursorInputBase
     {
+        public override string DisplayName => "Mouse";
         public override IInputSource Source => new MouseSource();
         public override Vector2 Value => InputStates.Instance.MouseState.Position.AsFingearVector();
         public override Vector2 Maximum => new Vector2(float.PositiveInfinity, float.PositiveInfinity);

@@ -6,6 +6,7 @@ namespace Fingear.Inputs.Base
         where TValue : IEquatable<TValue>
     {
         private TValue _lastValue;
+        public abstract string DisplayName { get; }
         public InputActivity Activity { get; private set; }
         public abstract TValue Value { get; }
         public abstract TValue IdleValue { get; }

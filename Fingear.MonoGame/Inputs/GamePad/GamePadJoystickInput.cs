@@ -1,5 +1,6 @@
 ﻿using System;
 using Fingear.Inputs;
+using Fingear.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -13,6 +14,19 @@ namespace Fingear.MonoGame.Inputs.GamePad
         public override Vector2 Maximum => new Vector2(1, 1);
         public override Vector2 Minimum => new Vector2(-1, -1);
         public override Vector2 IdleValue => new Vector2(0, 0);
+
+        public override string DisplayName
+        {
+            get
+            {
+                switch (Thumbstick)
+                {
+                    case GamePadThumbstick.Left: return "Left Thumbstick";
+                    case GamePadThumbstick.Right: return "Right Thumbstick";
+                    default: throw new NotSupportedException();
+                }
+            }
+        }
 
         public override Vector2 Value
         {

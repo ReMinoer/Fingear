@@ -14,6 +14,19 @@ namespace Fingear.MonoGame.Inputs.GamePad
         public override float Minimum => 0;
         public override float IdleValue => 0;
 
+        public override string DisplayName
+        {
+            get
+            {
+                switch (Trigger)
+                {
+                    case GamePadTrigger.Left: return "Left Trigger";
+                    case GamePadTrigger.Right: return "Right Trigger";
+                    default: throw new NotSupportedException();
+                }
+            }
+        }
+
         public override float Value
         {
             get

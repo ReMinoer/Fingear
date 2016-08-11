@@ -4,6 +4,7 @@
         where TInput : IInput
     {
         public TInput Input { get; set; }
+        public string DisplayName => Input?.DisplayName ?? "";
         public InputActivity Activity => Input?.Activity ?? InputActivity.Idle;
         public IInputSource Source => Input?.Source;
 

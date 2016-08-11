@@ -1,5 +1,6 @@
 ﻿using System;
 using Fingear.Inputs;
+using Fingear.Utils;
 using Microsoft.Xna.Framework.Input;
 
 namespace Fingear.MonoGame.Inputs.Mouse
@@ -7,6 +8,7 @@ namespace Fingear.MonoGame.Inputs.Mouse
     public class MouseButtonInput : ButtonInputBase
     {
         public MouseButton Button { get; }
+        public override string DisplayName => EnumUtils.GetDisplayName(Button);
         public override IInputSource Source => new MouseSource();
 
         public override bool Value
