@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Fingear
+namespace Fingear.Utils
 {
-    static public class InputSourceExtension
+    static public class InputSourceUtils
     {
         static public IEnumerable<IInputSource> ToEnumerable(this IInputSource source)
         {

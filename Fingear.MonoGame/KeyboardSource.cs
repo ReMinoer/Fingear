@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Fingear.MonoGame.Inputs.Keyboard;
+using Fingear.MonoGame.Inputs;
 using Microsoft.Xna.Framework.Input;
 
 namespace Fingear.MonoGame

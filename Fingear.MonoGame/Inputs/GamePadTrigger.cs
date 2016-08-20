@@ -1,4 +1,4 @@
-﻿namespace Fingear.MonoGame.Inputs.GamePad
+﻿namespace Fingear.MonoGame.Inputs
 {
     public enum GamePadTrigger
     {

@@ -1,4 +1,4 @@
-﻿namespace Fingear.MonoGame.Inputs.Mouse
+﻿namespace Fingear.MonoGame.Inputs
 {
     public enum MouseButton
     {

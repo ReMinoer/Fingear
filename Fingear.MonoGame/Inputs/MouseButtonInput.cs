@@ -3,7 +3,7 @@ using Fingear.Inputs;
 using Fingear.Utils;
 using Microsoft.Xna.Framework.Input;
 
-namespace Fingear.MonoGame.Inputs.Mouse
+namespace Fingear.MonoGame.Inputs
 {
     public class MouseButtonInput : ButtonInputBase
     {

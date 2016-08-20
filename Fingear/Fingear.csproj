@@ -34,18 +34,18 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Selector.cs" />
     <Compile Include="Controls\ActivityControl.cs" />
     <Compile Include="Controls\Composites\ControlSimultaneous.cs" />
     <Compile Include="Converters\ScalarToBooleanInput.cs" />
     <Compile Include="Customizables\CustomizableContinuous.cs" />
     <Compile Include="Customizables\CustomizablePonctual.cs" />
-    <Compile Include="IConversionResolver.cs" />
+    <Compile Include="IInputConversionResolver.cs" />
     <Compile Include="Converters\VectorToScalarInput.cs" />
     <Compile Include="ICustomizableInput.cs" />
     <Compile Include="InputSystem.cs" />
-    <Compile Include="Selector.cs" />
     <Compile Include="Controls\ValueControl.cs" />
-    <Compile Include="InputSource.Extension.cs" />
+    <Compile Include="Utils\InputSourceUtils.cs" />
     <Compile Include="Inputs\Base\ContinousInputBase.cs" />
     <Compile Include="Controls\Base\ControlDecoratorBase.cs" />
     <Compile Include="Controls\Base\ControlContainerBase.cs" />

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Fingear.MonoGame.Inputs.Mouse;
+using Fingear.MonoGame.Inputs;
 
 namespace Fingear.MonoGame
 {

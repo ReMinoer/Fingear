@@ -3,9 +3,9 @@ using Fingear.Converters;
 
 namespace Fingear
 {
-    public class StandardConversionResolver : IConversionResolver
+    public class StandardConversionResolver : IInputConversionResolver
     {
-        public float DeadZoneForBoolean { get; set; } = 0.1f;
+        public float BooleanDeadZone { get; set; } = 0.1f;
 
         public T Resolve<T>(IInput input)
             where T : class, IInput
@@ -18,13 +18,13 @@ namespace Fingear
             var vectorInput = input as IVectorInput;
             if (vectorInput != null && typeof(IScalarInput).IsAssignableFrom(outType) && outType.IsAssignableFrom(typeof(VectorToScalarInput)))
             {
-                Axis axis = Math.Abs(vectorInput.Delta.X) > Math.Abs(vectorInput.Delta.Y) ? Axis.X : Axis.Y;
+                Axis axis = Math.Abs(vectorInput.Delta.X) >= Math.Abs(vectorInput.Delta.Y) ? Axis.X : Axis.Y;
                 return new VectorToScalarInput(vectorInput, axis) as T;
             }
 
             var scalarInput = input as IScalarInput;
             if (scalarInput != null && typeof(IBooleanInput).IsAssignableFrom(outType) && outType.IsAssignableFrom(typeof(ScalarToBooleanInput)))
-                return new ScalarToBooleanInput(scalarInput, DeadZoneForBoolean) as T;
+                return new ScalarToBooleanInput(scalarInput, BooleanDeadZone) as T;
 
             throw new NotSupportedException();
         }

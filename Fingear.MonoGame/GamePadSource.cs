@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Fingear.MonoGame.Inputs.GamePad;
+using Fingear.MonoGame.Inputs;
 using Microsoft.Xna.Framework;
 
 namespace Fingear.MonoGame

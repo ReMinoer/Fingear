@@ -10,12 +10,13 @@ namespace Fingear
     {
         private readonly List<IInputSource> _sourcesList;
         public int RefreshDelay { get; set; } = 100;
-        public IConversionResolver ConversionResolver { get; set; }
+        public IInputConversionResolver ConversionResolver { get; set; }
         public int Count => _sourcesList.Count;
         bool ICollection<IInputSource>.IsReadOnly => false;
 
         public InputSystem()
         {
+            ConversionResolver = new StandardConversionResolver();
             _sourcesList = new List<IInputSource>();
         }
 

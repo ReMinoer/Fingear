@@ -1,6 +1,6 @@
 ﻿using Fingear.Inputs;
 
-namespace Fingear.MonoGame.Inputs.Mouse
+namespace Fingear.MonoGame.Inputs
 {
     public class MouseWheelInput : ScaleInputBase
     {

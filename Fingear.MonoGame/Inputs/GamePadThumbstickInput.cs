@@ -3,7 +3,7 @@ using Fingear.Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Fingear.MonoGame.Inputs.GamePad
+namespace Fingear.MonoGame.Inputs
 {
     public class GamePadThumbstickInput : JoystickInputBase
     {

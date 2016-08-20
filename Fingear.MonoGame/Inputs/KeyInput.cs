@@ -2,7 +2,7 @@
 using Fingear.Utils;
 using Microsoft.Xna.Framework.Input;
 
-namespace Fingear.MonoGame.Inputs.Keyboard
+namespace Fingear.MonoGame.Inputs
 {
     public class KeyInput : ButtonInputBase
     {
