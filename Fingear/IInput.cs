@@ -38,12 +38,14 @@
     {
         float Maximum { get; }
         float Minimum { get; }
+        float Delta { get; }
     }
 
     public interface IVectorInput : IInput<Vector2>
     {
         Vector2 Maximum { get; }
         Vector2 Minimum { get; }
+        Vector2 Delta { get; }
     }
 
     public interface IButtonInput : IBooleanInput, IPunctualInput<bool>

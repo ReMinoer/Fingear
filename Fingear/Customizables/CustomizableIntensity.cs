@@ -1,12 +1,13 @@
-﻿using Fingear.Customizables.Base;
+﻿using Fingear.Utils;
 
 namespace Fingear.Customizables
 {
-    public class CustomizableIntensity : CustomizableInputBase<IIntensityInput>, IIntensityInput
+    public class CustomizableIntensity : CustomizableInput<IIntensityInput>, IIntensityInput
     {
         public float Maximum { get; set; }
         public float Minimum { get; set; }
-        public float Value => Input != null ? Minimum + (Maximum - Minimum) * ((Input.Value - Input.Minimum) / (Input.Maximum - Input.Minimum)) : 0f;
-        public float IdleValue => Input != null ? Minimum + (Maximum - Minimum) * ((Input.IdleValue - Input.Minimum) / (Input.Maximum - Input.Minimum)) : 0f;
+        public float Delta => Input?.Delta ?? 0f;
+        public float Value => Input != null ? MathUtils.ReLerp(Input.Value, Input.Minimum, Input.Maximum, Minimum, Maximum) : 0f;
+        public float IdleValue => Input != null ? MathUtils.ReLerp(Input.IdleValue, Input.Minimum, Input.Maximum, Minimum, Maximum) : 0f;
     }
 }

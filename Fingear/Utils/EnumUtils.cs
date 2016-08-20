@@ -7,10 +7,10 @@ namespace Fingear.Utils
     {
         static public string GetDisplayName<T>(T enumValue)
         {
-            return string.Join(" ", Enum.GetName(typeof(T), enumValue).Split<T>(char.IsUpper));
+            return string.Join(" ", Enum.GetName(typeof(T), enumValue).Split(char.IsUpper));
         }
 
-        static private IEnumerable<string> Split<T>(this string value, Predicate<char> characterSelector)
+        static private IEnumerable<string> Split(this string value, Predicate<char> characterSelector)
         {
             string word = "";
 

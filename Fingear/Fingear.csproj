@@ -36,6 +36,13 @@
   <ItemGroup>
     <Compile Include="Controls\ActivityControl.cs" />
     <Compile Include="Controls\Composites\ControlSimultaneous.cs" />
+    <Compile Include="Converters\ScalarToBooleanInput.cs" />
+    <Compile Include="Customizables\CustomizableContinuous.cs" />
+    <Compile Include="Customizables\CustomizablePonctual.cs" />
+    <Compile Include="IConversionResolver.cs" />
+    <Compile Include="Converters\VectorToScalarInput.cs" />
+    <Compile Include="ICustomizableInput.cs" />
+    <Compile Include="InputSystem.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Controls\ValueControl.cs" />
     <Compile Include="InputSource.Extension.cs" />
@@ -51,7 +58,7 @@
     <Compile Include="Customizables\CustomizableScalar.cs" />
     <Compile Include="Customizables\CustomizableSwitch.cs" />
     <Compile Include="Customizables\CustomizableButton.cs" />
-    <Compile Include="Customizables\Base\CustomizableInputBase.cs" />
+    <Compile Include="Customizables\CustomizableInput.cs" />
     <Compile Include="IControlContainer.cs" />
     <Compile Include="Inputs\Base\PonctualInputBase.cs" />
     <Compile Include="IControlComposite.cs" />
@@ -69,6 +76,7 @@
     <Compile Include="Inputs\SwitchInputBase.cs" />
     <Compile Include="Inputs\ButtonInputBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StandardConversionResolver.cs" />
     <Compile Include="Utils\DeadZone.cs" />
     <Compile Include="Utils\MathUtils.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
@@ -80,6 +88,7 @@
       <Name>Stave</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

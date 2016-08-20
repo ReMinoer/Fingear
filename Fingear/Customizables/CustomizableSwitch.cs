@@ -1,8 +1,6 @@
-﻿using Fingear.Customizables.Base;
-
-namespace Fingear.Customizables
+﻿namespace Fingear.Customizables
 {
-    public class CustomizableSwitch : CustomizableInputBase<ISwitchInput>, ISwitchInput
+    public class CustomizableSwitch : CustomizableInput<ISwitchInput>, ISwitchInput
     {
         public bool Value => Input?.Value ?? false;
     }

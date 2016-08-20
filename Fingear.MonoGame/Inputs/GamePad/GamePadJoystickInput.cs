@@ -1,6 +1,5 @@
 ﻿using System;
 using Fingear.Inputs;
-using Fingear.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 

@@ -1,11 +1,12 @@
-﻿using Fingear.Customizables.Base;
+﻿using Fingear.Utils;
 
 namespace Fingear.Customizables
 {
-    public class CustomizableScale : CustomizableInputBase<IScaleInput>, IScaleInput
+    public class CustomizableScale : CustomizableInput<IScaleInput>, IScaleInput
     {
         public float Maximum { get; set; }
         public float Minimum { get; set; }
-        public float Value => Input != null ? Minimum + (Maximum - Minimum) * ((Input.Value - Input.Minimum) / (Input.Maximum - Input.Minimum)) : 0f;
+        public float Delta => Input?.Delta ?? 0f;
+        public float Value => Input != null ? MathUtils.ReLerp(Input.Value, Input.Minimum, Input.Maximum, Minimum, Maximum) : 0f;
     }
 }
