@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace Fingear.Utils
+﻿namespace Fingear.Utils
 {
     static public class MathUtils
     {

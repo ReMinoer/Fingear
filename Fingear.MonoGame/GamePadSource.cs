@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Fingear.MonoGame.Inputs.GamePad;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace Fingear.MonoGame
 {
@@ -17,21 +16,21 @@ namespace Fingear.MonoGame
         public IEnumerable<IInput> GetAllInputs()
         {
             // Buttons
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.A);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.B);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.X);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.Y);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.Back);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.Start);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.BigButton);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.LeftShoulder);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.RightShoulder);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.DPadUp);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.DPadRight);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.DPadDown);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.DPadLeft);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.LeftStick);
-            yield return new GamePadButtonInput(PlayerIndex, Buttons.RightStick);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Up);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Down);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Left);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Right);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.A);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.B);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.X);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Y);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Back);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Start);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.BigButton);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.LeftShoulder);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.RightShoulder);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.LeftStick);
+            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.RightStick);
 
             // Triggers
             yield return new GamePadTriggerInput(PlayerIndex, GamePadTrigger.Left);

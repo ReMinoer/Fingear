@@ -40,7 +40,8 @@
     <Compile Include="GamePadSource.cs" />
     <Compile Include="InputStates.cs" />
     <Compile Include="Inputs\GamePad\GamePadButtonInput.cs" />
-    <Compile Include="Inputs\GamePad\GamePadJoystickInput.cs" />
+    <Compile Include="Inputs\GamePad\GamePadThumbstickInput.cs" />
+    <Compile Include="Inputs\GamePad\GamePadButton.cs" />
     <Compile Include="Inputs\GamePad\GamePadTriggerInput.cs" />
     <Compile Include="Inputs\Keyboard\KeyInput.cs" />
     <Compile Include="Inputs\Mouse\MouseButton.cs" />
