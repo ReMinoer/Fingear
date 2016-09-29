@@ -5,6 +5,8 @@ namespace Fingear.MonoGame
 {
     public struct MouseSource : IInputSource
     {
+        public string DisplayName => "Mouse";
+
         public IEnumerable<IInput> GetAllInputs()
         {
             // Buttons

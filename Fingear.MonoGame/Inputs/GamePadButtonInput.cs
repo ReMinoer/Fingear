@@ -15,7 +15,7 @@ namespace Fingear.MonoGame.Inputs
         public override IInputSource Source => new GamePadSource(PlayerIndex);
         public override bool Value => InputStates.Instance.GamePadStates[PlayerIndex].IsButtonDown(_monogameButton);
 
-        public GamePadButtonInput(PlayerIndex playerIndex, GamePadButton button)
+        public GamePadButtonInput(GamePadButton button, PlayerIndex playerIndex = PlayerIndex.One)
         {
             PlayerIndex = playerIndex;
             Button =  button;
@@ -37,10 +37,10 @@ namespace Fingear.MonoGame.Inputs
                 case Buttons.Back: return GamePadButton.Back;
                 case Buttons.Start: return GamePadButton.Start;
                 case Buttons.BigButton: return GamePadButton.BigButton;
-                case Buttons.LeftShoulder: return GamePadButton.LeftShoulder;
-                case Buttons.RightShoulder: return GamePadButton.RightShoulder;
-                case Buttons.LeftStick: return GamePadButton.LeftStick;
-                case Buttons.RightStick: return GamePadButton.RightStick;
+                case Buttons.LeftShoulder: return GamePadButton.LB;
+                case Buttons.RightShoulder: return GamePadButton.RB;
+                case Buttons.LeftStick: return GamePadButton.LS;
+                case Buttons.RightStick: return GamePadButton.RS;
                 default: return null;
             }
         }
@@ -60,10 +60,10 @@ namespace Fingear.MonoGame.Inputs
                 case GamePadButton.Back: return Buttons.Back;
                 case GamePadButton.Start: return Buttons.Start;
                 case GamePadButton.BigButton: return Buttons.BigButton;
-                case GamePadButton.LeftShoulder: return Buttons.LeftShoulder;
-                case GamePadButton.RightShoulder: return Buttons.RightShoulder;
-                case GamePadButton.LeftStick: return Buttons.LeftStick;
-                case GamePadButton.RightStick: return Buttons.RightStick;
+                case GamePadButton.LB: return Buttons.LeftShoulder;
+                case GamePadButton.RB: return Buttons.RightShoulder;
+                case GamePadButton.LS: return Buttons.LeftStick;
+                case GamePadButton.RS: return Buttons.RightStick;
                 default: throw new NotSupportedException();
             }
         }

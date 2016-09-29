@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Diese;
 using Stave;
 
 namespace Fingear.Controls.Base
@@ -8,14 +9,17 @@ namespace Fingear.Controls.Base
         where TControls : class, IControl
     {
         protected internal bool _isTriggered;
+        public string Name { get; set; }
         public IEnumerable<IInputSource> Sources { get; protected set; }
         public virtual IEnumerable<IInput> Inputs => Components.SelectMany(x => x.Inputs);
 
+        protected ControlCompositeBase()
+        {
+            Name = GetType().GetDisplayName();
+        }
+
         public void Update(float elapsedTime)
         {
-            foreach (IInput input in Inputs)
-                input.Update();
-
             foreach (TControls control in Components)
                 control.Update(elapsedTime);
 
@@ -24,7 +28,7 @@ namespace Fingear.Controls.Base
 
         protected abstract bool UpdateControl(float elapsedTime);
 
-        public bool IsTriggered()
+        public bool IsActive()
         {
             return _isTriggered;
         }
@@ -37,9 +41,6 @@ namespace Fingear.Controls.Base
 
         new public void Update(float elapsedTime)
         {
-            foreach (IInput input in Inputs)
-                input.Update();
-
             foreach (TControls control in Components)
                 control.Update(elapsedTime);
 
@@ -56,7 +57,7 @@ namespace Fingear.Controls.Base
 
         protected abstract bool UpdateControl(float elapsedTime, out TValue value);
 
-        public bool IsTriggered(out TValue value)
+        public bool IsActive(out TValue value)
         {
             value = _value;
             return _isTriggered;

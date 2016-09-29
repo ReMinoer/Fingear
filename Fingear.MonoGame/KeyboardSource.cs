@@ -8,6 +8,8 @@ namespace Fingear.MonoGame
 {
     public struct KeyboardSource : IInputSource
     {
+        public string DisplayName => "Keyboard";
+
         public IEnumerable<IInput> GetAllInputs()
         {
             return Enum.GetValues(typeof(Keys)).Cast<Keys>().Select(key => new KeyInput(key));

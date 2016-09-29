@@ -10,14 +10,20 @@ namespace Fingear
     {
         private readonly List<IInputSource> _sourcesList;
         public int RefreshDelay { get; set; } = 100;
-        public IInputConversionResolver ConversionResolver { get; set; }
+        public IInputConverter Converter { get; set; }
         public int Count => _sourcesList.Count;
         bool ICollection<IInputSource>.IsReadOnly => false;
 
         public InputSystem()
         {
-            ConversionResolver = new StandardConversionResolver();
+            Converter = new StandardInputConverter();
             _sourcesList = new List<IInputSource>();
+        }
+
+        public T CatchInput<T>()
+            where T : class, IInput
+        {
+            return CatchInputAsync<T>(CancellationToken.None).Result;
         }
 
         public async Task<T> CatchInputAsync<T>(CancellationToken token)
@@ -32,7 +38,7 @@ namespace Fingear
 
                 IInput triggeredInput = inputs.FirstOrDefault(x => x.Activity == InputActivity.Triggered);
                 if (triggeredInput != default(IInput))
-                    return ConversionResolver != null ? ConversionResolver.Resolve<T>(triggeredInput) : triggeredInput as T;
+                    return Converter != null ? Converter.Resolve<T>(triggeredInput) : triggeredInput as T;
 
                 await Task.Delay(RefreshDelay, token);
             }

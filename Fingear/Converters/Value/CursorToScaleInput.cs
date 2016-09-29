@@ -1,29 +1,29 @@
 ﻿using System;
+using Fingear.Inputs.Base;
 using Fingear.Utils;
 
-namespace Fingear.Converters
+namespace Fingear.Converters.Value
 {
-    public class VectorToScalarInput : IScalarInput
+    public class CursorToScaleInput : ContinousInputBase<float>, IScaleInput
     {
-        public IVectorInput VectorInput { get; set; }
+        public ICursorInput CursorInput { get; set; }
         public Axis Axis { get; set; }
-        public string DisplayName => VectorInput != null ? $"{VectorInput.DisplayName} {EnumUtils.GetDisplayName(Axis)}" : "";
-        public InputActivity Activity => VectorInput?.Activity ?? InputActivity.Idle;
-        public IInputSource Source => VectorInput?.Source;
+        public override string DisplayName => CursorInput != null ? $"{CursorInput.DisplayName} {EnumUtils.GetDisplayName(Axis)}" : "";
+        public override IInputSource Source => CursorInput?.Source;
 
         public float Maximum
         {
             get
             {
-                if (VectorInput == null)
+                if (CursorInput == null)
                     return 0f;
 
                 switch (Axis)
                 {
                     case Axis.X:
-                        return VectorInput.Maximum.X;
+                        return CursorInput.Maximum.X;
                     case Axis.Y:
-                        return VectorInput.Maximum.Y;
+                        return CursorInput.Maximum.Y;
                     default:
                         throw new NotSupportedException();
                 }
@@ -34,34 +34,34 @@ namespace Fingear.Converters
         {
             get
             {
-                if (VectorInput == null)
+                if (CursorInput == null)
                     return 0f;
 
                 switch (Axis)
                 {
                     case Axis.X:
-                        return VectorInput.Minimum.X;
+                        return CursorInput.Minimum.X;
                     case Axis.Y:
-                        return VectorInput.Minimum.Y;
+                        return CursorInput.Minimum.Y;
                     default:
                         throw new NotSupportedException();
                 }
             }
         }
 
-        public float Value
+        public override float Value
         {
             get
             {
-                if (VectorInput == null)
+                if (CursorInput == null)
                     return 0f;
 
                 switch (Axis)
                 {
                     case Axis.X:
-                        return VectorInput.Value.X;
+                        return CursorInput.Value.X;
                     case Axis.Y:
-                        return VectorInput.Value.Y;
+                        return CursorInput.Value.Y;
                     default:
                         throw new NotSupportedException();
                 }
@@ -72,40 +72,35 @@ namespace Fingear.Converters
         {
             get
             {
-                if (VectorInput == null)
+                if (CursorInput == null)
                     return 0f;
 
                 switch (Axis)
                 {
                     case Axis.X:
-                        return VectorInput.Delta.X;
+                        return CursorInput.Delta.X;
                     case Axis.Y:
-                        return VectorInput.Delta.Y;
+                        return CursorInput.Delta.Y;
                     default:
                         throw new NotSupportedException();
                 }
             }
         }
 
-        public VectorToScalarInput()
+        public CursorToScaleInput()
         {
         }
 
-        public VectorToScalarInput(IVectorInput vectorInput, Axis axis)
+        public CursorToScaleInput(ICursorInput cursorInput, Axis axis)
         {
-            VectorInput = vectorInput;
+            CursorInput = cursorInput;
             Axis = axis;
         }
-        
-        public void Update()
-        {
-            VectorInput.Update();
-        }
-    }
 
-    public enum Axis
-    {
-        X,
-        Y
+        public override void Update()
+        {
+            CursorInput.Update();
+            base.Update();
+        }
     }
 }

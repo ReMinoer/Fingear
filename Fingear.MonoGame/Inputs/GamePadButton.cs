@@ -1,4 +1,5 @@
-﻿namespace Fingear.MonoGame.Inputs
+﻿// ReSharper disable InconsistentNaming
+namespace Fingear.MonoGame.Inputs
 {
     public enum GamePadButton
     {
@@ -10,12 +11,12 @@
         B,
         X,
         Y,
+        LB,
+        RB,
+        LS,
+        RS,
         Back,
         Start,
-        BigButton,
-        LeftShoulder,
-        RightShoulder,
-        LeftStick,
-        RightStick,
+        BigButton
     }
 }

@@ -11,7 +11,8 @@ namespace Fingear
         static public Vector2 UnitX => new Vector2(1, 0);
         static public Vector2 UnixY => new Vector2(0, 1);
         static public Vector2 One => new Vector2(1, 1);
-        public double Length => Math.Sqrt(X * X + Y * Y);
+        public float Length => (float)Math.Sqrt(X * X + Y * Y);
+        public Vector2 Normalized => this / Length;
 
         public Vector2(float x, float y)
         {
@@ -42,6 +43,15 @@ namespace Fingear
         public float Dot(Vector2 b, Vector2 c)
         {
             return b.X * c.X + b.Y * c.Y;
+        }
+
+        static public Vector2 operator -(Vector2 b)
+        {
+            return new Vector2
+            {
+                X = -b.X,
+                Y = -b.Y
+            };
         }
 
         static public Vector2 operator +(Vector2 b, Vector2 c)

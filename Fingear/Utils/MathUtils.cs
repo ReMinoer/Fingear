@@ -7,6 +7,16 @@
             return System.Math.Abs(a - b) < float.Epsilon;
         }
 
+        static public float Norm(this float a)
+        {
+            return System.Math.Abs(a);
+        }
+
+        static public float Normalized(this float a)
+        {
+            return a / System.Math.Abs(a);
+        }
+
         static public float Lerp(float min, float max, float t)
         {
             return min + (max - min) * t;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Fingear.MonoGame.Inputs;
 using Microsoft.Xna.Framework;
 
@@ -7,6 +8,7 @@ namespace Fingear.MonoGame
     public struct GamePadSource : IInputSource
     {
         public PlayerIndex PlayerIndex { get; private set; }
+        public string DisplayName => $"GamePad {Enum.GetName(typeof(PlayerIndex),PlayerIndex)}";
 
         public GamePadSource(PlayerIndex playerIndex)
         {
@@ -16,29 +18,29 @@ namespace Fingear.MonoGame
         public IEnumerable<IInput> GetAllInputs()
         {
             // Buttons
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Up);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Down);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Left);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Right);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.A);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.B);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.X);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Y);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Back);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.Start);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.BigButton);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.LeftShoulder);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.RightShoulder);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.LeftStick);
-            yield return new GamePadButtonInput(PlayerIndex, GamePadButton.RightStick);
+            yield return new GamePadButtonInput(GamePadButton.Up, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.Down, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.Left, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.Right, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.A, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.B, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.X, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.Y, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.Back, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.Start, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.BigButton, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.LB, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.RB, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.LS, PlayerIndex);
+            yield return new GamePadButtonInput(GamePadButton.RS, PlayerIndex);
 
             // Triggers
-            yield return new GamePadTriggerInput(PlayerIndex, GamePadTrigger.Left);
-            yield return new GamePadTriggerInput(PlayerIndex, GamePadTrigger.Right);
+            yield return new GamePadTriggerInput(GamePadTrigger.Left, PlayerIndex);
+            yield return new GamePadTriggerInput(GamePadTrigger.Right, PlayerIndex);
 
             // Thumbsticks
-            yield return new GamePadThumbstickInput(PlayerIndex, GamePadThumbstick.Left);
-            yield return new GamePadThumbstickInput(PlayerIndex, GamePadThumbstick.Right);
+            yield return new GamePadThumbstickInput(GamePadThumbstick.Left, PlayerIndex);
+            yield return new GamePadThumbstickInput(GamePadThumbstick.Right, PlayerIndex);
         }
     }
 }

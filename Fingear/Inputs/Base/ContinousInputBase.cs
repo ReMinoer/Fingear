@@ -1,4 +1,5 @@
 ﻿using System;
+using Fingear.Utils;
 
 namespace Fingear.Inputs.Base
 {
@@ -11,18 +12,10 @@ namespace Fingear.Inputs.Base
         public abstract IInputSource Source { get; }
         protected TValue LastValue { get; private set; }
 
-        public void Update()
+        public virtual void Update()
         {
-            InputActivity lastActivity = Activity;
             TValue value = Value;
-
-            bool hasValueChanged = !value.Equals(LastValue);
-            Activity = hasValueChanged ? InputActivity.Pressed : InputActivity.Idle;
-            
-            bool hasActivityChanged = Activity.IsPressed() != lastActivity.IsPressed();
-            if (hasActivityChanged)
-                Activity = hasValueChanged ? InputActivity.Triggered : InputActivity.Released;
-            
+            Activity = InputActivityUtils.UpdateContinous(value, LastValue, Activity);
             LastValue = value;
         }
     }

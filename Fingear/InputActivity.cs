@@ -1,5 +1,8 @@
-﻿namespace Fingear
+﻿using System;
+
+namespace Fingear
 {
+    [Flags]
     public enum InputActivity
     {
         Idle = 0,

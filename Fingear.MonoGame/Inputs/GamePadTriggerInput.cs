@@ -41,7 +41,7 @@ namespace Fingear.MonoGame.Inputs
             }
         }
 
-        public GamePadTriggerInput(PlayerIndex playerIndex, GamePadTrigger trigger)
+        public GamePadTriggerInput(GamePadTrigger trigger, PlayerIndex playerIndex = PlayerIndex.One)
         {
             PlayerIndex = playerIndex;
             Trigger = trigger;

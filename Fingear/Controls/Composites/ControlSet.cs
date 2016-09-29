@@ -6,9 +6,18 @@ namespace Fingear.Controls.Composites
 {
     public class ControlSet : ControlCompositeBase<IControl>
     {
+        public ControlSet()
+        {
+        }
+
+        public ControlSet(string name)
+        {
+            Name = name;
+        }
+
         protected override bool UpdateControl(float elapsedTime)
         {
-            Sources = Components.Where(x => x.IsTriggered()).SelectMany(x => x.Sources).Distinct().ToArray();
+            Sources = Components.Where(x => x.IsActive()).SelectMany(x => x.Sources).Distinct().ToArray();
             return Sources.Any();
         }
     }
@@ -22,9 +31,21 @@ namespace Fingear.Controls.Composites
             _valueSelector = enumerable => enumerable.FirstOrDefault();
         }
 
+        public ControlSet(string name)
+            : this()
+        {
+            Name = name;
+        }
+
         public ControlSet(Selector<TValue> valueSelector)
         {
             _valueSelector = valueSelector;
+        }
+
+        public ControlSet(string name, Selector<TValue> valueSelector)
+            : this(valueSelector)
+        {
+            Name = name;
         }
 
         protected override bool UpdateControl(float elapsedTime, out TValue value)
@@ -35,7 +56,7 @@ namespace Fingear.Controls.Composites
             foreach (IControl<TValue> component in Components)
             {
                 TValue componentValue;
-                if (!component.IsTriggered(out componentValue))
+                if (!component.IsActive(out componentValue))
                     continue;
 
                 valuesList.Add(componentValue);

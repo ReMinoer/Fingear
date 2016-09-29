@@ -5,14 +5,15 @@ namespace Fingear
 {
     public interface IControl : IComponent<IControl, IControlParent>
     {
+        string Name { get; set; }
         IEnumerable<IInputSource> Sources { get; }
         IEnumerable<IInput> Inputs { get; }
         void Update(float elapsedTime);
-        bool IsTriggered();
+        bool IsActive();
     }
 
     public interface IControl<TValue> : IControl
     {
-        bool IsTriggered(out TValue value);
+        bool IsActive(out TValue value);
     }
 }

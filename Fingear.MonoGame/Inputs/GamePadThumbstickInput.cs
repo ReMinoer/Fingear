@@ -41,7 +41,7 @@ namespace Fingear.MonoGame.Inputs
             }
         }
 
-        public GamePadThumbstickInput(PlayerIndex playerIndex, GamePadThumbstick thumbstick)
+        public GamePadThumbstickInput(GamePadThumbstick thumbstick, PlayerIndex playerIndex = PlayerIndex.One)
         {
             PlayerIndex = playerIndex;
             Thumbstick = thumbstick;

@@ -7,9 +7,18 @@ namespace Fingear.Controls.Composites
     public class ControlSimultaneous<TControls> : ControlCompositeBase<TControls>
         where TControls : class, IControl
     {
+        public ControlSimultaneous()
+        {
+        }
+
+        public ControlSimultaneous(string name)
+        {
+            Name = name;
+        }
+
         protected override bool UpdateControl(float elapsedTime)
         {
-            if (!Components.All(x => x.IsTriggered()))
+            if (!Components.All(x => x.IsActive()))
                 return false;
 
             Sources = Components.SelectMany(x => x.Sources).Distinct().ToArray();
@@ -32,6 +41,12 @@ namespace Fingear.Controls.Composites
             _valueSelector = valueSelector;
         }
 
+        public ControlSimultaneous(string name, Selector<TValue> valueSelector)
+            : this(valueSelector)
+        {
+            Name = name;
+        }
+
         protected override bool UpdateControl(float elapsedTime, out TValue value)
         {
             var valuesList = new List<TValue>();
@@ -39,7 +54,7 @@ namespace Fingear.Controls.Composites
             foreach (TControls component in Components)
             {
                 TValue componentValue;
-                if (!component.IsTriggered(out componentValue))
+                if (!component.IsActive(out componentValue))
                 {
                     value = default(TValue);
                     return false;

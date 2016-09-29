@@ -4,10 +4,9 @@ using Fingear.Utils;
 
 namespace Fingear.Controls
 {
-    public class ActivityControl : ControlBase
+    public class ActivityControl : ControlBase<InputActivity>
     {
         public IInput Input { get; set; }
-        public InputActivity DesiredActivity { get; set; }
         public override IEnumerable<IInputSource> Sources => Input?.Source.ToEnumerable();
 
         public override IEnumerable<IInput> Inputs
@@ -15,15 +14,25 @@ namespace Fingear.Controls
             get { yield return Input; }
         }
 
-        public ActivityControl(IInput input, InputActivity desiredActivity = InputActivity.Triggered)
+        public ActivityControl()
         {
-            Input = input;
-            DesiredActivity = desiredActivity;
         }
 
-        protected override bool UpdateControl(float elapsedTime)
+        public ActivityControl(IInput input)
         {
-            return Input?.Activity.Is(DesiredActivity) ?? false;
+            Input = input;
+        }
+
+        public ActivityControl(string name, IInput input)
+            : this(input)
+        {
+            Name = name;
+        }
+
+        protected override bool UpdateControl(float elapsedTime, out InputActivity value)
+        {
+            value = Input?.Activity ?? InputActivity.Idle;
+            return value != InputActivity.Idle;
         }
     }
 }

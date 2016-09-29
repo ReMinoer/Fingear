@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Diese;
 using Stave;
 
 namespace Fingear.Controls.Base
@@ -7,8 +8,14 @@ namespace Fingear.Controls.Base
         where TControl : class, IControl
     {
         protected internal bool _isTriggered;
-        public IEnumerable<IInputSource> Sources { get; protected set; }
+        public string Name { get; set; }
+        public virtual IEnumerable<IInputSource> Sources => Component.Sources;
         public virtual IEnumerable<IInput> Inputs => Component.Inputs;
+
+        protected ControlDecoratorBase()
+        {
+            Name = GetType().GetDisplayName();
+        }
 
         public void Update(float elapsedTime)
         {
@@ -22,7 +29,7 @@ namespace Fingear.Controls.Base
 
         protected abstract bool UpdateControl(float elapsedTime);
 
-        public bool IsTriggered()
+        public bool IsActive()
         {
             return _isTriggered;
         }
@@ -53,7 +60,7 @@ namespace Fingear.Controls.Base
 
         protected abstract bool UpdateControl(float elapsedTime, out TValue value);
 
-        public bool IsTriggered(out TValue value)
+        public bool IsActive(out TValue value)
         {
             value = _value;
             return _isTriggered;

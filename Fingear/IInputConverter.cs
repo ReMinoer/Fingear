@@ -1,6 +1,6 @@
 ﻿namespace Fingear
 {
-    public interface IInputConversionResolver
+    public interface IInputConverter
     {
         T Resolve<T>(IInput input) where T : class, IInput;
     }
