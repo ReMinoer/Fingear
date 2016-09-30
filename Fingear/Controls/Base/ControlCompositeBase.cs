@@ -11,7 +11,7 @@ namespace Fingear.Controls.Base
         protected internal bool _isTriggered;
         public string Name { get; set; }
         public IEnumerable<IInputSource> Sources { get; protected set; }
-        public virtual IEnumerable<IInput> Inputs => Components.SelectMany(x => x.Inputs);
+        public virtual IEnumerable<IInput> Inputs => ReadOnlyComponents.SelectMany(x => x.Inputs);
 
         protected ControlCompositeBase()
         {
@@ -20,7 +20,7 @@ namespace Fingear.Controls.Base
 
         public void Update(float elapsedTime)
         {
-            foreach (TControls control in Components)
+            foreach (TControls control in ReadOnlyComponents)
                 control.Update(elapsedTime);
 
             _isTriggered = UpdateControl(elapsedTime);
@@ -41,7 +41,7 @@ namespace Fingear.Controls.Base
 
         new public void Update(float elapsedTime)
         {
-            foreach (TControls control in Components)
+            foreach (TControls control in ReadOnlyComponents)
                 control.Update(elapsedTime);
 
             TValue value;
