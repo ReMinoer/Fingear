@@ -17,7 +17,7 @@ namespace Fingear.Controls.Composites
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            Sources = ReadOnlyComponents.Where(x => x.IsActive()).SelectMany(x => x.Sources).Distinct().ToArray();
+            Sources = Components.Where(x => x.IsActive()).SelectMany(x => x.Sources).Distinct().ToArray();
             return Sources.Any();
         }
     }
@@ -53,7 +53,7 @@ namespace Fingear.Controls.Composites
             var valuesList = new List<TValue>();
             var sourcesList = new List<IInputSource>();
 
-            foreach (IControl<TValue> component in ReadOnlyComponents)
+            foreach (IControl<TValue> component in Components)
             {
                 TValue componentValue;
                 if (!component.IsActive(out componentValue))
