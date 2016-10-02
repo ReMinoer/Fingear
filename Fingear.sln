@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fingear", "Fingear\Fingear.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B25146C3-ABE0-45BB-9825-F73350428C33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stave", "External\Stave\Stave.csproj", "{38A041E6-5AA9-4C22-B96F-35167F171959}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stave", "External\Stave\Stave\Stave.csproj", "{38A041E6-5AA9-4C22-B96F-35167F171959}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fingear.MonoGame", "Fingear.MonoGame\Fingear.MonoGame.csproj", "{9EEF1863-44BE-423E-A29D-088C23AAC45E}"
 EndProject
