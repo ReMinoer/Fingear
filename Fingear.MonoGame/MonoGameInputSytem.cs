@@ -4,7 +4,11 @@ namespace Fingear.MonoGame
 {
     public class MonoGameInputSytem : InputSystem
     {
-        public MonoGameInputSytem()
+        static private MonoGameInputSytem _instance;
+        static public MonoGameInputSytem Instance => _instance ?? (_instance = new MonoGameInputSytem());
+        public IInputStates InputStates { get; set; } = new GameInputStates();
+
+        private MonoGameInputSytem()
         {
             Add(new KeyboardSource());
             Add(new MouseSource());

@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameInputStates.cs" />
     <Compile Include="GamePadSource.cs" />
     <Compile Include="InputStates.cs" />
     <Compile Include="Inputs\GamePadButtonInput.cs" />

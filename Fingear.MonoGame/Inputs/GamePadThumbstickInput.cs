@@ -31,7 +31,7 @@ namespace Fingear.MonoGame.Inputs
         {
             get
             {
-                GamePadState gamePadState = InputStates.Instance.GamePadStates[PlayerIndex];
+                GamePadState gamePadState = MonoGameInputSytem.Instance.InputStates.GamePadStates[PlayerIndex];
                 switch (Thumbstick)
                 {
                     case GamePadThumbstick.Left: return gamePadState.ThumbSticks.Left.AsFingearVector();

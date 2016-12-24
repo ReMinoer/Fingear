@@ -15,7 +15,7 @@ namespace Fingear.MonoGame.Inputs
         {
             get
             {
-                MouseState mouseState = InputStates.Instance.MouseState;
+                MouseState mouseState = MonoGameInputSytem.Instance.InputStates.MouseState;
                 switch (Button)
                 {
                     case MouseButton.Left: return mouseState.LeftButton == ButtonState.Pressed;
