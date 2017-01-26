@@ -73,7 +73,7 @@ namespace Fingear.Controls
 
         protected override bool UpdateControl(float elapsedTime, out TValue value)
         {
-            if (Input != null && ValueFilter(Input.Value))
+            if (Input != null && Input.Activity != InputActivity.Idle && ValueFilter(Input.Value))
             {
                 value = Input.Value;
                 return true;

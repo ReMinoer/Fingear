@@ -18,5 +18,11 @@ namespace Fingear.Converters.Activity
         {
             SwitchInput = switchInput;
         }
+
+        public override void Update()
+        {
+            SwitchInput?.Update();
+            base.Update();
+        }
     }
 }
