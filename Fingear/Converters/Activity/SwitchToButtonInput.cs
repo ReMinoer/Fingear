@@ -2,7 +2,7 @@
 
 namespace Fingear.Converters.Activity
 {
-    public class SwitchToButtonInput : PonctualInputBase<bool>, IButtonInput
+    public class SwitchToButtonInput : ForceInputBase<bool>, IButtonInput
     {
         public ISwitchInput SwitchInput { get; set; }
         public override string DisplayName => SwitchInput?.DisplayName ?? "";

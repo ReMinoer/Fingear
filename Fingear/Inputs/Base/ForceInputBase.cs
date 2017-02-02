@@ -3,13 +3,14 @@ using Fingear.Utils;
 
 namespace Fingear.Inputs.Base
 {
-    public abstract class ContinousInputBase<TValue> : IContinuousInput<TValue>
+    public abstract class ForceInputBase<TValue> : IForceInput<TValue>
         where TValue : IEquatable<TValue>
     {
         private TValue _value;
         public abstract string DisplayName { get; }
         public InputActivity Activity { get; private set; }
         public abstract TValue Value { get; }
+        public abstract TValue IdleValue { get; }
         public abstract IInputSource Source { get; }
         protected TValue LastValue { get; private set; }
 
@@ -17,7 +18,7 @@ namespace Fingear.Inputs.Base
         {
             LastValue = _value;
             _value = Value;
-            Activity = InputActivityUtils.UpdateContinous(_value, LastValue, Activity);
+            Activity = InputActivityUtils.UpdatePonctual(_value, LastValue, IdleValue);
         }
     }
 }

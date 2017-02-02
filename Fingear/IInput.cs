@@ -15,20 +15,20 @@ namespace Fingear
         TValue Value { get; }
     }
 
-    public interface IPunctualInput : IInput
+    public interface IForceInput : IInput
     {
     }
 
-    public interface IPunctualInput<out TValue> : IPunctualInput, IInput<TValue>
+    public interface IForceInput<out TValue> : IForceInput, IInput<TValue>
     {
         TValue IdleValue { get; }
     }
 
-    public interface IContinuousInput : IInput
+    public interface IPositionInput : IInput
     {
     }
 
-    public interface IContinuousInput<out TValue> : IContinuousInput, IInput<TValue>
+    public interface IPositionInput<out TValue> : IPositionInput, IInput<TValue>
     {
     }
 
@@ -50,27 +50,27 @@ namespace Fingear
         Vector2 Delta { get; }
     }
 
-    public interface IButtonInput : IBooleanInput, IPunctualInput<bool>
+    public interface IButtonInput : IBooleanInput, IForceInput<bool>
     {
     }
 
-    public interface ISwitchInput : IBooleanInput, IContinuousInput<bool>
+    public interface ISwitchInput : IBooleanInput, IPositionInput<bool>
     {
     }
 
-    public interface IIntensityInput : IScalarInput, IPunctualInput<float>
+    public interface IIntensityInput : IScalarInput, IForceInput<float>
     {
     }
 
-    public interface IScaleInput : IScalarInput, IContinuousInput<float>
+    public interface IScaleInput : IScalarInput, IPositionInput<float>
     {
     }
 
-    public interface IJoystickInput : IVectorInput, IPunctualInput<Vector2>
+    public interface IJoystickInput : IVectorInput, IForceInput<Vector2>
     {
     }
 
-    public interface ICursorInput : IVectorInput, IContinuousInput<Vector2>
+    public interface ICursorInput : IVectorInput, IPositionInput<Vector2>
     {
     }
 }

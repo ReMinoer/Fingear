@@ -3,7 +3,7 @@ using Fingear.Utils;
 
 namespace Fingear.Converters.Activity
 {
-    public class ScaleToIntensityInput : PonctualInputBase<float>, IIntensityInput
+    public class ScaleToIntensityInput : ForceInputBase<float>, IIntensityInput
     {
         public IScaleInput ScaleInput { get; set; }
         public float DeltaMin { get; }

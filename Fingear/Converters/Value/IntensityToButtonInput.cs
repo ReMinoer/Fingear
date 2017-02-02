@@ -4,7 +4,7 @@ using Fingear.Utils;
 
 namespace Fingear.Converters.Value
 {
-    public class IntensityToButtonInput : PonctualInputBase<bool>, IButtonInput
+    public class IntensityToButtonInput : ForceInputBase<bool>, IButtonInput
     {
         public IIntensityInput IntensityInput { get; set; }
         public Predicate<float> ValueSelector { get; set; }

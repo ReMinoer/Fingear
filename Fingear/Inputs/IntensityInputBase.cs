@@ -2,7 +2,7 @@
 
 namespace Fingear.Inputs
 {
-    public abstract class IntensityInputBase : PonctualInputBase<float>, IIntensityInput
+    public abstract class IntensityInputBase : ForceInputBase<float>, IIntensityInput
     {
         public abstract float Maximum { get; }
         public abstract float Minimum { get; }

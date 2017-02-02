@@ -4,7 +4,7 @@ using Fingear.Utils;
 
 namespace Fingear.Converters.Value
 {
-    public class ScaleToSwitchInput : ContinousInputBase<bool>, ISwitchInput
+    public class ScaleToSwitchInput : PositionInputBase<bool>, ISwitchInput
     {
         public IScaleInput ScaleInput { get; set; }
         public Predicate<float> ValueSelector { get; set; }

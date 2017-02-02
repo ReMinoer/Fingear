@@ -2,7 +2,7 @@
 
 namespace Fingear.Inputs
 {
-    public abstract class ButtonInputBase : PonctualInputBase<bool>, IButtonInput
+    public abstract class ButtonInputBase : ForceInputBase<bool>, IButtonInput
     {
         public override bool IdleValue => false;
     }

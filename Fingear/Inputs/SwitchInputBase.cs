@@ -2,7 +2,7 @@
 
 namespace Fingear.Inputs
 {
-    public abstract class SwitchInputBase : ContinousInputBase<bool>, ISwitchInput
+    public abstract class SwitchInputBase : PositionInputBase<bool>, ISwitchInput
     {
     }
 }

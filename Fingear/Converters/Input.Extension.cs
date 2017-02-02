@@ -7,17 +7,17 @@ namespace Fingear.Converters
 {
     static public class InputExtension
     {
-        static public IJoystickInput Punctual(this ICursorInput input)
+        static public IJoystickInput Force(this ICursorInput input)
         {
             return new CursorToJoystickInput(input);
         }
 
-        static public IIntensityInput Punctual(this IScaleInput input)
+        static public IIntensityInput Force(this IScaleInput input)
         {
             return new ScaleToIntensityInput(input);
         }
 
-        static public IButtonInput Punctual(this ISwitchInput input)
+        static public IButtonInput Force(this ISwitchInput input)
         {
             return new SwitchToButtonInput(input);
         }

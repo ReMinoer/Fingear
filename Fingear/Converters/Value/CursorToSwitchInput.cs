@@ -5,7 +5,7 @@ using Fingear.Utils;
 
 namespace Fingear.Converters.Value
 {
-    public class CursorToSwitchInput : ContinousInputBase<bool>, ISwitchInput
+    public class CursorToSwitchInput : PositionInputBase<bool>, ISwitchInput
     {
         public ICursorInput CursorInput { get; set; }
         public Predicate<Vector2> ValueSelector { get; set; }

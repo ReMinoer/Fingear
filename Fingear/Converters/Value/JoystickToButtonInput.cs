@@ -5,7 +5,7 @@ using Fingear.Utils;
 
 namespace Fingear.Converters.Value
 {
-    public class JoystickToButtonInput : PonctualInputBase<bool>, IButtonInput
+    public class JoystickToButtonInput : ForceInputBase<bool>, IButtonInput
     {
         public IJoystickInput JoystickInput { get; set; }
         public Predicate<Vector2> ValueSelector { get; set; }

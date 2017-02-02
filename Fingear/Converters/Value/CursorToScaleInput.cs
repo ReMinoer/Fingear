@@ -4,7 +4,7 @@ using Fingear.Utils;
 
 namespace Fingear.Converters.Value
 {
-    public class CursorToScaleInput : ContinousInputBase<float>, IScaleInput
+    public class CursorToScaleInput : PositionInputBase<float>, IScaleInput
     {
         public ICursorInput CursorInput { get; set; }
         public Axis Axis { get; set; }

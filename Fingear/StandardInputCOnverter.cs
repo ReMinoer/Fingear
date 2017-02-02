@@ -19,21 +19,21 @@ namespace Fingear
 
             IInput result = input;
 
-            // First pass : Continous to punctual input
+            // First pass : Position to force input
 
             var cursorInput = input as ICursorInput;
             if (cursorInput != null && typeof(ICursorInput).IsAssignableFrom(outType))
-                result = cursorInput.Punctual();
+                result = cursorInput.Force();
             else
             {
                 var scaleInput = input as IScaleInput;
                 if (scaleInput != null && typeof(IScaleInput).IsAssignableFrom(outType))
-                    result = scaleInput.Punctual();
+                    result = scaleInput.Force();
                 else
                 {
                     var switchInput = input as ISwitchInput;
                     if (switchInput != null && typeof(ISwitchInput).IsAssignableFrom(outType))
-                        result = switchInput.Punctual();
+                        result = switchInput.Force();
                 }
             }
             

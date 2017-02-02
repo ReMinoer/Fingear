@@ -56,14 +56,14 @@
     <Compile Include="Selector.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\Composites\ControlSimultaneous.cs" />
-    <Compile Include="Customizables\CustomizableContinuous.cs" />
-    <Compile Include="Customizables\CustomizablePonctual.cs" />
+    <Compile Include="Customizables\CustomizablePosition.cs" />
+    <Compile Include="Customizables\CustomizableForce.cs" />
     <Compile Include="IInputConverter.cs" />
     <Compile Include="ICustomizableInput.cs" />
     <Compile Include="InputSystem.cs" />
     <Compile Include="Utils\InputActivityUtils.cs" />
     <Compile Include="Utils\InputSourceUtils.cs" />
-    <Compile Include="Inputs\Base\ContinousInputBase.cs" />
+    <Compile Include="Inputs\Base\PositionInputBase.cs" />
     <Compile Include="Controls\Base\ControlDecoratorBase.cs" />
     <Compile Include="Controls\Base\ControlContainerBase.cs" />
     <Compile Include="Controls\Base\ControlCompositeBase.cs" />
@@ -77,7 +77,7 @@
     <Compile Include="Customizables\CustomizableButton.cs" />
     <Compile Include="Customizables\CustomizableInput.cs" />
     <Compile Include="IControlContainer.cs" />
-    <Compile Include="Inputs\Base\PonctualInputBase.cs" />
+    <Compile Include="Inputs\Base\ForceInputBase.cs" />
     <Compile Include="IControlComposite.cs" />
     <Compile Include="IControlDecorator.cs" />
     <Compile Include="IInput.cs" />

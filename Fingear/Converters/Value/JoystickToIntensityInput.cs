@@ -4,7 +4,7 @@ using Fingear.Utils;
 
 namespace Fingear.Converters.Value
 {
-    public class JoystickToIntensityInput : PonctualInputBase<float>, IIntensityInput
+    public class JoystickToIntensityInput : ForceInputBase<float>, IIntensityInput
     {
         public IJoystickInput JoystickInput { get; set; }
         public Axis Axis { get; set; }

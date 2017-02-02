@@ -4,7 +4,7 @@ using Fingear.Utils;
 
 namespace Fingear.Converters.Activity
 {
-    public class CursorToJoystickInput : PonctualInputBase<Vector2>, IJoystickInput
+    public class CursorToJoystickInput : ForceInputBase<Vector2>, IJoystickInput
     {
         public ICursorInput CursorInput { get; set; }
         public Vector2 DeltaMin { get; }
