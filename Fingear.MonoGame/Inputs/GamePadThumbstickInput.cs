@@ -2,6 +2,7 @@
 using Fingear.Inputs;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Vector2 = System.Numerics.Vector2;
 
 namespace Fingear.MonoGame.Inputs
 {
@@ -34,8 +35,8 @@ namespace Fingear.MonoGame.Inputs
                 GamePadState gamePadState = MonoGameInputSytem.Instance.InputStates.GamePadStates[PlayerIndex];
                 switch (Thumbstick)
                 {
-                    case GamePadThumbstick.Left: return gamePadState.ThumbSticks.Left.AsFingearVector();
-                    case GamePadThumbstick.Right: return gamePadState.ThumbSticks.Right.AsFingearVector();
+                    case GamePadThumbstick.Left: return gamePadState.ThumbSticks.Left.AsSystemVector();
+                    case GamePadThumbstick.Right: return gamePadState.ThumbSticks.Right.AsSystemVector();
                     default: throw new NotSupportedException();
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using Fingear.Converters;
 
 namespace Fingear.Utils
@@ -43,7 +44,7 @@ namespace Fingear.Utils
 
         static public Predicate<Vector2> VectorRadius(float minimumLength)
         {
-            return value => value.Length >= minimumLength;
+            return value => value.Length() >= minimumLength;
         }
 
         static public Predicate<Vector2> Range(Vector2 minimumRange)

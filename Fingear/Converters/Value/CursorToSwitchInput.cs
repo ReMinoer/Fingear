@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using Fingear.Inputs.Base;
 using Fingear.Utils;
 

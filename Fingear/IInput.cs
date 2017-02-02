@@ -1,4 +1,6 @@
-﻿namespace Fingear
+﻿using System.Numerics;
+
+namespace Fingear
 {
     public interface IInput
     {

@@ -1,4 +1,6 @@
-﻿namespace Fingear.Utils
+﻿using System.Numerics;
+
+namespace Fingear.Utils
 {
     static public class MathUtils
     {

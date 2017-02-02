@@ -1,4 +1,5 @@
-﻿using Fingear.Utils;
+﻿using System.Numerics;
+using Fingear.Utils;
 
 namespace Fingear.Customizables
 {
