@@ -7,7 +7,7 @@ namespace Fingear.MonoGame
 {
     public struct GamePadSource : IInputSource
     {
-        public PlayerIndex PlayerIndex { get; private set; }
+        public PlayerIndex PlayerIndex { get; }
         public string DisplayName => $"GamePad {Enum.GetName(typeof(PlayerIndex),PlayerIndex)}";
 
         public GamePadSource(PlayerIndex playerIndex)

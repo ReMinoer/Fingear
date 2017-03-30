@@ -12,7 +12,7 @@ namespace Fingear.MonoGame
         private readonly PlayerIndex[] _padPlayerIndexes;
         public KeyboardState KeyboardState { get; private set; }
         public MouseState MouseState { get; private set; }
-        public ReadOnlyDictionary<PlayerIndex, GamePadState> GamePadStates { get; private set; }
+        public ReadOnlyDictionary<PlayerIndex, GamePadState> GamePadStates { get; }
 
         public GameInputStates()
         {
