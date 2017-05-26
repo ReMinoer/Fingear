@@ -8,10 +8,11 @@ namespace Fingear.Controls.Base
     public abstract class ControlCompositeBase<TControls> : Composite<IControl, IControlParent, TControls>, IControlComposite<TControls>
         where TControls : class, IControl
     {
-        protected internal bool _isTriggered;
+        internal bool _isTriggered;
         public string Name { get; set; }
         public IEnumerable<IInputSource> Sources { get; protected set; }
         public virtual IEnumerable<IInput> Inputs => Components.SelectMany(x => x.Inputs);
+        public bool Handled { get; set; }
 
         protected ControlCompositeBase()
         {
@@ -20,6 +21,8 @@ namespace Fingear.Controls.Base
 
         public void Update(float elapsedTime)
         {
+            Handled = false;
+
             foreach (TControls control in Components)
                 control.Update(elapsedTime);
 
@@ -30,7 +33,21 @@ namespace Fingear.Controls.Base
 
         public bool IsActive()
         {
+            if (Handled || Inputs.Any(x => x.Handled))
+                return false;
+
             return _isTriggered;
+        }
+
+        public void HandleControl()
+        {
+            Handled = true;
+        }
+
+        public void HandleInputs()
+        {
+            foreach (IInput input in Inputs)
+                input.Handle();
         }
     }
 
@@ -41,6 +58,8 @@ namespace Fingear.Controls.Base
 
         new public void Update(float elapsedTime)
         {
+            Handled = false;
+
             foreach (TControls control in Components)
                 control.Update(elapsedTime);
 
@@ -60,6 +79,10 @@ namespace Fingear.Controls.Base
         public bool IsActive(out TValue value)
         {
             value = _value;
+
+            if (Handled || Inputs.Any(x => x.Handled))
+                return false;
+
             return _isTriggered;
         }
     }

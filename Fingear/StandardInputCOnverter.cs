@@ -12,67 +12,109 @@ namespace Fingear
         public T Resolve<T>(IInput input)
             where T : class, IInput
         {
+            if (TryResolve(input, out T result))
+                return result;
+            throw new NotSupportedException();
+        }
+
+        public bool TryResolve<T>(IInput input, out T result)
+            where T : class, IInput
+        {
+            result = input as T;
+            if (result != null)
+                return true;
+
             Type outType = typeof(T);
-
-            if (outType.IsInstanceOfType(input))
-                return input as T;
-
-            IInput result = input;
 
             // First pass : Position to force input
 
-            var cursorInput = input as ICursorInput;
-            if (cursorInput != null && typeof(ICursorInput).IsAssignableFrom(outType))
-                result = cursorInput.Force();
-            else
+            bool isForceInput = input is IForceInput;
+            if (!isForceInput && typeof(IForceInput).IsAssignableFrom(outType))
             {
-                var scaleInput = input as IScaleInput;
-                if (scaleInput != null && typeof(IScaleInput).IsAssignableFrom(outType))
-                    result = scaleInput.Force();
-                else
+                switch (input)
                 {
-                    var switchInput = input as ISwitchInput;
-                    if (switchInput != null && typeof(ISwitchInput).IsAssignableFrom(outType))
-                        result = switchInput.Force();
+                    case ICursorInput cursorInput:
+                        input = cursorInput.Force();
+                    break;
+                    case IScaleInput scaleInput:
+                        input = scaleInput.Force();
+                    break;
+                    case ISwitchInput switchInput:
+                        input = switchInput.Force();
+                    break;
+                }
+                
+                result = input as T;
+                if (result != null)
+                    return true;
+
+                isForceInput = true;
+            }
+
+            // Second pass : More to less values
+
+            if (isForceInput)
+            {
+                switch (input)
+                {
+                    case IJoystickInput joystickInput:
+                    {
+                        if (typeof(IScalarInput).IsAssignableFrom(outType))
+                        {
+                            result = joystickInput.Scalar(GetAxis(joystickInput)) as T;
+                            return true;
+                        }
+
+                        if (typeof(IBooleanInput).IsAssignableFrom(outType))
+                        {
+                            result = joystickInput.Boolean(GetVectorDeadZone(joystickInput)) as T;
+                            return true;
+                        }
+                    }
+                    break;
+                    case IIntensityInput intensityInput:
+                    {
+                        if (typeof(IBooleanInput).IsAssignableFrom(outType))
+                        {
+                            result = intensityInput.Boolean(GetDeadZone()) as T;
+                            return true;
+                        }
+                    }
+                    break;
                 }
             }
-            
-            if (outType.IsInstanceOfType(input))
-                return input as T;
-
-            // Second pass : Major to minor values
-
-            var joystickInput = result as IJoystickInput;
-            if (joystickInput != null)
+            else if (input is IPositionInput)
             {
-                if (typeof(IScalarInput).IsAssignableFrom(outType))
-                    return joystickInput.Scalar(GetAxis(joystickInput)) as T;
-                if (typeof(IBooleanInput).IsAssignableFrom(outType))
-                    return joystickInput.Boolean(GetVectorDeadZone(joystickInput)) as T;
+                switch (input)
+                {
+                    case ICursorInput cursorInputBis:
+                    {
+                        if (typeof(IScalarInput).IsAssignableFrom(outType))
+                        {
+                            result = cursorInputBis.Scalar(GetAxis(cursorInputBis)) as T;
+                            return true;
+                        }
+
+                        if (typeof(IBooleanInput).IsAssignableFrom(outType))
+                        {
+                            result = cursorInputBis.Boolean(GetVectorDeadZone(cursorInputBis)) as T;
+                            return true;
+                        }
+                    }
+                    break;
+                    case IScaleInput scaleInputBis:
+                    {
+                        if (typeof(IBooleanInput).IsAssignableFrom(outType))
+                        {
+                            result = scaleInputBis.Boolean(GetDeadZone()) as T;
+                            return true;
+                        }
+                    }
+                    break;
+                }
             }
 
-            var intensityInput = result as IIntensityInput;
-            if (intensityInput != null && typeof(IBooleanInput).IsAssignableFrom(outType))
-            {
-                return intensityInput.Boolean(GetDeadZone()) as T;
-            }
-
-            var cursorInputBis = result as ICursorInput;
-            if (cursorInputBis != null)
-            {
-                if (typeof(IScalarInput).IsAssignableFrom(outType))
-                    return cursorInputBis.Scalar(GetAxis(cursorInputBis)) as T;
-                if (typeof(IBooleanInput).IsAssignableFrom(outType))
-                    return cursorInputBis.Boolean(GetVectorDeadZone(cursorInputBis)) as T;
-            }
-
-            var scaleInputBis = result as IScaleInput;
-            if (scaleInputBis != null && typeof(IBooleanInput).IsAssignableFrom(outType))
-            {
-                return scaleInputBis.Boolean(GetDeadZone()) as T;
-            }
-
-            throw new NotSupportedException();
+            return false;
         }
 
         private Axis GetAxis(IVectorInput vectorInput)

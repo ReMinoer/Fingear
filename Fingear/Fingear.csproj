@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Control.Extension.cs" />
+    <Compile Include="Controls\Containers\HybridControl.cs" />
     <Compile Include="Controls\Decorators\CacheControl.cs" />
     <Compile Include="Controls\Decorators\DelayControl.cs" />
     <Compile Include="Controls\ActivityControl.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Converters\Value\ScaleToSwitchInput.cs" />
     <Compile Include="Converters\Value\JoystickToIntensityInput.cs" />
     <Compile Include="Converters\Value\IntensityToButtonInput.cs" />
+    <Compile Include="InputCatcher.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\Composites\ControlSimultaneous.cs" />
@@ -59,7 +61,6 @@
     <Compile Include="Customizables\CustomizableForce.cs" />
     <Compile Include="IInputConverter.cs" />
     <Compile Include="ICustomizableInput.cs" />
-    <Compile Include="InputSystem.cs" />
     <Compile Include="Utils\InputActivityUtils.cs" />
     <Compile Include="Utils\InputSourceUtils.cs" />
     <Compile Include="Inputs\Base\PositionInputBase.cs" />

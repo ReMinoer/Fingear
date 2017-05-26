@@ -12,13 +12,20 @@ namespace Fingear.Inputs.Base
         public abstract TValue Value { get; }
         public abstract TValue IdleValue { get; }
         public abstract IInputSource Source { get; }
+        public bool Handled { get; private set; }
         protected TValue LastValue { get; private set; }
 
         public virtual void Update()
         {
+            Handled = false;
             LastValue = _value;
             _value = Value;
             Activity = InputActivityUtils.UpdatePonctual(_value, LastValue, IdleValue);
+        }
+
+        public void Handle()
+        {
+            Handled = true;
         }
     }
 }

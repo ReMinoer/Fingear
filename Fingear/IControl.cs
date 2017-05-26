@@ -8,8 +8,11 @@ namespace Fingear
         string Name { get; set; }
         IEnumerable<IInputSource> Sources { get; }
         IEnumerable<IInput> Inputs { get; }
+        bool Handled { get; }
         void Update(float elapsedTime);
         bool IsActive();
+        void HandleControl();
+        void HandleInputs();
     }
 
     public interface IControl<TValue> : IControl

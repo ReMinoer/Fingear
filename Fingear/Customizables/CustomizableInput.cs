@@ -7,11 +7,17 @@
         public string DisplayName => Input?.DisplayName ?? "";
         public InputActivity Activity => Input?.Activity ?? InputActivity.Idle;
         public IInputSource Source => Input?.Source;
+        public bool Handled => Input.Handled;
         IInput ICustomizableInput.Input => Input;
 
         public void Update()
         {
             Input?.Update();
+        }
+
+        public void Handle()
+        {
+            Input.Handle();
         }
     }
 
