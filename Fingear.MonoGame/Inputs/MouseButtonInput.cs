@@ -9,7 +9,7 @@ namespace Fingear.MonoGame.Inputs
     {
         public MouseButton Button { get; }
         public override string DisplayName => EnumUtils.GetDisplayName(Button);
-        public override IInputSource Source => new MouseSource();
+        public override IInputSource Source => MonoGameInputSytem.Instance.Mouse;
 
         public override bool Value
         {
@@ -28,7 +28,7 @@ namespace Fingear.MonoGame.Inputs
             }
         }
 
-        public MouseButtonInput(MouseButton button)
+        internal MouseButtonInput(MouseButton button)
         {
             Button = button;
         }

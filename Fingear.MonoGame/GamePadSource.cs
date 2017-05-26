@@ -5,12 +5,63 @@ using Microsoft.Xna.Framework;
 
 namespace Fingear.MonoGame
 {
-    public struct GamePadSource : IInputSource
+    public class GamePadSource : IInputSource
     {
+        private Dictionary<GamePadButton, GamePadButtonInput> _buttons;
+        private Dictionary<GamePadTrigger, GamePadTriggerInput> _triggers;
+        private Dictionary<GamePadThumbstick, GamePadThumbstickInput> _thumbsticks;
         public PlayerIndex PlayerIndex { get; }
         public string DisplayName => $"GamePad {Enum.GetName(typeof(PlayerIndex),PlayerIndex)}";
 
-        public GamePadSource(PlayerIndex playerIndex)
+        public GamePadButtonInput this[GamePadButton button]
+        {
+            get
+            {
+                GamePadButtonInput input;
+                if (_buttons == null)
+                    _buttons = new Dictionary<GamePadButton, GamePadButtonInput>();
+                else if (_buttons.TryGetValue(button, out input))
+                    return input;
+
+                input = new GamePadButtonInput(button, PlayerIndex);
+                _buttons.Add(button, input);
+                return input;
+            }
+        }
+
+        public GamePadTriggerInput this[GamePadTrigger trigger]
+        {
+            get
+            {
+                GamePadTriggerInput input;
+                if (_triggers == null)
+                    _triggers = new Dictionary<GamePadTrigger, GamePadTriggerInput>();
+                else if (_triggers.TryGetValue(trigger, out input))
+                    return input;
+
+                input = new GamePadTriggerInput(trigger, PlayerIndex);
+                _triggers.Add(trigger, input);
+                return input;
+            }
+        }
+
+        public GamePadThumbstickInput this[GamePadThumbstick thumbstick]
+        {
+            get
+            {
+                GamePadThumbstickInput input;
+                if (_thumbsticks == null)
+                    _thumbsticks = new Dictionary<GamePadThumbstick, GamePadThumbstickInput>();
+                else if (_thumbsticks.TryGetValue(thumbstick, out input))
+                    return input;
+
+                input = new GamePadThumbstickInput(thumbstick, PlayerIndex);
+                _thumbsticks.Add(thumbstick, input);
+                return input;
+            }
+        }
+        
+        internal GamePadSource(PlayerIndex playerIndex)
         {
             PlayerIndex = playerIndex;
         }

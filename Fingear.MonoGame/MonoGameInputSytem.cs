@@ -9,8 +9,27 @@ namespace Fingear.MonoGame
         static public MonoGameInputSytem Instance => _instance ?? (_instance = new MonoGameInputSytem());
 
         private IInputStates _inputStates;
-        private readonly List<IInputSource> _sources = new List<IInputSource>();
-        public IReadOnlyCollection<IInputSource> Sources { get; }
+        private KeyboardSource _keyboard;
+        private MouseSource _mouse;
+        private Dictionary<PlayerIndex, GamePadSource> _gamePads;
+        public KeyboardSource Keyboard => _keyboard ?? (_keyboard = new KeyboardSource());
+        public MouseSource Mouse => _mouse ?? (_mouse = new MouseSource());
+
+        public GamePadSource this[PlayerIndex playerIndex]
+        {
+            get
+            {
+                GamePadSource gamePad;
+                if (_gamePads == null)
+                    _gamePads = new Dictionary<PlayerIndex, GamePadSource>();
+                else if (_gamePads.TryGetValue(playerIndex, out gamePad))
+                    return gamePad;
+
+                gamePad = new GamePadSource(playerIndex);
+                _gamePads.Add(playerIndex, gamePad);
+                return gamePad;
+            }
+        }
 
         public IInputStates InputStates
         {
@@ -18,16 +37,21 @@ namespace Fingear.MonoGame
             set => _inputStates = value;
         }
 
+        public IEnumerable<IInputSource> Sources
+        {
+            get
+            {
+                yield return Keyboard;
+                yield return Mouse;
+                yield return this[PlayerIndex.One];
+                yield return this[PlayerIndex.Two];
+                yield return this[PlayerIndex.Three];
+                yield return this[PlayerIndex.Four];
+            }
+        }
+
         private MonoGameInputSytem()
         {
-            Sources = _sources.AsReadOnly();
-
-            _sources.Add(new KeyboardSource());
-            _sources.Add(new MouseSource());
-            _sources.Add(new GamePadSource(PlayerIndex.One));
-            _sources.Add(new GamePadSource(PlayerIndex.Two));
-            _sources.Add(new GamePadSource(PlayerIndex.Three));
-            _sources.Add(new GamePadSource(PlayerIndex.Four));
         }
     }
 }

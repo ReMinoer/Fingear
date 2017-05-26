@@ -9,7 +9,7 @@ namespace Fingear.MonoGame.Inputs
     {
         public PlayerIndex PlayerIndex { get; }
         public GamePadTrigger Trigger { get; }
-        public override IInputSource Source => new GamePadSource(PlayerIndex);
+        public override IInputSource Source => MonoGameInputSytem.Instance[PlayerIndex];
         public override float Maximum => 1;
         public override float Minimum => 0;
         public override float IdleValue => 0;
@@ -41,7 +41,7 @@ namespace Fingear.MonoGame.Inputs
             }
         }
 
-        public GamePadTriggerInput(GamePadTrigger trigger, PlayerIndex playerIndex = PlayerIndex.One)
+        internal GamePadTriggerInput(GamePadTrigger trigger, PlayerIndex playerIndex = PlayerIndex.One)
         {
             PlayerIndex = playerIndex;
             Trigger = trigger;

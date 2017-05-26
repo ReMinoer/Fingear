@@ -10,7 +10,7 @@ namespace Fingear.MonoGame.Inputs
     {
         public PlayerIndex PlayerIndex { get; }
         public GamePadThumbstick Thumbstick { get; }
-        public override IInputSource Source => new GamePadSource(PlayerIndex);
+        public override IInputSource Source => MonoGameInputSytem.Instance[PlayerIndex];
         public override Vector2 Maximum => new Vector2(1, 1);
         public override Vector2 Minimum => new Vector2(-1, -1);
         public override Vector2 IdleValue => new Vector2(0, 0);
@@ -42,7 +42,7 @@ namespace Fingear.MonoGame.Inputs
             }
         }
 
-        public GamePadThumbstickInput(GamePadThumbstick thumbstick, PlayerIndex playerIndex = PlayerIndex.One)
+        internal GamePadThumbstickInput(GamePadThumbstick thumbstick, PlayerIndex playerIndex = PlayerIndex.One)
         {
             PlayerIndex = playerIndex;
             Thumbstick = thumbstick;

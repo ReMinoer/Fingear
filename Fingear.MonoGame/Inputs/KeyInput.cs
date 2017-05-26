@@ -8,10 +8,10 @@ namespace Fingear.MonoGame.Inputs
     {
         public Keys Key { get; }
         public override string DisplayName => EnumUtils.GetDisplayName(Key);
-        public override IInputSource Source => new KeyboardSource();
+        public override IInputSource Source => MonoGameInputSytem.Instance.Keyboard;
         public override bool Value => MonoGameInputSytem.Instance.InputStates.KeyboardState.IsKeyDown(Key);
 
-        public KeyInput(Keys key)
+        internal KeyInput(Keys key)
         {
             Key = key;
         }
