@@ -54,6 +54,7 @@
     <Compile Include="Converters\Value\JoystickToIntensityInput.cs" />
     <Compile Include="Converters\Value\IntensityToButtonInput.cs" />
     <Compile Include="InputCatcher.cs" />
+    <Compile Include="Inputs\Base\InputBase.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\Composites\ControlSimultaneous.cs" />
