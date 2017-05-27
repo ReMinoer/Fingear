@@ -7,18 +7,12 @@
         public string DisplayName => Input?.DisplayName ?? "";
         public InputActivity Activity => Input?.Activity ?? InputActivity.Idle;
         public IInputSource Source => Input?.Source;
+        public bool Updated => Input.Updated;
         public bool Handled => Input.Handled;
         IInput ICustomizableInput.Input => Input;
-
-        public void Update()
-        {
-            Input?.Update();
-        }
-
-        public void Handle()
-        {
-            Input.Handle();
-        }
+        public void Prepare() => Input.Prepare();
+        public void Update() => Input.Update();
+        public void Handle() => Input.Handle();
     }
 
     public class CustomizableInput<TInput, TValue> : CustomizableInput<TInput>, IInput<TValue>

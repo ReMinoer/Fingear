@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Fingear.MonoGame.Inputs;
 
 namespace Fingear.MonoGame
@@ -12,6 +13,20 @@ namespace Fingear.MonoGame
         public string DisplayName => "Mouse";
         public MouseWheelInput Wheel => _wheel ?? (_wheel = new MouseWheelInput());
         public MouseCursorInput Cursor => _cursor ?? (_cursor = new MouseCursorInput());
+
+        public IEnumerable<IInput> InstantiatedInputs
+        {
+            get
+            {
+                if (_buttons != null)
+                    foreach (MouseButtonInput input in _buttons.Values)
+                        yield return input;
+                if (_wheel != null)
+                    yield return _wheel;
+                if (_cursor != null)
+                    yield return _cursor;
+            }
+        }
 
         public MouseButtonInput this[MouseButton button]
         {

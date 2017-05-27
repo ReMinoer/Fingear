@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace Fingear
 {
@@ -8,7 +7,9 @@ namespace Fingear
         string DisplayName { get; }
         InputActivity Activity { get; }
         IInputSource Source { get; }
+        bool Updated { get; }
         bool Handled { get; }
+        void Prepare();
         void Update();
         void Handle();
     }

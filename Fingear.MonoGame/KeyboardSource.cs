@@ -11,6 +11,16 @@ namespace Fingear.MonoGame
         private Dictionary<Keys, KeyInput> _keys;
         public string DisplayName => "Keyboard";
 
+        public IEnumerable<IInput> InstantiatedInputs
+        {
+            get
+            {
+                if (_keys == null)
+                    return Enumerable.Empty<IInput>();
+                return _keys.Values;
+            }
+        }
+
         public KeyInput this[Keys key]
         {
             get

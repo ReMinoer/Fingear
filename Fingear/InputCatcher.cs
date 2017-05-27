@@ -22,6 +22,7 @@ namespace Fingear
         {
             IInput[] inputs = Sources.SelectMany(x => x.GetAllInputs()).ToArray();
 
+            T result;
             while (true)
             {
                 foreach (IInput input in inputs)
@@ -30,14 +31,21 @@ namespace Fingear
                 IInput triggeredInput = inputs.FirstOrDefault(x => x.Activity == InputActivity.Triggered);
                 if (triggeredInput != null)
                 {
-                    if (Converter != null && Converter.TryResolve(triggeredInput, out T result))
-                        return result;
+                    if (Converter == null || !Converter.TryResolve(triggeredInput, out result))
+                        result = triggeredInput as T;
 
-                    return triggeredInput as T;
+                    break;
                 }
 
                 await Task.Delay(RefreshDelay, token);
             }
+
+            //foreach (IInputSource source in Sources)
+            //    source.CleanInstances();
+
+            //InputManager.Instance.CleanInstances();
+
+            return result;
         }
     }
 }

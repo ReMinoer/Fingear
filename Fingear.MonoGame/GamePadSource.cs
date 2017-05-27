@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Fingear.MonoGame.Inputs;
 using Microsoft.Xna.Framework;
 
@@ -12,6 +13,22 @@ namespace Fingear.MonoGame
         private Dictionary<GamePadThumbstick, GamePadThumbstickInput> _thumbsticks;
         public PlayerIndex PlayerIndex { get; }
         public string DisplayName => $"GamePad {Enum.GetName(typeof(PlayerIndex),PlayerIndex)}";
+
+        public IEnumerable<IInput> InstantiatedInputs
+        {
+            get
+            {
+                if (_buttons != null)
+                    foreach (GamePadButtonInput input in _buttons.Values)
+                        yield return input;
+                if (_triggers != null)
+                    foreach (GamePadTriggerInput input in _triggers.Values)
+                        yield return input;
+                if (_thumbsticks != null)
+                    foreach (GamePadThumbstickInput input in _thumbsticks.Values)
+                        yield return input;
+            }
+        }
 
         public GamePadButtonInput this[GamePadButton button]
         {
