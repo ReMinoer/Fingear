@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Diese.Collections;
 using Fingear.Controls.Base;
 
 namespace Fingear.Controls.Composites
@@ -19,9 +20,12 @@ namespace Fingear.Controls.Composites
         protected override bool UpdateControl(float elapsedTime)
         {
             if (!Components.All(x => x.IsActive()))
+            {
+                Sources = Enumerable.Empty<IInputSource>();
                 return false;
+            }
 
-            Sources = Components.SelectMany(x => x.Sources).Distinct().ToArray();
+            Sources = Components.SelectMany(x => x.Sources).ToHashSet(ConservedKey.FirstOccurence).AsReadOnly();
             return true;
         }
     }
@@ -33,7 +37,6 @@ namespace Fingear.Controls.Composites
 
         public ControlSimultaneous()
         {
-            _valueSelector = enumerable => enumerable.FirstOrDefault();
         }
 
         public ControlSimultaneous(Selector<TValue> valueSelector)
@@ -49,22 +52,32 @@ namespace Fingear.Controls.Composites
 
         protected override bool UpdateControl(float elapsedTime, out TValue value)
         {
-            var valuesList = new List<TValue>();
+            List<TValue> values = null;
 
             foreach (TControls component in Components)
             {
-                TValue componentValue;
-                if (!component.IsActive(out componentValue))
+                if (!component.IsActive(out TValue componentValue))
                 {
                     value = default(TValue);
+                    Sources = Enumerable.Empty<IInputSource>();
                     return false;
                 }
 
-                valuesList.Add(componentValue);
+                if (values == null)
+                    values = new List<TValue>();
+
+                values.Add(componentValue);
             }
 
-            value = _valueSelector(valuesList);
-            Sources = Components.SelectMany(x => x.Sources).Distinct().ToArray();
+            if (values == null)
+            {
+                value = default(TValue);
+                Sources = Enumerable.Empty<IInputSource>();
+                return false;
+            }
+
+            value = _valueSelector != null ? _valueSelector.Invoke(values) : values[0];
+            Sources = Components.SelectMany(x => x.Sources).ToHashSet(ConservedKey.FirstOccurence).AsReadOnly();
             return false;
         }
     }

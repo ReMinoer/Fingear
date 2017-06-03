@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Diese.Collections;
 using Fingear.Controls.Base;
 
 namespace Fingear.Controls.Composites
@@ -17,8 +18,24 @@ namespace Fingear.Controls.Composites
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            Sources = Components.Where(x => x.IsActive()).SelectMany(x => x.Sources).Distinct().ToArray();
-            return Sources.Any();
+            HashSet<IInputSource> sources = null;
+            foreach (IControl component in Components.Where(x => x.IsActive()))
+            {
+                if (sources == null)
+                    sources = new HashSet<IInputSource>();
+
+                foreach (IInputSource source in component.Sources)
+                    sources.Add(source);
+            }
+
+            if (sources == null)
+            {
+                Sources = Enumerable.Empty<IInputSource>();
+                return false;
+            }
+
+            Sources = sources.AsReadOnly();
+            return sources.Count > 0;
         }
     }
 
@@ -28,7 +45,6 @@ namespace Fingear.Controls.Composites
 
         public ControlSet()
         {
-            _valueSelector = enumerable => enumerable.FirstOrDefault();
         }
 
         public ControlSet(string name)
@@ -50,22 +66,35 @@ namespace Fingear.Controls.Composites
 
         protected override bool UpdateControl(float elapsedTime, out TValue value)
         {
-            var valuesList = new List<TValue>();
-            var sourcesList = new List<IInputSource>();
+            List<TValue> values = null;
+            HashSet<IInputSource> sources = null;
 
             foreach (IControl<TValue> component in Components)
             {
-                TValue componentValue;
-                if (!component.IsActive(out componentValue))
+                if (!component.IsActive(out TValue componentValue))
                     continue;
 
-                valuesList.Add(componentValue);
-                sourcesList.AddRange(component.Sources);
+                if (values == null)
+                {
+                    values = new List<TValue>();
+                    sources = new HashSet<IInputSource>();
+                }
+
+                values.Add(componentValue);
+                foreach (IInputSource source in component.Sources)
+                    sources.Add(source);
             }
 
-            value = _valueSelector(valuesList);
-            Sources = sourcesList.Distinct().ToList();
-            return sourcesList.Count > 0;
+            if (values == null)
+            {
+                value = default(TValue);
+                Sources = Enumerable.Empty<IInputSource>();
+                return false;
+            }
+
+            value = _valueSelector != null ? _valueSelector(values) : values[0];
+            Sources = sources.AsReadOnly();
+            return sources.Count > 0;
         }
     }
 }

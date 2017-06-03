@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Diese.Collections;
 using Fingear.Controls.Base;
 
 namespace Fingear.Controls.Containers
@@ -77,13 +78,12 @@ namespace Fingear.Controls.Containers
 
             if (TriggerControl.IsActive())
             {
-                var sources = new List<IInputSource>();
+                IEnumerable<IInputSource> sources = TriggerControl.Sources;
 
-                sources.AddRange(TriggerControl.Sources);
                 if (valueActive)
-                    sources.AddRange(ValueControl.Sources);
+                    sources = sources.Concat(ValueControl.Sources);
 
-                Sources = sources;
+                Sources = sources.ToArray().AsReadOnly();
                 return true;
             }
 
