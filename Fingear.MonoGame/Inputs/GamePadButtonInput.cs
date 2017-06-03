@@ -13,7 +13,7 @@ namespace Fingear.MonoGame.Inputs
         public GamePadButton Button { get; }
         public override string DisplayName => EnumUtils.GetDisplayName(Button);
         public override IInputSource Source => MonoGameInputSytem.Instance[PlayerIndex];
-        public override bool Value => MonoGameInputSytem.Instance.InputStates.GamePadStates[PlayerIndex].IsButtonDown(_monogameButton);
+        public override bool Value => MonoGameInputSytem.Instance.InputStates[PlayerIndex].IsButtonDown(_monogameButton);
 
         internal GamePadButtonInput(GamePadButton button, PlayerIndex playerIndex = PlayerIndex.One)
         {

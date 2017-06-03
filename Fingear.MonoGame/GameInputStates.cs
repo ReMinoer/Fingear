@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,41 +6,59 @@ namespace Fingear.MonoGame
 {
     public class GameInputStates : IInputStates
     {
-        private readonly Dictionary<PlayerIndex, GamePadState> _gamePadStates;
-        private readonly PlayerIndex[] _padPlayerIndexes;
-        public KeyboardState KeyboardState { get; private set; }
-        public MouseState MouseState { get; private set; }
-        public ReadOnlyDictionary<PlayerIndex, GamePadState> GamePadStates { get; }
+        private KeyboardState? _keyboardState;
+        private MouseState? _mouseState;
+        private Dictionary<PlayerIndex, GamePadState> _gamePadStates;
+        public bool Ignored { get; private set; }
 
-        public GameInputStates()
+        public KeyboardState KeyboardState
         {
-            _gamePadStates = new Dictionary<PlayerIndex, GamePadState>();
-            _padPlayerIndexes = Enum.GetValues(typeof(PlayerIndex)) as PlayerIndex[];
-            if (_padPlayerIndexes == null)
-                return;
-
-            foreach (PlayerIndex playerIndex in _padPlayerIndexes)
-                _gamePadStates[playerIndex] = new GamePadState();
-
-            GamePadStates = new ReadOnlyDictionary<PlayerIndex, GamePadState>(_gamePadStates);
-
-            Reset();
+            get
+            {
+                if (_keyboardState == null)
+                    _keyboardState = Ignored ? new KeyboardState() : Keyboard.GetState();
+                return _keyboardState.Value;
+            }
         }
 
-        public void Update()
+        public MouseState MouseState
         {
-            KeyboardState = Keyboard.GetState();
-            MouseState = Mouse.GetState();
-            foreach (PlayerIndex playerIndex in _padPlayerIndexes)
-                _gamePadStates[playerIndex] = GamePad.GetState(playerIndex);
+            get
+            {
+                if (_mouseState == null)
+                    _mouseState = Ignored ? new MouseState() : Mouse.GetState();
+                return _mouseState.Value;
+            }
         }
 
-        public void Reset()
+        public GamePadState this[PlayerIndex playerIndex]
         {
-            KeyboardState = new KeyboardState();
-            MouseState = new MouseState();
-            foreach (PlayerIndex playerIndex in _padPlayerIndexes)
-                _gamePadStates[playerIndex] = new GamePadState();
+            get
+            {
+                GamePadState gamePadState;
+                if (_gamePadStates == null)
+                    _gamePadStates = new Dictionary<PlayerIndex, GamePadState>();
+                else if (_gamePadStates.TryGetValue(playerIndex, out gamePadState))
+                    return gamePadState;
+
+                gamePadState = Ignored ? new GamePadState() : GamePad.GetState(playerIndex);
+                _gamePadStates.Add(playerIndex, gamePadState);
+                return gamePadState;
+            }
+        }
+
+        public void Clean()
+        {
+            _keyboardState = null;
+            _mouseState = null;
+            _gamePadStates?.Clear();
+
+            Ignored = false;
+        }
+
+        public void Ignore()
+        {
+            Ignored = true;
         }
     }
 }
