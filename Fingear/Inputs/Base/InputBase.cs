@@ -11,7 +11,7 @@ namespace Fingear.Inputs.Base
         public abstract TValue Value { get; }
         public abstract IInputSource Source { get; }
         public bool Updated { get; private set; }
-        public bool Handled { get; private set; }
+        public bool Handled { get; internal set; }
         protected TValue LastValue { get; private set; }
 
         protected InputBase()
@@ -40,7 +40,7 @@ namespace Fingear.Inputs.Base
 
         public void Handle()
         {
-            Handled = true;
+            InputManager.Instance.Handle(this);
         }
     }
 }

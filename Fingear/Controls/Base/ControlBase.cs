@@ -28,7 +28,7 @@ namespace Fingear.Controls.Base
 
         public bool IsActive()
         {
-            if (Handled || Inputs.Any(x => x.Handled))
+            if (Handled || InputManager.Instance.HandledInputs.Count != 0 && Inputs.Any(x => x.Handled))
                 return false;
 
             return _isTriggered;
@@ -70,11 +70,7 @@ namespace Fingear.Controls.Base
         public bool IsActive(out TValue value)
         {
             value = _value;
-
-            if (Handled || Inputs.Any(x => x.Handled))
-                return false;
-
-            return _isTriggered;
+            return IsActive();
         }
     }
 }
