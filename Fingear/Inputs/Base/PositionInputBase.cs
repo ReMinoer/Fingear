@@ -1,5 +1,4 @@
 ﻿using System;
-using Fingear.Utils;
 
 namespace Fingear.Inputs.Base
 {
@@ -8,7 +7,14 @@ namespace Fingear.Inputs.Base
     {
         protected override InputActivity UpdateActivity(TValue value)
         {
-            return InputActivityUtils.UpdateContinous(value, LastValue, Activity);
+            var inputActivity = InputActivity.Idle;
+
+            if (!value.Equals(LastValue))
+                inputActivity |= InputActivity.Pressed;
+            if (inputActivity.IsPressed() != Activity.IsPressed())
+                inputActivity |= InputActivity.Changed;
+
+            return inputActivity;
         }
     }
 }

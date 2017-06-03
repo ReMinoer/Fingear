@@ -1,5 +1,4 @@
 ﻿using System;
-using Fingear.Utils;
 
 namespace Fingear.Inputs.Base
 {
@@ -10,7 +9,14 @@ namespace Fingear.Inputs.Base
 
         protected override InputActivity UpdateActivity(TValue value)
         {
-            return InputActivityUtils.UpdatePonctual(value, LastValue, IdleValue);
+            var activity = InputActivity.Idle;
+
+            if (!value.Equals(IdleValue))
+                activity |= InputActivity.Pressed;
+            if (!value.Equals(IdleValue))
+                activity |= InputActivity.Changed;
+
+            return activity;
         }
     }
 }

@@ -63,7 +63,6 @@
     <Compile Include="Customizables\CustomizableForce.cs" />
     <Compile Include="IInputConverter.cs" />
     <Compile Include="ICustomizableInput.cs" />
-    <Compile Include="Utils\InputActivityUtils.cs" />
     <Compile Include="Utils\InputSourceUtils.cs" />
     <Compile Include="Inputs\Base\PositionInputBase.cs" />
     <Compile Include="Controls\Base\ControlDecoratorBase.cs" />
