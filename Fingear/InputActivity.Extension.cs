@@ -23,17 +23,17 @@ namespace Fingear
 
         static public bool IsIdle(this InputActivity inputActivity)
         {
-            return !inputActivity.HasFlag(InputActivity.Pressed);
+            return (inputActivity & InputActivity.Pressed) != InputActivity.Pressed;
         }
 
         static public bool IsPressed(this InputActivity inputActivity)
         {
-            return inputActivity.HasFlag(InputActivity.Pressed);
+            return (inputActivity & InputActivity.Pressed) == InputActivity.Pressed;
         }
 
         static public bool IsChanged(this InputActivity inputActivity)
         {
-            return inputActivity.HasFlag(InputActivity.Changed);
+            return (inputActivity & InputActivity.Changed) == InputActivity.Changed;
         }
 
         static public bool IsReleased(this InputActivity inputActivity)
