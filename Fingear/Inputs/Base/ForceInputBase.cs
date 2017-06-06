@@ -13,7 +13,7 @@ namespace Fingear.Inputs.Base
 
             if (!value.Equals(IdleValue))
                 activity |= InputActivity.Pressed;
-            if (!value.Equals(IdleValue))
+            if (!value.Equals(LastValue))
                 activity |= InputActivity.Changed;
 
             return activity;
