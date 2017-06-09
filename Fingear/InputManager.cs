@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Fingear.Inputs.Base;
 
 namespace Fingear
@@ -12,8 +13,8 @@ namespace Fingear
         private readonly List<IInput> _inputs = new List<IInput>();
         public IReadOnlyCollection<IInput> Inputs { get; }
 
-        private readonly List<IInput> _handledInputs = new List<IInput>();
-        public IReadOnlyCollection<IInput> HandledInputs { get; }
+        private readonly List<InputBase> _handledInputs = new List<InputBase>();
+        public IReadOnlyCollection<InputBase> HandledInputs { get; }
 
         private InputManager()
         {
@@ -28,7 +29,14 @@ namespace Fingear
 
         public void Update()
         {
-            _handledInputs.Clear();
+            if (_handledInputs.Count > 0)
+            {
+                foreach (InputBase input in _handledInputs.Where(x => x.Activity.IsIdle()).ToArray())
+                {
+                    input.Handler = null;
+                    _handledInputs.Remove(input);
+                }
+            }
 
             foreach (IInput input in Inputs)
                 input.Prepare();
@@ -37,10 +45,8 @@ namespace Fingear
                 input.Update();
         }
 
-        internal void Handle<TValue>(InputBase<TValue> input)
-            where TValue : IEquatable<TValue>
+        internal void Handle(InputBase input)
         {
-            input.Handled = true;
             _handledInputs.Add(input);
         }
     }

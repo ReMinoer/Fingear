@@ -8,10 +8,10 @@ namespace Fingear
         InputActivity Activity { get; }
         IInputSource Source { get; }
         bool Updated { get; }
-        bool Handled { get; }
+        IControl Handler { get; }
         void Prepare();
         void Update();
-        void Handle();
+        void HandleBy(IControl handler);
     }
 
     public interface IInput<out TValue> : IInput

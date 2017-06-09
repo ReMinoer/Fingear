@@ -33,7 +33,7 @@ namespace Fingear.Controls.Base
 
         public bool IsActive()
         {
-            if (Handled || InputManager.Instance.HandledInputs.Count != 0 && Inputs.Any(x => x.Handled))
+            if (Handled || InputManager.Instance.HandledInputs.Count != 0 && Inputs.Any(x => x.Handler != null && x.Handler != this))
                 return false;
 
             return _isTriggered;
@@ -47,7 +47,7 @@ namespace Fingear.Controls.Base
         public void HandleInputs()
         {
             foreach (IInput input in Inputs)
-                input.Handle();
+                input.HandleBy(this);
         }
     }
 

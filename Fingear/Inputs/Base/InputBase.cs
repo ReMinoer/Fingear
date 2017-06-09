@@ -2,17 +2,13 @@
 
 namespace Fingear.Inputs.Base
 {
-    public abstract class InputBase<TValue> : IInput<TValue>
-        where TValue : IEquatable<TValue>
+    public abstract class InputBase : IInput
     {
-        private TValue _value;
         public abstract string DisplayName { get; }
-        public InputActivity Activity { get; private set; }
-        public abstract TValue Value { get; }
+        public InputActivity Activity { get; protected set; }
         public abstract IInputSource Source { get; }
         public bool Updated { get; private set; }
-        public bool Handled { get; internal set; }
-        protected TValue LastValue { get; private set; }
+        public IControl Handler { get; internal set; }
 
         protected InputBase()
         {
@@ -29,18 +25,33 @@ namespace Fingear.Inputs.Base
             if (Updated)
                 return;
 
-            Handled = false;
-            LastValue = _value;
-            _value = Value;
-            Activity = UpdateActivity(_value);
+            UpdateValues();
             Updated = true;
         }
 
-        protected abstract InputActivity UpdateActivity(TValue value);
+        protected abstract void UpdateValues();
 
-        public void Handle()
+        public void HandleBy(IControl handler)
         {
+            Handler = handler;
             InputManager.Instance.Handle(this);
         }
+    }
+
+    public abstract class InputBase<TValue> : InputBase, IInput<TValue>
+        where TValue : IEquatable<TValue>
+    {
+        private TValue _value;
+        public abstract TValue Value { get; }
+        protected TValue LastValue { get; private set; }
+
+        protected override void UpdateValues()
+        {
+            LastValue = _value;
+            _value = Value;
+            Activity = UpdateActivity(_value);
+        }
+
+        protected abstract InputActivity UpdateActivity(TValue value);
     }
 }
