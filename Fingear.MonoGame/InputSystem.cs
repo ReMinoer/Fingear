@@ -3,10 +3,10 @@ using Microsoft.Xna.Framework;
 
 namespace Fingear.MonoGame
 {
-    public class MonoGameInputSytem
+    public class InputSystem
     {
-        static private MonoGameInputSytem _instance;
-        static public MonoGameInputSytem Instance => _instance ?? (_instance = new MonoGameInputSytem());
+        static private InputSystem _instance;
+        static public InputSystem Instance => _instance ?? (_instance = new InputSystem());
 
         private IInputStates _inputStates;
         private KeyboardSource _keyboard;
@@ -33,7 +33,7 @@ namespace Fingear.MonoGame
 
         public IInputStates InputStates
         {
-            get => _inputStates ?? (_inputStates = new GameInputStates());
+            get => _inputStates ?? (_inputStates = new InputStates());
             set => _inputStates = value;
         }
 
@@ -50,7 +50,7 @@ namespace Fingear.MonoGame
             }
         }
 
-        private MonoGameInputSytem()
+        private InputSystem()
         {
         }
     }

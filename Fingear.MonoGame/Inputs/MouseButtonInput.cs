@@ -5,17 +5,26 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Fingear.MonoGame.Inputs
 {
+    public enum MouseButton
+    {
+        Left,
+        Right,
+        Middle,
+        XButton1,
+        XButton2
+    }
+
     public class MouseButtonInput : ButtonInputBase
     {
         public MouseButton Button { get; }
         public override string DisplayName => EnumUtils.GetDisplayName(Button);
-        public override IInputSource Source => MonoGameInputSytem.Instance.Mouse;
+        public override IInputSource Source => InputSystem.Instance.Mouse;
 
         public override bool Value
         {
             get
             {
-                MouseState mouseState = MonoGameInputSytem.Instance.InputStates.MouseState;
+                MouseState mouseState = InputSystem.Instance.InputStates.MouseState;
                 switch (Button)
                 {
                     case MouseButton.Left: return mouseState.LeftButton == ButtonState.Pressed;

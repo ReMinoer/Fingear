@@ -6,14 +6,33 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Fingear.MonoGame.Inputs
 {
+    public enum GamePadButton
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+        A,
+        B,
+        X,
+        Y,
+        LB,
+        RB,
+        LS,
+        RS,
+        Back,
+        Start,
+        BigButton
+    }
+
     public class GamePadButtonInput : ButtonInputBase
     {
         private readonly Buttons _monogameButton;
         public PlayerIndex PlayerIndex { get; }
         public GamePadButton Button { get; }
         public override string DisplayName => EnumUtils.GetDisplayName(Button);
-        public override IInputSource Source => MonoGameInputSytem.Instance[PlayerIndex];
-        public override bool Value => MonoGameInputSytem.Instance.InputStates[PlayerIndex].IsButtonDown(_monogameButton);
+        public override IInputSource Source => InputSystem.Instance[PlayerIndex];
+        public override bool Value => InputSystem.Instance.InputStates[PlayerIndex].IsButtonDown(_monogameButton);
 
         internal GamePadButtonInput(GamePadButton button, PlayerIndex playerIndex = PlayerIndex.One)
         {

@@ -5,11 +5,17 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Fingear.MonoGame.Inputs
 {
+    public enum GamePadTrigger
+    {
+        Left,
+        Right
+    }
+
     public class GamePadTriggerInput : IntensityInputBase
     {
         public PlayerIndex PlayerIndex { get; }
         public GamePadTrigger Trigger { get; }
-        public override IInputSource Source => MonoGameInputSytem.Instance[PlayerIndex];
+        public override IInputSource Source => InputSystem.Instance[PlayerIndex];
         public override float Maximum => 1;
         public override float Minimum => 0;
         public override float IdleValue => 0;
@@ -31,7 +37,7 @@ namespace Fingear.MonoGame.Inputs
         {
             get
             {
-                GamePadState gamePadState = MonoGameInputSytem.Instance.InputStates[PlayerIndex];
+                GamePadState gamePadState = InputSystem.Instance.InputStates[PlayerIndex];
                 switch (Trigger)
                 {
                     case GamePadTrigger.Left: return gamePadState.Triggers.Left;

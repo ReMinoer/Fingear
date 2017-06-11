@@ -10,7 +10,7 @@ namespace Fingear.MonoGame
             return new Point((int)vector2.X, (int)vector2.Y);
         }
 
-        static public Vector2 AsFingearVector(this Point vector)
+        static public Vector2 AsSystemVector(this Point vector)
         {
             return new Vector2(vector.X, vector.Y);
         }

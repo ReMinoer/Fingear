@@ -42,22 +42,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameInputStates.cs" />
-    <Compile Include="GamePadSource.cs" />
+    <Compile Include="IInputStates.cs" />
     <Compile Include="InputStates.cs" />
+    <Compile Include="GamePadSource.cs" />
     <Compile Include="Inputs\GamePadButtonInput.cs" />
     <Compile Include="Inputs\GamePadThumbstickInput.cs" />
-    <Compile Include="Inputs\GamePadButton.cs" />
     <Compile Include="Inputs\GamePadTriggerInput.cs" />
     <Compile Include="Inputs\KeyInput.cs" />
-    <Compile Include="Inputs\MouseButton.cs" />
     <Compile Include="Inputs\MouseButtonInput.cs" />
-    <Compile Include="Inputs\GamePadThumbstick.cs" />
-    <Compile Include="Inputs\GamePadTrigger.cs" />
     <Compile Include="Inputs\MouseCursorInput.cs" />
     <Compile Include="Inputs\MouseWheelInput.cs" />
     <Compile Include="KeyboardSource.cs" />
-    <Compile Include="MonoGameInputSytem.cs" />
+    <Compile Include="InputSystem.cs" />
     <Compile Include="MouseSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Point.Extension.cs" />
