@@ -41,15 +41,15 @@ namespace Fingear.Inputs.Base
     public abstract class InputBase<TValue> : InputBase, IInput<TValue>
         where TValue : IEquatable<TValue>
     {
-        private TValue _value;
+        protected TValue CurrentValue;
         public abstract TValue Value { get; }
-        protected TValue LastValue { get; private set; }
+        protected TValue LastValue { get; set; }
 
         protected override void UpdateValues()
         {
-            LastValue = _value;
-            _value = Value;
-            Activity = UpdateActivity(_value);
+            LastValue = CurrentValue;
+            CurrentValue = Value;
+            Activity = UpdateActivity(CurrentValue);
         }
 
         protected abstract InputActivity UpdateActivity(TValue value);

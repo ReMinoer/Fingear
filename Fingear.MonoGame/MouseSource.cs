@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
 using Fingear.MonoGame.Inputs;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace Fingear.MonoGame
 {
@@ -14,7 +12,6 @@ namespace Fingear.MonoGame
         public string DisplayName => "Mouse";
         public MouseWheelInput Wheel => _wheel ?? (_wheel = new MouseWheelInput());
         public MouseCursorInput Cursor => _cursor ?? (_cursor = new MouseCursorInput());
-        public Point DefaultMousePosition { get; set; }
 
         public IEnumerable<IInput> InstantiatedInputs
         {
@@ -64,16 +61,6 @@ namespace Fingear.MonoGame
 
             // Cursor
             yield return new MouseCursorInput();
-        }
-
-        public void ResetMouse()
-        {
-            Mouse.SetPosition(DefaultMousePosition.X, DefaultMousePosition.Y);
-        }
-
-        public void SetMousePosition(Point position)
-        {
-            Mouse.SetPosition(position.X, position.Y);
         }
     }
 }

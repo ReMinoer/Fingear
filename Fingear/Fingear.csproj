@@ -61,6 +61,7 @@
     <Compile Include="InputCatcher.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Inputs\Base\InputBase.cs" />
+    <Compile Include="IVirtualInput.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\Composites\ControlSimultaneous.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="Utils\MathUtils.cs" />
     <Compile Include="Utils\EnumUtils.cs" />
     <Compile Include="Utils\MethodInfoUtils.cs" />
+    <Compile Include="Utils\Range.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\External\Stave\External\Diese\Diese.Collections\Diese.Collections.csproj">
