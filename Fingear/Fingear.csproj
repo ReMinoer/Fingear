@@ -45,6 +45,7 @@
     <Compile Include="Controls\Decorators\CacheControl.cs" />
     <Compile Include="Controls\Decorators\DelayControl.cs" />
     <Compile Include="Controls\ActivityControl.cs" />
+    <Compile Include="Controls\Decorators\TemporalControl.cs" />
     <Compile Include="Converters\Activity\ScaleToIntensityInput.cs" />
     <Compile Include="Converters\Activity\CursorToJoystickInput.cs" />
     <Compile Include="Converters\Activity\SwitchToButtonInput.cs" />
