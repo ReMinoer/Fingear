@@ -1,7 +1,6 @@
 ﻿namespace Fingear.Customizables
 {
-    public class CustomizableSwitch : CustomizableInput<ISwitchInput>, ISwitchInput
+    public class CustomizableSwitch : CustomizableInput<ISwitchInput, bool>, ISwitchInput
     {
-        public bool Value => Input?.Value ?? false;
     }
 }

@@ -15,9 +15,9 @@
         public void HandleBy(IControl handler) => Input.HandleBy(handler);
     }
 
-    public class CustomizableInput<TInput, TValue> : CustomizableInput<TInput>, IInput<TValue>
-        where TInput : class, IInput<TValue>
+    public class CustomizableInput<TInput, TValue> : CustomizableInput<TInput>, ICustomizableInput<TInput, TValue>
+        where TInput : IInput<TValue>
     {
-        public TValue Value => Input != null ? Input.Value : default(TValue);
+        public virtual TValue Value => Input != null ? Input.Value : default(TValue);
     }
 }
