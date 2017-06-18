@@ -1,83 +1,72 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Diese;
 using Stave;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlDecoratorBase<TControl> : Decorator<IControl, IControlParent, TControl>, IControlDecorator<TControl>
+    public abstract class ControlDecoratorBase<TControl> : Decorator<IControl, IControlParent, TControl>, IControlWrapper
         where TControl : class, IControl
     {
-        internal bool _isTriggered;
-        public string Name { get; set; }
-        public virtual IEnumerable<IInputSource> Sources => Component.Sources;
+        internal ControlImplementation Implementation;
+        public IEnumerable<IInputSource> Sources => Component.Sources;
         public virtual IEnumerable<IInput> Inputs => Component.Inputs;
-        public bool Handled { get; set; }
 
         protected ControlDecoratorBase()
         {
-            Name = GetType().GetDisplayName();
+            Implementation = new ControlImplementation(this);
         }
 
-        public void Update(float elapsedTime)
+        internal ControlDecoratorBase(ControlImplementation implementation)
         {
-            Handled = false;
+            Implementation = implementation;
+        }
 
+        bool IControlWrapper.UpdateControl(float elapsedTime)
+        {
             Component.Update(elapsedTime);
-
-            _isTriggered = UpdateControl(elapsedTime);
+            return UpdateControl(elapsedTime);
         }
 
         protected abstract bool UpdateControl(float elapsedTime);
 
-        public bool IsActive()
+        public string Name
         {
-            if (Handled || InputManager.Instance.HandledInputs.Count != 0 && Inputs.Any(x => x.Handler != null && x.Handler != this))
-                return false;
-
-            return _isTriggered;
+            get => Implementation.Name;
+            set => Implementation.Name = value;
         }
-
-        public void HandleControl()
-        {
-            Handled = true;
-        }
-
-        public void HandleInputs()
-        {
-            foreach (IInput input in Inputs)
-                input.HandleBy(this);
-        }
+        public bool Handled => Implementation.Handled;
+        public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
+        public bool IsActive() => Implementation.IsActive();
+        public void HandleControl() => Implementation.HandleControl();
+        public void HandleInputs() => Implementation.HandleInputs();
     }
 
-    public abstract class ControlDecoratorBase<TControl, TValue> : ControlDecoratorBase<TControl>, IControlDecorator<TControl, TValue>
+    public abstract class ControlDecoratorBase<TControl, TValue> : ControlDecoratorBase<TControl>, IControlWrapper<TValue>
         where TControl : class, IControl
     {
-        private TValue _value;
+        new internal ControlImplementation<TValue> Implementation;
 
-        new public void Update(float elapsedTime)
+        protected ControlDecoratorBase()
+            : base(null)
         {
-            Handled = false;
-
-            Component.Update(elapsedTime);
-
-            TValue value;
-            _isTriggered = UpdateControl(elapsedTime, out value);
-            _value = value;
+            Implementation = new ControlImplementation<TValue>(this);
+            base.Implementation = Implementation;
         }
 
-        protected override sealed bool UpdateControl(float elapsedTime)
+        internal ControlDecoratorBase(ControlImplementation<TValue> implementation)
+            : base(implementation)
         {
-            TValue value;
+            Implementation = implementation;
+        }
+
+        bool IControlWrapper<TValue>.UpdateControl(float elapsedTime, out TValue value)
+        {
+            Component.Update(elapsedTime);
             return UpdateControl(elapsedTime, out value);
         }
 
+        protected override sealed bool UpdateControl(float elapsedTime) => UpdateControl(elapsedTime, out TValue _);
         protected abstract bool UpdateControl(float elapsedTime, out TValue value);
 
-        public bool IsActive(out TValue value)
-        {
-            value = _value;
-            return IsActive();
-        }
+        public bool IsActive(out TValue value) => Implementation.IsActive(out value);
     }
 }

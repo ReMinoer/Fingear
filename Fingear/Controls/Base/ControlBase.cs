@@ -1,76 +1,60 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Diese;
 using Stave;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlBase : Component<IControl, IControlParent>, IControl
+    public abstract class ControlBase : Component<IControl, IControlParent>, IControlWrapper
     {
-        internal bool _isTriggered;
-        public string Name { get; set; }
+        internal ControlImplementation Implementation;
         public abstract IEnumerable<IInputSource> Sources { get; }
         public abstract IEnumerable<IInput> Inputs { get; }
-        public bool Handled { get; internal set; }
 
         protected ControlBase()
         {
-            Name = GetType().GetDisplayName();
+            Implementation = new ControlImplementation(this);
         }
 
-        public void Update(float elapsedTime)
+        internal ControlBase(ControlImplementation implementation)
         {
-            Handled = false;
-            _isTriggered = UpdateControl(elapsedTime);
+            Implementation = implementation;
         }
 
+        bool IControlWrapper.UpdateControl(float elapsedTime) => UpdateControl(elapsedTime);
         protected abstract bool UpdateControl(float elapsedTime);
 
-        public bool IsActive()
+        public string Name
         {
-            if (Handled || InputManager.Instance.HandledInputs.Count != 0 && Inputs.Any(x => x.Handler != null && x.Handler != this))
-                return false;
-
-            return _isTriggered;
+            get => Implementation.Name;
+            set => Implementation.Name = value;
         }
-
-        public void HandleControl()
-        {
-            Handled = true;
-        }
-
-        public void HandleInputs()
-        {
-            foreach (IInput input in Inputs)
-                input.HandleBy(this);
-        }
+        public bool Handled => Implementation.Handled;
+        public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
+        public bool IsActive() => Implementation.IsActive();
+        public void HandleControl() => Implementation.HandleControl();
+        public void HandleInputs() => Implementation.HandleInputs();
     }
 
-    public abstract class ControlBase<TValue> : ControlBase, IControl<TValue>
+    public abstract class ControlBase<TValue> : ControlBase, IControlWrapper<TValue>
     {
-        private TValue _value;
+        new internal ControlImplementation<TValue> Implementation;
 
-        new public void Update(float elapsedTime)
+        protected ControlBase()
+            : base(null)
         {
-            Handled = false;
-
-            TValue value;
-            _isTriggered = UpdateControl(elapsedTime, out value);
-            _value = value;
+            Implementation = new ControlImplementation<TValue>(this);
+            base.Implementation = Implementation;
         }
 
-        protected override sealed bool UpdateControl(float elapsedTime)
+        internal ControlBase(ControlImplementation<TValue> implementation)
+            : base(implementation)
         {
-            TValue value;
-            return UpdateControl(elapsedTime, out value);
+            Implementation = implementation;
         }
 
+        bool IControlWrapper<TValue>.UpdateControl(float elapsedTime, out TValue value) => UpdateControl(elapsedTime, out value);
+        protected override sealed bool UpdateControl(float elapsedTime) => UpdateControl(elapsedTime, out TValue _);
         protected abstract bool UpdateControl(float elapsedTime, out TValue value);
 
-        public bool IsActive(out TValue value)
-        {
-            value = _value;
-            return IsActive();
-        }
+        public bool IsActive(out TValue value) => Implementation.IsActive(out value);
     }
 }
