@@ -44,6 +44,7 @@
     <Compile Include="Controls\Base\ControlImplementation.cs" />
     <Compile Include="Controls\Base\IControlWrapper.cs" />
     <Compile Include="Controls\Containers\HybridControl.cs" />
+    <Compile Include="Controls\Customizables\CustomizableControl.cs" />
     <Compile Include="Controls\Decorators\CacheControl.cs" />
     <Compile Include="Controls\Decorators\DelayControl.cs" />
     <Compile Include="Controls\ActivityControl.cs" />
