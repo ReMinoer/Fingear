@@ -35,7 +35,7 @@ namespace Fingear.Controls.Decorators
             while (_samples.Count > SamplesCount)
                 _samples.Dequeue();
 
-            value = Filter(_samples.Take(SamplesCount, () => default(TValue)));
+            value = Filter(_samples.Take(SamplesCount, _samples.Peek));
             return !value.Equals(default(TValue));
         }
     }
