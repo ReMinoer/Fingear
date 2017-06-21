@@ -59,11 +59,8 @@ namespace Fingear.Controls.Containers
         public HybridControl(IControl triggerControl, IControl<TValue> valueControl)
             : this()
         {
-            _triggerControl = triggerControl;
-            _valueControl = valueControl;
-
-            Components.Add(_triggerControl);
-            Components.Add(_valueControl);
+            TriggerControl = triggerControl;
+            ValueControl = valueControl;
         }
 
         public HybridControl(string name, IControl triggerControl, IControl<TValue> valueControl)
