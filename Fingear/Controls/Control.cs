@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Fingear.Controls.Base;
-using Fingear.Utils;
 
 namespace Fingear.Controls
 {
@@ -9,7 +8,6 @@ namespace Fingear.Controls
     {
         public IInput Input { get; set; }
         public InputActivity DesiredActivity { get; set; }
-        public override IEnumerable<IInputSource> Sources => Input?.Source.ToEnumerable();
 
         public override IEnumerable<IInput> Inputs
         {
@@ -42,7 +40,6 @@ namespace Fingear.Controls
     {
         public IInput<TValue> Input { get; set; }
         public Predicate<TValue> ValueFilter { get; set; }
-        public override IEnumerable<IInputSource> Sources => Input?.Source.ToEnumerable();
 
         public override IEnumerable<IInput> Inputs
         {

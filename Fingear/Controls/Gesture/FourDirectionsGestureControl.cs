@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using Diese.Collections;
 using Fingear.Controls.Base;
 
 namespace Fingear.Controls.Gesture
@@ -128,16 +126,6 @@ namespace Fingear.Controls.Gesture
                     }
                     case InputActivity.Released:
                     {
-                        var sources = new HashSet<IInputSource>();
-
-                        foreach (IInputSource source in ActivityControl.Sources)
-                            sources.Add(source);
-
-                        if (Input != null)
-                            sources.Add(Input.Source);
-
-                        Sources = sources.ToArray().AsReadOnly();
-
                         value = _currentOrientations.ToArray();
                         _currentOrientations.Clear();
 
@@ -149,7 +137,6 @@ namespace Fingear.Controls.Gesture
             }
 
             value = new Orientation[0];
-            Sources = Enumerable.Empty<IInputSource>();
             return false;
         }
     }

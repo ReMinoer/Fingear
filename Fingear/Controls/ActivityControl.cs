@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
 using Fingear.Controls.Base;
-using Fingear.Utils;
 
 namespace Fingear.Controls
 {
     public class ActivityControl : ControlBase<InputActivity>
     {
         public IInput Input { get; set; }
-        public override IEnumerable<IInputSource> Sources => Input?.Source.ToEnumerable();
 
         public override IEnumerable<IInput> Inputs
         {

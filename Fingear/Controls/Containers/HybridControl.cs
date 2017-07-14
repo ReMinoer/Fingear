@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Diese.Collections;
-using Fingear.Controls.Base;
+﻿using Fingear.Controls.Base;
 
 namespace Fingear.Controls.Containers
 {
@@ -71,21 +68,8 @@ namespace Fingear.Controls.Containers
 
         protected override bool UpdateControl(float elapsedTime, out TValue value)
         {
-            bool valueActive = ValueControl.IsActive(out value);
-
-            if (TriggerControl.IsActive())
-            {
-                IEnumerable<IInputSource> sources = TriggerControl.Sources;
-
-                if (valueActive)
-                    sources = sources.Concat(ValueControl.Sources);
-
-                Sources = sources.ToArray().AsReadOnly();
-                return true;
-            }
-
-            Sources = Enumerable.Empty<IInputSource>();
-            return false;
+            ValueControl.IsActive(out value);
+            return TriggerControl.IsActive();
         }
     }
 }

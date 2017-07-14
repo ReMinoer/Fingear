@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Diese.Collections;
 using Fingear.Controls.Base;
 
 namespace Fingear.Controls.Composites
@@ -19,14 +18,7 @@ namespace Fingear.Controls.Composites
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            if (!Components.All(x => x.IsActive()))
-            {
-                Sources = Enumerable.Empty<IInputSource>();
-                return false;
-            }
-
-            Sources = Components.SelectMany(x => x.Sources).ToHashSet(ConservedKey.FirstOccurence).AsReadOnly();
-            return true;
+            return Components.Count != 0 && Components.All(x => x.IsActive());
         }
     }
 
@@ -52,14 +44,18 @@ namespace Fingear.Controls.Composites
 
         protected override bool UpdateControl(float elapsedTime, out TValue value)
         {
-            List<TValue> values = null;
+            if (Components.Count == 0)
+            {
+                value = default(TValue);
+                return false;
+            }
 
+            List<TValue> values = null;
             foreach (TControls component in Components)
             {
                 if (!component.IsActive(out TValue componentValue))
                 {
                     value = default(TValue);
-                    Sources = Enumerable.Empty<IInputSource>();
                     return false;
                 }
 
@@ -69,16 +65,8 @@ namespace Fingear.Controls.Composites
                 values.Add(componentValue);
             }
 
-            if (values == null)
-            {
-                value = default(TValue);
-                Sources = Enumerable.Empty<IInputSource>();
-                return false;
-            }
-
             value = _valueSelector != null ? _valueSelector.Invoke(values) : values[0];
-            Sources = Components.SelectMany(x => x.Sources).ToHashSet(ConservedKey.FirstOccurence).AsReadOnly();
-            return false;
+            return true;
         }
     }
 }

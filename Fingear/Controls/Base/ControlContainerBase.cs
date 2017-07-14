@@ -8,7 +8,6 @@ namespace Fingear.Controls.Base
         where TControls : class, IControl
     {
         internal ControlImplementation Implementation;
-        public IEnumerable<IInputSource> Sources { get; protected set; }
         public virtual IEnumerable<IInput> Inputs => Components.SelectMany(x => x.Inputs);
 
         protected ControlContainerBase()

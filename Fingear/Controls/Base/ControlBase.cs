@@ -6,7 +6,6 @@ namespace Fingear.Controls.Base
     public abstract class ControlBase : Component<IControl, IControlParent>, IControlWrapper
     {
         internal ControlImplementation Implementation;
-        public abstract IEnumerable<IInputSource> Sources { get; }
         public abstract IEnumerable<IInput> Inputs { get; }
 
         protected ControlBase()

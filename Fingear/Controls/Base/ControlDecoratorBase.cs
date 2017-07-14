@@ -7,7 +7,6 @@ namespace Fingear.Controls.Base
         where TControl : class, IControl
     {
         internal ControlImplementation Implementation;
-        public IEnumerable<IInputSource> Sources => Component.Sources;
         public virtual IEnumerable<IInput> Inputs => Component.Inputs;
 
         protected ControlDecoratorBase()
