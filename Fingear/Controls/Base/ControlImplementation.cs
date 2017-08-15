@@ -8,6 +8,7 @@ namespace Fingear.Controls.Base
         private readonly IControlWrapper _wrapper;
         protected bool IsTriggered;
         public string Name { get; set; }
+        public ControlLayer Layer { get; set; }
         public bool Handled { get; protected set; }
 
         public ControlImplementation(IControlWrapper wrapper)
@@ -24,7 +25,7 @@ namespace Fingear.Controls.Base
 
         public bool IsActive()
         {
-            if (Handled || InputManager.Instance.HandledInputs.Count != 0 && _wrapper.Inputs.Any(x => x.Handler != null && x.Handler != _wrapper))
+            if (Handled || Layer != null && !Layer.Enabled || InputManager.Instance.HandledInputs.Count != 0 && _wrapper.Inputs.Any(x => x.Handler != null && x.Handler != _wrapper))
                 return false;
 
             return IsTriggered;

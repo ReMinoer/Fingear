@@ -12,6 +12,7 @@ namespace Fingear.MonoGame
         private Dictionary<GamePadThumbstick, GamePadThumbstickInput> _thumbsticks;
         public PlayerIndex PlayerIndex { get; }
         public string DisplayName => $"GamePad {Enum.GetName(typeof(PlayerIndex),PlayerIndex)}";
+        public InputSourceType Type => InputSourceType.GamePad;
 
         public IEnumerable<IInput> InstantiatedInputs
         {

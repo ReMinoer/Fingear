@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Diese.Collections;
+using Glyph;
 
 namespace Fingear
 {
-    public interface IControlLayer : IEnumerable<IControl>
+    public interface IControlLayer : ITracker<IControl>, ITaggable
     {
         bool Enabled { get; set; }
-        string DisplayName { get; }
+        string Name { get; }
     }
 }

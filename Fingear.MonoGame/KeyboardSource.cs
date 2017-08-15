@@ -10,6 +10,7 @@ namespace Fingear.MonoGame
     {
         private Dictionary<Keys, KeyInput> _keys;
         public string DisplayName => "Keyboard";
+        public InputSourceType Type => InputSourceType.Keyboard;
 
         public IEnumerable<IInput> InstantiatedInputs
         {

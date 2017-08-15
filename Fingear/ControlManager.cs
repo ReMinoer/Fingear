@@ -1,46 +1,72 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using Diese.Collections;
+using Diese.Graph;
+using Diese.Scheduling;
 
 namespace Fingear
 {
-    public class ControlManager
+    public class ControlManager : IScheduler<ControlManager.SchedulerController, ControlLayer>
     {
-        public ObservableCollection<IControlLayer> Layers { get; } = new ObservableCollection<IControlLayer>();
-        public IInputStates States { get; set; }
-        public IReadOnlyCollection<IInputSource> InputSources { get; private set; }
-        public event Action<IEnumerable<IInputSource>> InputSourcesChanged;
+        private readonly Scheduler _scheduler = new Scheduler();
+        public IEnumerable<ControlLayer> Layers => _scheduler.Items;
+        public IEnumerable<ControlLayer> Planning => _scheduler.Planning;
+        public IGraphData<SchedulerGraph<ControlLayer>.Vertex, SchedulerGraph<ControlLayer>.Edge> GraphData => _scheduler.GraphData;
+        public bool IsBatching => _scheduler.IsBatching;
+        public int BatchDepth => _scheduler.BatchDepth;
 
-        public ControlManager()
-        {
-            InputSources = Diese.Collections.ReadOnlyCollection<IInputSource>.Empty;
-        }
+        public SchedulerController Plan(ControlLayer item) => (SchedulerController)_scheduler.Plan(item);
+        void IScheduler<ControlLayer>.Plan(ControlLayer item) => _scheduler.Plan(item);
+        public void Unplan(ControlLayer item) => _scheduler.Unplan(item);
+        public void ApplyProfile(IGraphData<SchedulerGraph<Predicate<object>>.Vertex, SchedulerGraph<Predicate<object>>.Edge> profile) => _scheduler.ApplyProfile(profile);
 
-        public void Update(float elapsedSeconds)
+        public IDisposable Batch() => _scheduler.Batch();
+        public void BeginBatch() => _scheduler.BeginBatch();
+        public void EndBatch() => _scheduler.EndBatch();
+
+        public void Update(float elapsedTime)
         {
-            States.Clean();
             InputManager.Instance.Update();
 
-            IControl[] controls = Layers.Where(x => x.Enabled).SelectMany(x => x).ToArray();
-            if (controls.Length == 0)
-                return;
+            foreach (IControl control in _scheduler.Planning.Where(x => x.Enabled).SelectMany(x => x))
+                control.Update(elapsedTime);
+        }
 
-            foreach (IControl control in controls)
-                control.Update(elapsedSeconds);
-
-            IInputSource[] sources = InputManager.Instance.Inputs.Where(x => x.Activity.IsPressed()).Select(x => x.Source).Distinct().ToArray();
-            if (!InputSources.SetEquals(sources))
+        internal class Scheduler : SchedulerBase<ISchedulerController<ControlLayer>, ControlLayer>
+        {
+            protected override ISchedulerController<ControlLayer> CreateController(SchedulerGraph<ControlLayer>.Vertex vertex)
             {
-                InputSources = sources.AsReadOnly();
-                InputSourcesChanged?.Invoke(InputSources);
+                return new SchedulerController(this, vertex);
             }
         }
 
-        public void IgnoreUpdate()
+        public class SchedulerController : SchedulerController<ControlLayer>, IControlLayer
         {
-            States.Ignore();
+            private readonly ControlLayer _layer;
+            public string Name => _layer.Name;
+            public ICollection<object> Tags => _layer.Tags;
+
+            public bool Enabled
+            {
+                get => _layer.Enabled;
+                set => _layer.Enabled = value;
+            }
+
+            internal SchedulerController(SchedulerBase<ISchedulerController<ControlLayer>, ControlLayer> scheduler, SchedulerGraph<ControlLayer>.Vertex vertex)
+                : base(scheduler, vertex)
+            {
+                _layer = vertex.Items[0];
+            }
+            
+            public int Count => _layer.Count;
+            public void Register(IControl item) => _layer.Register(item);
+            public bool Unregister(IControl item) => _layer.Unregister(item);
+            public void Clear() => _layer.Clear();
+            public void ClearDisposed() => _layer.ClearDisposed();
+            public bool Contains(IControl item) => _layer.Contains(item);
+            public IEnumerator<IControl> GetEnumerator() => _layer.GetEnumerator();
+            IEnumerator IEnumerable.GetEnumerator() => ((IEnumerable)_layer).GetEnumerator();
         }
     }
 }

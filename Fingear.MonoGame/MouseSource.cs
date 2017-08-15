@@ -10,6 +10,7 @@ namespace Fingear.MonoGame
         private Dictionary<MouseButton, MouseButtonInput> _buttons;
 
         public string DisplayName => "Mouse";
+        public InputSourceType Type => InputSourceType.Mouse;
         public MouseWheelInput Wheel => _wheel ?? (_wheel = new MouseWheelInput());
         public MouseCursorInput Cursor => _cursor ?? (_cursor = new MouseCursorInput());
 

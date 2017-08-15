@@ -8,6 +8,7 @@ namespace Fingear
         string Name { get; set; }
         IEnumerable<IInput> Inputs { get; }
         bool Handled { get; }
+        ControlLayer Layer { get; set; }
         void Update(float elapsedTime);
         bool IsActive();
         void HandleControl();
