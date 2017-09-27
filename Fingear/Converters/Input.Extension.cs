@@ -51,5 +51,59 @@ namespace Fingear.Converters
         {
             return new ScaleToSwitchInput(input, valueValidator);
         }
+
+        static public IIntensityInput Scalar(this (IButtonInput x, IButtonInput y) inputs, float min, float max)
+        {
+            return new ButtonsToIntensityInput(inputs.x, inputs.y)
+            {
+                Minimum = min,
+                Maximum = max
+            };
+        }
+
+        static public IScaleInput Scalar(this (ISwitchInput x, ISwitchInput y) inputs, float min, float max)
+        {
+            return new SwitchesToScaleInput(inputs.x, inputs.y)
+            {
+                Minimum = min,
+                Maximum = max
+            };
+        }
+
+        static public IJoystickInput Vector(this (IIntensityInput x, IIntensityInput y) inputs, Vector2 min, Vector2 max)
+        {
+            return new IntensitiesToJoystickInput(inputs.x, inputs.y)
+            {
+                Minimum = min,
+                Maximum = max
+            };
+        }
+
+        static public ICursorInput Vector(this (IScaleInput x, IScaleInput y) inputs, Vector2 min, Vector2 max)
+        {
+            return new ScalesToCursorInput(inputs.x, inputs.y)
+            {
+                Minimum = min,
+                Maximum = max
+            };
+        }
+
+        static public IJoystickInput Vector(this (IButtonInput left, IButtonInput right, IButtonInput up, IButtonInput down) inputs, Vector2 min, Vector2 max)
+        {
+            return new ButtonsToJoystickInput(inputs.left, inputs.right, inputs.up, inputs.down)
+            {
+                Minimum = min,
+                Maximum = max
+            };
+        }
+
+        static public ICursorInput Vector(this (ISwitchInput left, ISwitchInput right, ISwitchInput up, ISwitchInput down) inputs, Vector2 min, Vector2 max)
+        {
+            return new SwitchesToCursorInput(inputs.left, inputs.right, inputs.up, inputs.down)
+            {
+                Minimum = min,
+                Maximum = max
+            };
+        }
     }
 }

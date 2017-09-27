@@ -38,6 +38,9 @@ namespace Fingear.MonoGame
             }
         }
 
+        public (KeyInput, KeyInput) this[Keys key1, Keys key2] => (this[key1], this[key2]);
+        public (KeyInput, KeyInput, KeyInput, KeyInput) this[Keys key1, Keys key2, Keys key3, Keys key4] => (this[key1], this[key2], this[key3], this[key4]);
+
         internal KeyboardSource()
         {
         }

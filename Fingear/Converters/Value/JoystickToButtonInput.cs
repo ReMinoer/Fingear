@@ -21,10 +21,7 @@ namespace Fingear.Converters.Value
                     return "";
 
                 string name = ValueSelector.Method.GetDelegateName();
-                if (string.IsNullOrEmpty(name))
-                    return $"{JoystickInput.DisplayName}";
-
-                return $"{JoystickInput.DisplayName} {name}";
+                return string.IsNullOrEmpty(name) ? $"{JoystickInput.DisplayName}" : $"{JoystickInput.DisplayName} {name}";
             }
         }
 

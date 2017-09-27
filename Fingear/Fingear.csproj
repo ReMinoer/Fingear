@@ -36,6 +36,9 @@
     <Reference Include="System.Numerics.Vectors, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Numerics.Vectors.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Numerics.Vectors.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlLayer.cs" />
@@ -55,6 +58,12 @@
     <Compile Include="Converters\Activity\CursorToJoystickInput.cs" />
     <Compile Include="Converters\Activity\SwitchToButtonInput.cs" />
     <Compile Include="Converters\Axis.cs" />
+    <Compile Include="Converters\Value\ScalesToCursorInput.cs" />
+    <Compile Include="Converters\Value\IntensitiesToJoystickInput.cs" />
+    <Compile Include="Converters\Value\SwitchesToScaleInput.cs" />
+    <Compile Include="Converters\Value\ButtonsToIntensityInput.cs" />
+    <Compile Include="Converters\Value\SwitchesToCursorInput.cs" />
+    <Compile Include="Converters\Value\ButtonsToJoystickInput.cs" />
     <Compile Include="Converters\Value\CursorToSwitchInput.cs" />
     <Compile Include="Converters\Value\CursorToScaleInput.cs" />
     <Compile Include="Converters\Value\JoystickToButtonInput.cs" />
