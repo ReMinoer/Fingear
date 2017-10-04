@@ -3,7 +3,7 @@ using Stave;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlBase : Component<IControl, IControlParent>, IControlWrapper
+    public abstract class ControlBase : Component<IControl, IControlContainer>, IControlWrapper
     {
         internal ControlImplementation Implementation;
         public abstract IEnumerable<IInput> Inputs { get; }

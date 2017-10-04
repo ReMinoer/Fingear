@@ -2,12 +2,12 @@
 
 namespace Fingear
 {
-    public interface IControlDecorator<TComponent> : IDecorator<IControl, IControlParent, TComponent>, IControlParent
+    public interface IControlDecorator<TComponent> : IDecorator<IControl, IControlContainer, TComponent>, IControlContainer
         where TComponent : class, IControl
     {
     }
 
-    public interface IControlDecorator<TComponent, TValue> : IControlDecorator<TComponent>, IControlParent<TValue>
+    public interface IControlDecorator<TComponent, TValue> : IControlDecorator<TComponent>, IControlContainer<TValue>
         where TComponent : class, IControl
     {
     }

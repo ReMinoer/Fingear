@@ -4,7 +4,7 @@ using Stave;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlCompositeBase<TControls> : Composite<IControl, IControlParent, TControls>, IControlWrapper
+    public abstract class ControlCompositeBase<TControls> : Composite<IControl, IControlContainer, TControls>, IControlContainer, IControlWrapper
         where TControls : class, IControl
     {
         internal ControlImplementation Implementation;
@@ -49,7 +49,7 @@ namespace Fingear.Controls.Base
         public void HandleInputs() => Implementation.HandleInputs();
     }
 
-    public abstract class ControlCompositeBase<TControls, TValue> : ControlCompositeBase<TControls>, IControlWrapper<TValue>
+    public abstract class ControlCompositeBase<TControls, TValue> : ControlCompositeBase<TControls>, IControlContainer<TValue>, IControlWrapper<TValue>
         where TControls : class, IControl
     {
         new internal ControlImplementation<TValue> Implementation;

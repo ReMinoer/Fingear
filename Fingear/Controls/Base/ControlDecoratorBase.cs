@@ -3,7 +3,7 @@ using Stave;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlDecoratorBase<TControl> : Decorator<IControl, IControlParent, TControl>, IControlWrapper
+    public abstract class ControlDecoratorBase<TControl> : Decorator<IControl, IControlContainer, TControl>, IControlDecorator<TControl>, IControlWrapper
         where TControl : class, IControl
     {
         internal ControlImplementation Implementation;
@@ -46,7 +46,7 @@ namespace Fingear.Controls.Base
         public void HandleInputs() => Implementation.HandleInputs();
     }
 
-    public abstract class ControlDecoratorBase<TControl, TValue> : ControlDecoratorBase<TControl>, IControlWrapper<TValue>
+    public abstract class ControlDecoratorBase<TControl, TValue> : ControlDecoratorBase<TControl>, IControlDecorator<TControl, TValue>, IControlWrapper<TValue>
         where TControl : class, IControl
     {
         new internal ControlImplementation<TValue> Implementation;

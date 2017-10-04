@@ -98,13 +98,12 @@
     <Compile Include="Customizables\CustomizableSwitch.cs" />
     <Compile Include="Customizables\CustomizableButton.cs" />
     <Compile Include="Customizables\CustomizableInput.cs" />
-    <Compile Include="IControlContainer.cs" />
     <Compile Include="Inputs\Base\ForceInputBase.cs" />
     <Compile Include="IControlComposite.cs" />
     <Compile Include="IControlDecorator.cs" />
     <Compile Include="IInput.cs" />
     <Compile Include="IControl.cs" />
-    <Compile Include="IControlParent.cs" />
+    <Compile Include="IControlContainer.cs" />
     <Compile Include="IInputSource.cs" />
     <Compile Include="InputActivity.cs" />
     <Compile Include="InputActivity.Extension.cs" />

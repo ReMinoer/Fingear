@@ -3,7 +3,7 @@ using Stave;
 
 namespace Fingear
 {
-    public interface IControl : IComponent<IControl, IControlParent>
+    public interface IControl : IComponent<IControl, IControlContainer>
     {
         string Name { get; set; }
         IEnumerable<IInput> Inputs { get; }
