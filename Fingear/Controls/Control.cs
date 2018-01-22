@@ -39,45 +39,39 @@ namespace Fingear.Controls
     public class Control<TValue> : ControlBase<TValue>
     {
         public IInput<TValue> Input { get; set; }
-        public Predicate<TValue> ValueFilter { get; set; }
 
         public override IEnumerable<IInput> Inputs
         {
             get { yield return Input; }
         }
 
-        public Control(IInput<TValue> input)
-            : this(input, value => true)
+        public Control()
         {
+        }
+
+        public Control(IInput<TValue> input)
+        {
+            Input = input;
         }
 
         public Control(string name, IInput<TValue> input)
-            : this(name, input, value => true)
-        {
-        }
-
-        public Control(IInput<TValue> input, Predicate<TValue> valueFilter)
-        {
-            Input = input;
-            ValueFilter = valueFilter;
-        }
-
-        public Control(string name, IInput<TValue> input, Predicate<TValue> valueFilter)
-            : this(input, valueFilter)
+            : this(input)
         {
             Name = name;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        protected override sealed bool UpdateControl(float elapsedTime, out TValue value)
         {
-            if (Input != null && Input.Activity != InputActivity.Idle && ValueFilter(Input.Value))
+            if (Input == null || Input.Activity == InputActivity.Idle)
             {
-                value = Input.Value;
-                return true;
+                value = default(TValue);
+                return false;
             }
 
-            value = default(TValue);
-            return false;
+            value = GetValue();
+            return true;
         }
+
+        protected virtual TValue GetValue() => Input.Value;
     }
 }
