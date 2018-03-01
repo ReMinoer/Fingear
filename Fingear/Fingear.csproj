@@ -74,6 +74,7 @@
     <Compile Include="Converters\Value\IntensityToButtonInput.cs" />
     <Compile Include="IControlLayer.cs" />
     <Compile Include="IInputStates.cs" />
+    <Compile Include="InputActivityMachine.cs" />
     <Compile Include="InputCatcher.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="InputSourceType.cs" />

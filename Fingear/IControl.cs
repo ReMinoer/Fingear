@@ -10,6 +10,7 @@ namespace Fingear
         bool Handled { get; }
         ControlLayer Layer { get; set; }
         void Update(float elapsedTime);
+        void Reset();
         bool IsActive();
         void HandleControl();
         void HandleInputs();

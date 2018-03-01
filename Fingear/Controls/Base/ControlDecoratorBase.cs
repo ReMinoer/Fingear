@@ -19,14 +19,6 @@ namespace Fingear.Controls.Base
             Implementation = implementation;
         }
 
-        bool IControlWrapper.UpdateControl(float elapsedTime)
-        {
-            Component.Update(elapsedTime);
-            return UpdateControl(elapsedTime);
-        }
-
-        protected abstract bool UpdateControl(float elapsedTime);
-
         public string Name
         {
             get => Implementation.Name;
@@ -39,11 +31,25 @@ namespace Fingear.Controls.Base
             set => Implementation.Layer = value;
         }
 
+        public void Reset()
+        {
+            Component.Reset();
+            Implementation.Reset();
+        }
+
         public bool Handled => Implementation.Handled;
         public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
         public bool IsActive() => Implementation.IsActive();
         public void HandleControl() => Implementation.HandleControl();
         public void HandleInputs() => Implementation.HandleInputs();
+
+        bool IControlWrapper.UpdateControl(float elapsedTime)
+        {
+            Component.Update(elapsedTime);
+            return UpdateControl(elapsedTime);
+        }
+
+        protected abstract bool UpdateControl(float elapsedTime);
     }
 
     public abstract class ControlDecoratorBase<TControl, TValue> : ControlDecoratorBase<TControl>, IControlDecorator<TControl, TValue>, IControlWrapper<TValue>

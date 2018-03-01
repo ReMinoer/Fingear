@@ -3,10 +3,10 @@ using Diese;
 
 namespace Fingear.Controls.Base
 {
-    internal class ControlImplementation
+    public class ControlImplementation
     {
         private readonly IControlWrapper _wrapper;
-        protected bool IsTriggered;
+        public bool IsTriggered { get; protected set; }
         public string Name { get; set; }
         public ControlLayer Layer { get; set; }
         public bool Handled { get; protected set; }
@@ -21,6 +21,12 @@ namespace Fingear.Controls.Base
         {
             Handled = false;
             IsTriggered = _wrapper.UpdateControl(elapsedTime);
+        }
+
+        public virtual void Reset()
+        {
+            Handled = false;
+            IsTriggered = false;
         }
 
         public bool IsActive()
@@ -47,6 +53,7 @@ namespace Fingear.Controls.Base
     {
         private readonly IControlWrapper<TValue> _wrapper;
         private TValue _value;
+        public TValue Value => _value;
 
         public ControlImplementation(IControlWrapper<TValue> wrapper)
             : base(wrapper)
@@ -60,9 +67,15 @@ namespace Fingear.Controls.Base
             IsTriggered = _wrapper.UpdateControl(elapsedTime, out _value);
         }
 
+        public override void Reset()
+        {
+            base.Reset();
+            _value = default(TValue);
+        }
+
         public bool IsActive(out TValue value)
         {
-            value = _value;
+            value = Value;
             return IsActive();
         }
     }

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Fingear.Controls.Base;
 
 namespace Fingear.Controls
 {
     public class Control : ControlBase
     {
+        private readonly InputActivityMachine _machine = new InputActivityMachine();
         public IInput Input { get; set; }
         public InputActivity DesiredActivity { get; set; }
 
@@ -32,7 +32,18 @@ namespace Fingear.Controls
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            return Input?.Activity.Is(DesiredActivity) ?? false;
+            if (Input == null)
+                _machine.Reset();
+            else
+                _machine.Update(Input.Activity);
+
+            return _machine.State.Is(DesiredActivity);
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+            _machine.Reset();
         }
     }
 

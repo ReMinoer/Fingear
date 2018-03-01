@@ -7,7 +7,31 @@ namespace Fingear
     public class ControlLayer : IControlLayer
     {
         private readonly Tracker<IControl> _tracker = new Tracker<IControl>();
-        public bool Enabled { get; set; } = true;
+        private bool _enabled = true;
+
+        public bool Enabled
+        {
+            get => _enabled;
+            set
+            {
+                if (_enabled == value)
+                    return;
+
+                _enabled = value;
+                
+                if (Enabled)
+                {
+                    foreach (IControl control in _tracker)
+                        control.Update(0f);
+                }
+                else
+                {
+                    foreach (IControl control in _tracker)
+                        control.Reset();
+                }
+            }
+        }
+
         public string Name { get; set; }
         public ICollection<object> Tags { get; } = new List<object>();
         public int Count => _tracker.Count;

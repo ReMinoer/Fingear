@@ -5,7 +5,7 @@ namespace Fingear.Controls.Base
 {
     public abstract class ControlBase : Component<IControl, IControlContainer>, IControlWrapper
     {
-        internal ControlImplementation Implementation;
+        protected ControlImplementation Implementation;
         public abstract IEnumerable<IInput> Inputs { get; }
 
         protected ControlBase()
@@ -17,9 +17,6 @@ namespace Fingear.Controls.Base
         {
             Implementation = implementation;
         }
-
-        bool IControlWrapper.UpdateControl(float elapsedTime) => UpdateControl(elapsedTime);
-        protected abstract bool UpdateControl(float elapsedTime);
 
         public string Name
         {
@@ -35,14 +32,18 @@ namespace Fingear.Controls.Base
 
         public bool Handled => Implementation.Handled;
         public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
+        public virtual void Reset() => Implementation.Reset();
         public bool IsActive() => Implementation.IsActive();
         public void HandleControl() => Implementation.HandleControl();
         public void HandleInputs() => Implementation.HandleInputs();
+
+        bool IControlWrapper.UpdateControl(float elapsedTime) => UpdateControl(elapsedTime);
+        protected abstract bool UpdateControl(float elapsedTime);
     }
 
     public abstract class ControlBase<TValue> : ControlBase, IControlWrapper<TValue>
     {
-        new internal ControlImplementation<TValue> Implementation;
+        new internal readonly ControlImplementation<TValue> Implementation;
 
         protected ControlBase()
             : base(null)

@@ -29,8 +29,19 @@ namespace Fingear
         {
             InputManager.Instance.Update();
 
-            foreach (IControl control in _scheduler.Planning.Where(x => x.Enabled).SelectMany(x => x))
-                control.Update(elapsedTime);
+            foreach (ControlLayer controlLayer in _scheduler.Planning)
+            {
+                if (controlLayer.Enabled)
+                {
+                    foreach (IControl control in controlLayer)
+                        control.Update(elapsedTime);
+                }
+                else
+                {
+                    foreach (IControl control in controlLayer)
+                        control.Reset();
+                }
+            }
         }
 
         internal class Scheduler : SchedulerBase<ISchedulerController<ControlLayer>, ControlLayer>

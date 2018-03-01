@@ -20,16 +20,6 @@ namespace Fingear.Controls.Base
             Implementation = implementation;
         }
 
-        bool IControlWrapper.UpdateControl(float elapsedTime)
-        {
-            foreach (TControls control in Components)
-                control.Update(elapsedTime);
-
-            return UpdateControl(elapsedTime);
-        }
-
-        protected abstract bool UpdateControl(float elapsedTime);
-
         public string Name
         {
             get => Implementation.Name;
@@ -42,11 +32,29 @@ namespace Fingear.Controls.Base
             set => Implementation.Layer = value;
         }
 
+        public void Reset()
+        {
+            foreach (TControls control in Components)
+                control.Reset();
+
+            Implementation.Reset();
+        }
+
         public bool Handled => Implementation.Handled;
         public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
         public bool IsActive() => Implementation.IsActive();
         public void HandleControl() => Implementation.HandleControl();
         public void HandleInputs() => Implementation.HandleInputs();
+
+        bool IControlWrapper.UpdateControl(float elapsedTime)
+        {
+            foreach (TControls control in Components)
+                control.Update(elapsedTime);
+
+            return UpdateControl(elapsedTime);
+        }
+
+        protected abstract bool UpdateControl(float elapsedTime);
     }
 
     public abstract class ControlCompositeBase<TControls, TValue> : ControlCompositeBase<TControls>, IControlContainer<TValue>, IControlWrapper<TValue>
