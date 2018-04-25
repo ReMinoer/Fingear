@@ -2,3 +2,7 @@
 	path = External/Stave
 	url = https://github.com/ReMinoer/Stave
 	branch = master
+[submodule "External/Taskete"]
+	path = External/Taskete
+	url = https://github.com/ReMinoer/Taskete.git
+	branch = master

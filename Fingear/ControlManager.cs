@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Diese.Graph;
-using Diese.Scheduling;
+using OverGraphed;
+using Taskete;
 
 namespace Fingear
 {
