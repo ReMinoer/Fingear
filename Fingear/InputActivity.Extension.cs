@@ -45,5 +45,12 @@ namespace Fingear
         {
             return inputActivity == InputActivity.Triggered;
         }
+
+        static public bool Not(this InputActivity inputActivity, InputActivity desiredActivity) => !inputActivity.Is(desiredActivity);
+        static public bool NotIdle(this InputActivity inputActivity) => !inputActivity.IsIdle();
+        static public bool NotPressed(this InputActivity inputActivity) => !inputActivity.IsPressed();
+        static public bool NotChanged(this InputActivity inputActivity) => !inputActivity.IsChanged();
+        static public bool NotReleased(this InputActivity inputActivity) => !inputActivity.IsReleased();
+        static public bool NotTriggered(this InputActivity inputActivity) => !inputActivity.IsTriggered();
     }
 }

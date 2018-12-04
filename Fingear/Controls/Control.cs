@@ -73,7 +73,7 @@ namespace Fingear.Controls
 
         protected override sealed bool UpdateControl(float elapsedTime, out TValue value)
         {
-            if (Input == null || Input.Activity == InputActivity.Idle)
+            if (Input == null || Input.Activity.NotPressed())
             {
                 value = default(TValue);
                 return false;
