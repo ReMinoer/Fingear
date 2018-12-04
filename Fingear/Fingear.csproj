@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ReMinoer.Diese">
-      <Version>0.1.0-alpha</Version>
+      <Version>0.1.2-alpha</Version>
     </PackageReference>
     <PackageReference Include="System.Numerics.Vectors">
       <Version>4.4.0</Version>

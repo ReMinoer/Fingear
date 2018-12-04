@@ -64,6 +64,10 @@
     <Compile Include="Vector2.Extension.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\External\Stave\Stave\Stave.csproj">
+      <Project>{38a041e6-5aa9-4c22-b96f-35167f171959}</Project>
+      <Name>Stave</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fingear\Fingear.csproj">
       <Project>{7ee0b116-6b49-4073-99d8-827dd68b8ae0}</Project>
       <Name>Fingear</Name>

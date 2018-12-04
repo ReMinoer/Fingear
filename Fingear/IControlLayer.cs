@@ -1,5 +1,5 @@
-﻿using Diese.Collections;
-using Glyph;
+﻿using Diese;
+using Diese.Collections;
 
 namespace Fingear
 {

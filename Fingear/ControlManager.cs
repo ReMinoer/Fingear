@@ -11,14 +11,14 @@ namespace Fingear
         private readonly Scheduler _scheduler = new Scheduler();
         public IEnumerable<ControlLayer> Layers => _scheduler.Items;
         public IEnumerable<ControlLayer> Planning => _scheduler.Planning;
-        public IGraphData<SchedulerGraph<ControlLayer>.Vertex, SchedulerGraph<ControlLayer>.Edge> GraphData => _scheduler.GraphData;
+        public IGraph<SchedulerGraph<ControlLayer>.Vertex, SchedulerGraph<ControlLayer>.Edge> Graph => _scheduler.Graph;
         public bool IsBatching => _scheduler.IsBatching;
         public int BatchDepth => _scheduler.BatchDepth;
 
         public SchedulerController Plan(ControlLayer item) => (SchedulerController)_scheduler.Plan(item);
         void IScheduler<ControlLayer>.Plan(ControlLayer item) => _scheduler.Plan(item);
         public void Unplan(ControlLayer item) => _scheduler.Unplan(item);
-        public void ApplyProfile(IGraphData<SchedulerGraph<Predicate<object>>.Vertex, SchedulerGraph<Predicate<object>>.Edge> profile) => _scheduler.ApplyProfile(profile);
+        public void ApplyProfile(IGraph<SchedulerGraph<Predicate<object>>.Vertex, SchedulerGraph<Predicate<object>>.Edge> profile) => _scheduler.ApplyProfile(profile);
 
         public IDisposable Batch() => _scheduler.Batch();
         public void BeginBatch() => _scheduler.BeginBatch();
