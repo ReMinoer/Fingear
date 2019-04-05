@@ -46,8 +46,14 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ControlLayer.cs" />
-    <Compile Include="ControlManager.cs" />
+    <Compile Include="Interactives\Base\InteractiveComponentBase.cs" />
+    <Compile Include="Interactives\Base\InteractiveBase.cs" />
+    <Compile Include="Interactives\InteractiveComposite.cs" />
+    <Compile Include="Interactives\InteractiveContainer.cs" />
+    <Compile Include="Interactives\Base\InteractiveContainerBase.cs" />
+    <Compile Include="Interactives\Interactive.cs" />
+    <Compile Include="IInteractive.cs" />
+    <Compile Include="Interactives\InteractiveInterface.cs" />
     <Compile Include="Controls\Base\ControlImplementation.cs" />
     <Compile Include="Controls\Base\IControlWrapper.cs" />
     <Compile Include="Controls\Containers\HybridControl.cs" />
@@ -75,13 +81,16 @@
     <Compile Include="Converters\Value\ScaleToSwitchInput.cs" />
     <Compile Include="Converters\Value\JoystickToIntensityInput.cs" />
     <Compile Include="Converters\Value\IntensityToButtonInput.cs" />
-    <Compile Include="IControlLayer.cs" />
     <Compile Include="IInputStates.cs" />
+    <Compile Include="IInteractiveComposite.cs" />
+    <Compile Include="IInteractiveContainer.cs" />
+    <Compile Include="IInteractiveDecorator.cs" />
     <Compile Include="InputActivityMachine.cs" />
     <Compile Include="InputCatcher.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="InputSourceType.cs" />
     <Compile Include="Inputs\Base\InputBase.cs" />
+    <Compile Include="InteractionManager.cs" />
     <Compile Include="IVirtualInput.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Controls\Control.cs" />

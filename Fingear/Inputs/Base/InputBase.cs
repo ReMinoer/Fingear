@@ -8,7 +8,6 @@ namespace Fingear.Inputs.Base
         public InputActivity Activity { get; protected set; }
         public abstract IInputSource Source { get; }
         public bool Updated { get; private set; }
-        public IControl Handler { get; internal set; }
 
         protected InputBase()
         {
@@ -30,12 +29,6 @@ namespace Fingear.Inputs.Base
         }
 
         protected abstract void UpdateValues();
-
-        public void HandleBy(IControl handler)
-        {
-            Handler = handler;
-            InputManager.Instance.Handle(this);
-        }
     }
 
     public abstract class InputBase<TValue> : InputBase, IInput<TValue>

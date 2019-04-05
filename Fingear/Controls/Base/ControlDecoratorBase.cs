@@ -25,23 +25,14 @@ namespace Fingear.Controls.Base
             set => Implementation.Name = value;
         }
 
-        public ControlLayer Layer
-        {
-            get => Implementation.Layer;
-            set => Implementation.Layer = value;
-        }
-
         public void Reset()
         {
             Component.Reset();
             Implementation.Reset();
         }
-
-        public bool Handled => Implementation.Handled;
+        
         public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
         public bool IsActive() => Implementation.IsActive();
-        public void HandleControl() => Implementation.HandleControl();
-        public void HandleInputs() => Implementation.HandleInputs();
 
         bool IControlWrapper.UpdateControl(float elapsedTime)
         {
