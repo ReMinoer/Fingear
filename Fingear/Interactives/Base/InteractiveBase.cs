@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Diese;
 using Stave;
 
 namespace Fingear.Interactives.Base
@@ -25,6 +26,11 @@ namespace Fingear.Interactives.Base
                 else
                     Reset();
             }
+        }
+
+        protected InteractiveBase()
+        {
+            Name = GetType().GetDisplayName();
         }
 
         public void Update(float elapsedTime)
