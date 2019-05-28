@@ -31,6 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Fody">
+      <Version>2.1.0</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>2.1.4</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="ReMinoer.Diese">
       <Version>0.1.2-alpha</Version>
     </PackageReference>
@@ -46,6 +56,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Base\ComponentBase.cs" />
+    <Compile Include="Controls\Base\ContainerBase.cs" />
     <Compile Include="Interactives\Base\InteractiveComponentBase.cs" />
     <Compile Include="Interactives\Base\InteractiveBase.cs" />
     <Compile Include="Interactives\InteractiveComposite.cs" />
@@ -54,8 +66,6 @@
     <Compile Include="Interactives\Interactive.cs" />
     <Compile Include="IInteractive.cs" />
     <Compile Include="Interactives\InteractiveInterface.cs" />
-    <Compile Include="Controls\Base\ControlImplementation.cs" />
-    <Compile Include="Controls\Base\IControlWrapper.cs" />
     <Compile Include="Controls\Containers\HybridControl.cs" />
     <Compile Include="Controls\Containers\MultiSourceControl.cs" />
     <Compile Include="Controls\Customizables\CustomizableControl.cs" />
@@ -152,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\Input.Extension.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

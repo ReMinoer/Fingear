@@ -18,7 +18,7 @@ namespace Fingear.Controls.Composites
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            return Components.Count != 0 && Components.All(x => x.IsActive());
+            return Components.Count != 0 && Components.All(x => x.IsActive);
         }
     }
 
@@ -42,7 +42,7 @@ namespace Fingear.Controls.Composites
             Name = name;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        protected override bool UpdateControlValue(float elapsedTime, out TValue value)
         {
             if (Components.Count == 0)
             {

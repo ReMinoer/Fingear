@@ -29,7 +29,7 @@ namespace Fingear.Controls
             Name = name;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out InputActivity value)
+        protected override bool UpdateControlValue(float elapsedTime, out InputActivity value)
         {
             if (Input == null)
                 _machine.Reset();

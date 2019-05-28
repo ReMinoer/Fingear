@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Diese;
 using Stave;
+using IComponent = Stave.IComponent;
 
 namespace Fingear.Interactives.Base
 {
-    public abstract class InteractiveBase : IInteractive
+    public abstract class InteractiveBase : IInteractive, INotifyPropertyChanged
     {
         public string Name { get; set; }
         public abstract IEnumerable<IControl> Controls { get; }
@@ -112,6 +115,12 @@ namespace Fingear.Interactives.Base
         {
             add => ComponentImplementationT1.HierarchyComponentAdded += value;
             remove => ComponentImplementationT1.HierarchyComponentAdded -= value;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

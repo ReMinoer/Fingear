@@ -7,13 +7,13 @@ namespace Fingear
     {
         string Name { get; set; }
         IEnumerable<IInput> Inputs { get; }
+        bool IsActive { get; }
         void Update(float elapsedTime);
         void Reset();
-        bool IsActive();
     }
 
     public interface IControl<TValue> : IControl
     {
-        bool IsActive(out TValue value);
+        new bool IsActive(out TValue value);
     }
 }

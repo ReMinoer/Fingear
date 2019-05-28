@@ -1,82 +1,46 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Stave;
+﻿using Stave;
+using Stave.Base;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlContainerBase<TControls> : Container<IControl, IControlContainer, TControls>, IControlContainer, IControlWrapper
+    public abstract class ControlContainerBase<TControls> : ContainerBase<TControls>
         where TControls : class, IControl
     {
-        internal ControlImplementation Implementation;
-        public virtual IEnumerable<IInput> Inputs => Components.SelectMany(x => x.Inputs);
+        private readonly SealedOrderedComposite<IControl, IControlContainer, TControls> _containerImplementation;
+        protected override sealed IContainer<IControl, IControlContainer, TControls> ContainerImplementation => _containerImplementation;
 
         protected ControlContainerBase()
         {
-            Implementation = new ControlImplementation(this);
+            _containerImplementation = new SealedOrderedComposite<IControl, IControlContainer, TControls>(this);
         }
 
-        internal ControlContainerBase(ControlImplementation implementation)
-        {
-            Implementation = implementation;
-        }
-
-        public string Name
-        {
-            get => Implementation.Name;
-            set => Implementation.Name = value;
-        }
-
-        public void Reset()
-        {
-            foreach (TControls control in Components)
-                control.Reset();
-
-            Implementation.Reset();
-        }
-        
-        public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
-        public bool IsActive() => Implementation.IsActive();
-
-        bool IControlWrapper.UpdateControl(float elapsedTime)
-        {
-            foreach (TControls control in Components)
-                control.Update(elapsedTime);
-
-            return UpdateControl(elapsedTime);
-        }
-
-        protected abstract bool UpdateControl(float elapsedTime);
+        new protected ComponentList<IControl, IControlContainer, TControls> Components => _containerImplementation.Components;
     }
 
-    public abstract class ControlContainerBase<TControls, TValue> : ControlContainerBase<TControls>, IControlContainer<TValue>, IControlWrapper<TValue>
+    public abstract class ControlContainerBase<TControls, TValue> : ControlContainerBase<TControls>, IControlContainer<TControls, TValue>
         where TControls : class, IControl
     {
-        new internal ControlImplementation<TValue> Implementation;
+        private TValue _value;
 
-        protected ControlContainerBase()
-            : base(null)
+        public bool IsActive(out TValue value)
         {
-            Implementation = new ControlImplementation<TValue>(this);
-            base.Implementation = Implementation;
+            value = _value;
+            return base.IsActive;
         }
 
-        internal ControlContainerBase(ControlImplementation<TValue> implementation)
-            : base(implementation)
+        protected override sealed bool UpdateControl(float elapsedTime)
         {
-            Implementation = implementation;
+            bool isActive = UpdateControlValue(elapsedTime, out TValue value);
+            _value = isActive ? value : default(TValue);
+            return isActive;
         }
 
-        bool IControlWrapper<TValue>.UpdateControl(float elapsedTime, out TValue value)
+        protected abstract bool UpdateControlValue(float elapsedTime, out TValue value);
+
+        public override void Reset()
         {
-            foreach (TControls control in Components)
-                control.Update(elapsedTime);
-
-            return UpdateControl(elapsedTime, out value);
+            _value = default(TValue);
+            base.Reset();
         }
-
-        protected override sealed bool UpdateControl(float elapsedTime) => UpdateControl(elapsedTime, out TValue _);
-        protected abstract bool UpdateControl(float elapsedTime, out TValue value);
-
-        public bool IsActive(out TValue value) => Implementation.IsActive(out value);
     }
 }

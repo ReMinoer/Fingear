@@ -71,7 +71,7 @@ namespace Fingear.Controls
             Name = name;
         }
 
-        protected override sealed bool UpdateControl(float elapsedTime, out TValue value)
+        protected override sealed bool UpdateControlValue(float elapsedTime, out TValue value)
         {
             if (Input == null || Input.Activity.NotPressed())
             {

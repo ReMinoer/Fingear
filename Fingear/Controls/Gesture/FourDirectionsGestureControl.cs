@@ -59,7 +59,7 @@ namespace Fingear.Controls.Gesture
             Input = input;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out Orientation[] value)
+        protected override bool UpdateControlValue(float elapsedTime, out Orientation[] value)
         {
             if (ActivityControl != null && ActivityControl.IsActive(out InputActivity activity))
             {

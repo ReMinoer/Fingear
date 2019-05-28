@@ -26,7 +26,7 @@ namespace Fingear.Controls.Decorators
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            if (Component != null && Component.IsActive())
+            if (Component != null && Component.IsActive)
             {
                 _totalElapsedTime += elapsedTime;
                 if (_totalElapsedTime > Timer)
@@ -54,7 +54,7 @@ namespace Fingear.Controls.Decorators
             Timer = timer;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        protected override bool UpdateControlValue(float elapsedTime, out TValue value)
         {
             if (Component != null && Component.IsActive(out value))
             {

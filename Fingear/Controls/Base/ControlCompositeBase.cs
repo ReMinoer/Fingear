@@ -1,82 +1,50 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using Diese.Collections;
 using Stave;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlCompositeBase<TControls> : Composite<IControl, IControlContainer, TControls>, IControlContainer, IControlWrapper
+    public abstract class ControlCompositeBase<TControls> : ContainerBase<TControls>, IControlComposite<TControls>
         where TControls : class, IControl
     {
-        internal ControlImplementation Implementation;
-        public virtual IEnumerable<IInput> Inputs => Components.SelectMany(x => x.Inputs);
+        private readonly Composite<IControl, IControlContainer, TControls> _compositeImplementation;
+        protected override IContainer<IControl, IControlContainer, TControls> ContainerImplementation => _compositeImplementation;
 
         protected ControlCompositeBase()
         {
-            Implementation = new ControlImplementation(this);
-        }
-
-        internal ControlCompositeBase(ControlImplementation implementation)
-        {
-            Implementation = implementation;
-        }
-
-        public string Name
-        {
-            get => Implementation.Name;
-            set => Implementation.Name = value;
-        }
-
-        public void Reset()
-        {
-            foreach (TControls control in Components)
-                control.Reset();
-
-            Implementation.Reset();
+            _compositeImplementation = new Composite<IControl, IControlContainer, TControls>(this);
         }
         
-        public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
-        public bool IsActive() => Implementation.IsActive();
-
-        bool IControlWrapper.UpdateControl(float elapsedTime)
-        {
-            foreach (TControls control in Components)
-                control.Update(elapsedTime);
-
-            return UpdateControl(elapsedTime);
-        }
-
-        protected abstract bool UpdateControl(float elapsedTime);
+        new public IWrappedCollection<TControls> Components => _compositeImplementation.Components;
+        public void Add(TControls item) => _compositeImplementation.Add(item);
+        public bool Remove(TControls item) => _compositeImplementation.Remove(item);
+        public void Clear() => _compositeImplementation.Clear();
+        public bool Contains(TControls item) => _compositeImplementation.Contains(item);
     }
 
-    public abstract class ControlCompositeBase<TControls, TValue> : ControlCompositeBase<TControls>, IControlContainer<TValue>, IControlWrapper<TValue>
+    public abstract class ControlCompositeBase<TControls, TValue> : ControlCompositeBase<TControls>, IControlComposite<TControls, TValue>
         where TControls : class, IControl
     {
-        new internal ControlImplementation<TValue> Implementation;
+        private TValue _value;
 
-        protected ControlCompositeBase()
-            : base(null)
+        public bool IsActive(out TValue value)
         {
-            Implementation = new ControlImplementation<TValue>(this);
-            base.Implementation = Implementation;
+            value = _value;
+            return base.IsActive;
         }
 
-        internal ControlCompositeBase(ControlImplementation<TValue> implementation)
-            : base(implementation)
+        protected override sealed bool UpdateControl(float elapsedTime)
         {
-            Implementation = implementation;
+            bool isActive = UpdateControlValue(elapsedTime, out TValue value);
+            _value = isActive ? value : default(TValue);
+            return isActive;
         }
 
-        bool IControlWrapper<TValue>.UpdateControl(float elapsedTime, out TValue value)
+        protected abstract bool UpdateControlValue(float elapsedTime, out TValue value);
+
+        public override void Reset()
         {
-            foreach (TControls control in Components)
-                control.Update(elapsedTime);
-
-            return UpdateControl(elapsedTime, out value);
+            _value = default(TValue);
+            base.Reset();
         }
-
-        protected override sealed bool UpdateControl(float elapsedTime) => UpdateControl(elapsedTime, out TValue _);
-        protected abstract bool UpdateControl(float elapsedTime, out TValue value);
-
-        public bool IsActive(out TValue value) => Implementation.IsActive(out value);
     }
 }

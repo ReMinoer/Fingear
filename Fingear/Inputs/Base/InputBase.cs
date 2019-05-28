@@ -1,8 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Fingear.Inputs.Base
 {
-    public abstract class InputBase : IInput
+    public abstract class InputBase : IInput, INotifyPropertyChanged
     {
         public abstract string DisplayName { get; }
         public InputActivity Activity { get; protected set; }
@@ -29,6 +31,12 @@ namespace Fingear.Inputs.Base
         }
 
         protected abstract void UpdateValues();
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void NotifyPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 
     public abstract class InputBase<TValue> : InputBase, IInput<TValue>

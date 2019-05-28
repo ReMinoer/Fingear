@@ -1,58 +1,40 @@
-﻿using System.Collections.Generic;
-using Stave;
+﻿using Stave;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlBase : Component<IControl, IControlContainer>, IControlWrapper
+    public abstract class ControlBase : ComponentBase
     {
-        protected ControlImplementation Implementation;
-        public abstract IEnumerable<IInput> Inputs { get; }
+        protected override sealed IComponent<IControl, IControlContainer> ComponentImplementation { get; }
 
         protected ControlBase()
         {
-            Implementation = new ControlImplementation(this);
+            ComponentImplementation = new Component<IControl, IControlContainer>(this);
         }
-
-        internal ControlBase(ControlImplementation implementation)
-        {
-            Implementation = implementation;
-        }
-
-        public string Name
-        {
-            get => Implementation.Name;
-            set => Implementation.Name = value;
-        }
-        
-        public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
-        public virtual void Reset() => Implementation.Reset();
-        public bool IsActive() => Implementation.IsActive();
-
-        bool IControlWrapper.UpdateControl(float elapsedTime) => UpdateControl(elapsedTime);
-        protected abstract bool UpdateControl(float elapsedTime);
     }
 
-    public abstract class ControlBase<TValue> : ControlBase, IControlWrapper<TValue>
+    public abstract class ControlBase<TValue> : ControlBase, IControl<TValue>
     {
-        new internal readonly ControlImplementation<TValue> Implementation;
+        private TValue _value;
 
-        protected ControlBase()
-            : base(null)
+        public bool IsActive(out TValue value)
         {
-            Implementation = new ControlImplementation<TValue>(this);
-            base.Implementation = Implementation;
+            value = _value;
+            return base.IsActive;
         }
 
-        internal ControlBase(ControlImplementation<TValue> implementation)
-            : base(implementation)
+        protected override sealed bool UpdateControl(float elapsedTime)
         {
-            Implementation = implementation;
+            bool isActive = UpdateControlValue(elapsedTime, out TValue value);
+            _value = isActive ? value : default(TValue);
+            return isActive;
         }
 
-        bool IControlWrapper<TValue>.UpdateControl(float elapsedTime, out TValue value) => UpdateControl(elapsedTime, out value);
-        protected override sealed bool UpdateControl(float elapsedTime) => UpdateControl(elapsedTime, out TValue _);
-        protected abstract bool UpdateControl(float elapsedTime, out TValue value);
+        protected abstract bool UpdateControlValue(float elapsedTime, out TValue value);
 
-        public bool IsActive(out TValue value) => Implementation.IsActive(out value);
+        public override void Reset()
+        {
+            _value = default(TValue);
+            base.Reset();
+        }
     }
 }

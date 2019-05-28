@@ -29,7 +29,7 @@ namespace Fingear.Controls.Decorators
             Name = name;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        protected override bool UpdateControlValue(float elapsedTime, out TValue value)
         {
             _samples.Enqueue(Component.IsActive(out TValue sample) ? sample : default(TValue));
             while (_samples.Count > SamplesCount)

@@ -6,7 +6,13 @@ namespace Fingear
     {
     }
 
-    public interface IControlContainer<TValue> : IControlContainer, IControl<TValue>
+    public interface IControlContainer<TControls> : IControlContainer, IContainer<IControl, IControlContainer, TControls>
+        where TControls : class, IControl
+    {
+    }
+
+    public interface IControlContainer<TControls, TValue> : IControlContainer<TControls>, IControl<TValue>
+        where TControls : class, IControl
     {
     }
 }

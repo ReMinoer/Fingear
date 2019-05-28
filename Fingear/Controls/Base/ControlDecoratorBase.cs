@@ -1,75 +1,51 @@
-﻿using System.Collections.Generic;
-using Stave;
+﻿using Stave;
 
 namespace Fingear.Controls.Base
 {
-    public abstract class ControlDecoratorBase<TControl> : Decorator<IControl, IControlContainer, TControl>, IControlDecorator<TControl>, IControlWrapper
+    public abstract class ControlDecoratorBase<TControl> : ContainerBase<TControl>, IControlDecorator<TControl>
         where TControl : class, IControl
     {
-        internal ControlImplementation Implementation;
-        public virtual IEnumerable<IInput> Inputs => Component.Inputs;
+        private readonly Decorator<IControl, IControlContainer, TControl> _decoratorImplementation;
+        protected override IContainer<IControl, IControlContainer, TControl> ContainerImplementation => _decoratorImplementation;
 
         protected ControlDecoratorBase()
         {
-            Implementation = new ControlImplementation(this);
+            _decoratorImplementation = new Decorator<IControl, IControlContainer, TControl>(this);
         }
 
-        internal ControlDecoratorBase(ControlImplementation implementation)
+        public TControl Component
         {
-            Implementation = implementation;
+            get => _decoratorImplementation.Component;
+            set => _decoratorImplementation.Component = value;
         }
 
-        public string Name
-        {
-            get => Implementation.Name;
-            set => Implementation.Name = value;
-        }
-
-        public void Reset()
-        {
-            Component.Reset();
-            Implementation.Reset();
-        }
-        
-        public void Update(float elapsedTime) => Implementation.Update(elapsedTime);
-        public bool IsActive() => Implementation.IsActive();
-
-        bool IControlWrapper.UpdateControl(float elapsedTime)
-        {
-            Component.Update(elapsedTime);
-            return UpdateControl(elapsedTime);
-        }
-
-        protected abstract bool UpdateControl(float elapsedTime);
+        public TControl Unlink() => _decoratorImplementation.Unlink();
     }
 
-    public abstract class ControlDecoratorBase<TControl, TValue> : ControlDecoratorBase<TControl>, IControlDecorator<TControl, TValue>, IControlWrapper<TValue>
+    public abstract class ControlDecoratorBase<TControl, TValue> : ControlDecoratorBase<TControl>, IControlDecorator<TControl, TValue>
         where TControl : class, IControl
     {
-        new internal ControlImplementation<TValue> Implementation;
+        private TValue _value;
 
-        protected ControlDecoratorBase()
-            : base(null)
+        public bool IsActive(out TValue value)
         {
-            Implementation = new ControlImplementation<TValue>(this);
-            base.Implementation = Implementation;
+            value = _value;
+            return base.IsActive;
         }
 
-        internal ControlDecoratorBase(ControlImplementation<TValue> implementation)
-            : base(implementation)
+        protected override sealed bool UpdateControl(float elapsedTime)
         {
-            Implementation = implementation;
+            bool isActive = UpdateControlValue(elapsedTime, out TValue value);
+            _value = isActive ? value : default(TValue);
+            return isActive;
         }
 
-        bool IControlWrapper<TValue>.UpdateControl(float elapsedTime, out TValue value)
+        protected abstract bool UpdateControlValue(float elapsedTime, out TValue value);
+
+        public override void Reset()
         {
-            Component.Update(elapsedTime);
-            return UpdateControl(elapsedTime, out value);
+            _value = default(TValue);
+            base.Reset();
         }
-
-        protected override sealed bool UpdateControl(float elapsedTime) => UpdateControl(elapsedTime, out TValue _);
-        protected abstract bool UpdateControl(float elapsedTime, out TValue value);
-
-        public bool IsActive(out TValue value) => Implementation.IsActive(out value);
     }
 }

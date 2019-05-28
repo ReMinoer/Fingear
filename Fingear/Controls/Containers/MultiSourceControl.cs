@@ -34,7 +34,7 @@ namespace Fingear.Controls.Containers
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            return _typeControlSets.Where(x => Types.Match(x.Key)).Any(x => x.Value.IsActive());
+            return _typeControlSets.Where(x => Types.Match(x.Key)).Any(x => x.Value.IsActive);
         }
     }
 
@@ -79,7 +79,7 @@ namespace Fingear.Controls.Containers
             Name = name;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        protected override bool UpdateControlValue(float elapsedTime, out TValue value)
         {
             List<TValue> values = null;
             foreach (IControl<TValue> component in _typeControlSets.Where(x => Types.Match(x.Key)).Select(x => x.Value))

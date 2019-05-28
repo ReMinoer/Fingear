@@ -98,7 +98,7 @@ namespace Fingear.Controls.Customizables
             }
         }
 
-        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        protected override bool UpdateControlValue(float elapsedTime, out TValue value)
         {
             List<TValue> values = null;
             foreach (IControl<TValue> component in Components)

@@ -66,10 +66,10 @@ namespace Fingear.Controls.Containers
             Name = name;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        protected override bool UpdateControlValue(float elapsedTime, out TValue value)
         {
             ValueControl.IsActive(out value);
-            return TriggerControl.IsActive();
+            return TriggerControl.IsActive;
         }
     }
 }

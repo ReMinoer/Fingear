@@ -76,7 +76,7 @@ namespace Fingear.Controls.Customizables
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            return Components.Any(x => x.IsActive());
+            return Components.Any(x => x.IsActive);
         }
     }
 }

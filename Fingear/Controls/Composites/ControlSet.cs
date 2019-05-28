@@ -17,7 +17,7 @@ namespace Fingear.Controls.Composites
 
         protected override bool UpdateControl(float elapsedTime)
         {
-            return Components.Any(x => x.IsActive());
+            return Components.Any(x => x.IsActive);
         }
     }
 
@@ -46,7 +46,7 @@ namespace Fingear.Controls.Composites
             Name = name;
         }
 
-        protected override bool UpdateControl(float elapsedTime, out TValue value)
+        protected override bool UpdateControlValue(float elapsedTime, out TValue value)
         {
             List<TValue> values = null;
             foreach (IControl<TValue> component in Components)
