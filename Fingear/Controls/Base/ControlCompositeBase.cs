@@ -35,7 +35,7 @@ namespace Fingear.Controls.Base
         protected override sealed bool UpdateControl(float elapsedTime)
         {
             bool isActive = UpdateControlValue(elapsedTime, out TValue value);
-            _value = isActive ? value : default(TValue);
+            _value = value;
             return isActive;
         }
 
