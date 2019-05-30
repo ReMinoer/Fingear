@@ -13,13 +13,13 @@ namespace Fingear.Interactives.Base
 
         protected override void UpdateEnabled(float elapsedTime)
         {
-            foreach (IControl control in Controls)
+            foreach (IControl control in ReadOnlyControls)
                 control.Update(elapsedTime);
         }
 
         public override void Reset()
         {
-            foreach (IControl control in Controls)
+            foreach (IControl control in ReadOnlyControls)
                 control.Reset();
         }
     }

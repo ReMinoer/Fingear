@@ -10,7 +10,7 @@ namespace Fingear.Interactives.Base
         protected abstract IContainer<IInteractive, IInteractiveContainer, TComponent> ContainerImplementation { get; }
         protected override sealed IComponent<IInteractive, IInteractiveContainer> ComponentImplementation => ContainerImplementation;
 
-        public override IEnumerable<IControl> Controls => Enumerable.Empty<IControl>();
+        protected override IEnumerable<IControl> ReadOnlyControls => Enumerable.Empty<IControl>();
 
         protected override void UpdateEnabled(float elapsedTime)
         {

@@ -6,27 +6,16 @@ using Stave;
 
 namespace Fingear.Interactives
 {
-    public class Interactive : InteractiveComponentBase, ICollection<IControl>
+    public class Interactive : InteractiveComponentBase
     {
-        private readonly List<IControl> _controls;
+        public List<IControl> Controls { get; }
         private readonly ReadOnlyList<IControl> _readOnlyControls;
-        public override IEnumerable<IControl> Controls => _readOnlyControls;
+        protected override IEnumerable<IControl> ReadOnlyControls => _readOnlyControls;
 
         public Interactive()
         {
-            _controls = new List<IControl>();
-            _readOnlyControls = new ReadOnlyList<IControl>(_controls);
+            Controls = new List<IControl>();
+            _readOnlyControls = new ReadOnlyList<IControl>(Controls);
         }
-        
-        public void Add(IControl item) => _controls.Add(item);
-        public void Clear() => _controls.Clear();
-        public bool Contains(IControl item) => _controls.Contains(item);
-        public bool Remove(IControl item) => _controls.Remove(item);
-        public IEnumerator<IControl> GetEnumerator() => _controls.GetEnumerator();
-        
-        int ICollection<IControl>.Count => _controls.Count;
-        bool ICollection<IControl>.IsReadOnly => false;
-        void ICollection<IControl>.CopyTo(IControl[] array, int arrayIndex) => _controls.CopyTo(array, arrayIndex);
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

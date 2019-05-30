@@ -32,7 +32,7 @@ namespace Fingear.Interactives
         public IControl<InputActivity> Clic { get; set; }
         public IControl<InputActivity> ContextClic { get; set; }
 
-        public override IEnumerable<IControl> Controls
+        protected override IEnumerable<IControl> ReadOnlyControls
         {
             get
             {

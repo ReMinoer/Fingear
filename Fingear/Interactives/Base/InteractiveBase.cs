@@ -11,7 +11,8 @@ namespace Fingear.Interactives.Base
     public abstract class InteractiveBase : IInteractive, INotifyPropertyChanged
     {
         public string Name { get; set; }
-        public abstract IEnumerable<IControl> Controls { get; }
+        protected abstract IEnumerable<IControl> ReadOnlyControls { get; }
+        IEnumerable<IControl> IInteractive.Controls => ReadOnlyControls;
         
         private bool _enabled = true;
         public bool Enabled
