@@ -101,6 +101,7 @@
     <Compile Include="InputSourceType.cs" />
     <Compile Include="Inputs\Base\InputBase.cs" />
     <Compile Include="InteractionManager.cs" />
+    <Compile Include="Interactives\InteractiveToggle.cs" />
     <Compile Include="IVirtualInput.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Controls\Control.cs" />

@@ -20,9 +20,9 @@ namespace Fingear.Interactives
         }
 
         public IWrappedCollection<TComponent> Components => CompositeImplementation.Components;
-        public void Add(TComponent item) => CompositeImplementation.Add(item);
-        public bool Remove(TComponent item) => CompositeImplementation.Remove(item);
-        public void Clear() => CompositeImplementation.Clear();
+        public virtual void Add(TComponent item) => CompositeImplementation.Add(item);
+        public virtual bool Remove(TComponent item) => CompositeImplementation.Remove(item);
+        public virtual void Clear() => CompositeImplementation.Clear();
         public bool Contains(TComponent item) => CompositeImplementation.Contains(item);
     }
 }
