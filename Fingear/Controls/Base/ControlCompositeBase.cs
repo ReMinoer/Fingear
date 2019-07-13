@@ -1,4 +1,4 @@
-﻿using Diese.Collections;
+﻿using Diese.Collections.Observables.ReadOnly;
 using Stave;
 
 namespace Fingear.Controls.Base
@@ -14,7 +14,7 @@ namespace Fingear.Controls.Base
             _compositeImplementation = new Composite<IControl, IControlContainer, TControls>(this);
         }
         
-        new public IWrappedCollection<TControls> Components => _compositeImplementation.Components;
+        new public IWrappedObservableCollection<TControls> Components => _compositeImplementation.Components;
         public void Add(TControls item) => _compositeImplementation.Add(item);
         public bool Remove(TControls item) => _compositeImplementation.Remove(item);
         public void Clear() => _compositeImplementation.Clear();

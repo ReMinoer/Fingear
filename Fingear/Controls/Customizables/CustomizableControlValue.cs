@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using Diese.Collections;
+using Diese.Collections.Observables;
 using Fingear.Controls.Base;
 
 namespace Fingear.Controls.Customizables

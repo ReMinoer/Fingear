@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Diese.Collections;
-using Fingear.Inputs.Base;
+using Diese.Collections.ReadOnly;
 
 namespace Fingear
 {

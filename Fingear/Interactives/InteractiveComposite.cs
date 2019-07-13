@@ -1,4 +1,4 @@
-﻿using Diese.Collections;
+﻿using Diese.Collections.Observables.ReadOnly;
 using Fingear.Interactives.Base;
 using Stave;
 
@@ -19,7 +19,7 @@ namespace Fingear.Interactives
             CompositeImplementation = new Composite<IInteractive, IInteractiveContainer, TComponent>(this);
         }
 
-        public IWrappedCollection<TComponent> Components => CompositeImplementation.Components;
+        public IWrappedObservableCollection<TComponent> Components => CompositeImplementation.Components;
         public virtual void Add(TComponent item) => CompositeImplementation.Add(item);
         public virtual bool Remove(TComponent item) => CompositeImplementation.Remove(item);
         public virtual void Clear() => CompositeImplementation.Clear();
