@@ -20,7 +20,7 @@ namespace Fingear.Interactives
                 if (_selectedInteractive == value)
                     return;
 
-                if (!Contains(value))
+                if (value != null && !Contains(value))
                     throw new InvalidOperationException();
 
                 _selectedInteractive = value;
