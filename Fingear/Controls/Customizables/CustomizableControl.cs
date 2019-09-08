@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using Diese.Collections;
 using Diese.Collections.Observables;
 using Fingear.Controls.Base;
 
@@ -33,7 +34,7 @@ namespace Fingear.Controls.Customizables
             UserInputs.CollectionChanged += InputsOnCollectionChanged;
 
             if (defaultInputs != null)
-                UserInputs.AddRange(defaultInputs);
+                UserInputs.AddMany(defaultInputs);
         }
 
         public CustomizableControl(string name, Func<TInput, IControl> controlFactory, IEnumerable<TInput> defaultInputs = null)
