@@ -17,6 +17,8 @@ namespace Fingear
                 case InputActivity.Triggered:
                     if (inputActivity == InputActivity.Pressed)
                         State = InputActivity.Pressed;
+                    else if (inputActivity == InputActivity.Released)
+                        State = InputActivity.Released;
                     break;
                 case InputActivity.Pressed:
                     if (inputActivity == InputActivity.Released)
@@ -25,6 +27,8 @@ namespace Fingear
                 case InputActivity.Released:
                     if (inputActivity == InputActivity.Idle)
                         State = InputActivity.Idle;
+                    else if (inputActivity == InputActivity.Triggered)
+                        State = InputActivity.Triggered;
                     break;
                 default:
                     throw new NotSupportedException();
