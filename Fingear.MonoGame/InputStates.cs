@@ -56,6 +56,10 @@ namespace Fingear.MonoGame
             Ignored = false;
         }
 
+        public void Reset()
+        {
+        }
+
         public void Ignore()
         {
             Ignored = true;

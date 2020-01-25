@@ -16,7 +16,7 @@ namespace Fingear.Inputs.Base
             InputManager.Instance.Register(this);
         }
 
-        public void Prepare()
+        public virtual void Prepare()
         {
             Updated = false;
         }
@@ -28,6 +28,11 @@ namespace Fingear.Inputs.Base
 
             UpdateValues();
             Updated = true;
+        }
+
+        public virtual void Reset()
+        {
+            Activity = InputActivity.Idle;
         }
 
         protected abstract void UpdateValues();

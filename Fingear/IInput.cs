@@ -10,6 +10,7 @@ namespace Fingear
         bool Updated { get; }
         void Prepare();
         void Update();
+        void Reset();
     }
 
     public interface IInput<out TValue> : IInput

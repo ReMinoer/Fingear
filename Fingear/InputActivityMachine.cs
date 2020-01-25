@@ -37,7 +37,7 @@ namespace Fingear
 
         public void Reset()
         {
-            State = InputActivity.Idle;
+            State = State.IsPressed() ? InputActivity.Released : InputActivity.Idle;
         }
     }
 }

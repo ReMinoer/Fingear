@@ -11,5 +11,10 @@ namespace Fingear
             InputManager.Instance.Update();
             Root.Update(elapsedTime);
         }
+
+        public void Reset()
+        {
+            Root.Reset();
+        }
     }
 }

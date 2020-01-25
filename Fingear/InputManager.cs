@@ -46,5 +46,12 @@ namespace Fingear
                 InputSourcesChanged?.Invoke(InputSources);
             }
         }
+
+        public void Reset()
+        {
+            InputStates?.Reset();
+            foreach (IInput input in Inputs)
+                input.Reset();
+        }
     }
 }

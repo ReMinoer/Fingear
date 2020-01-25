@@ -11,6 +11,7 @@
         IInput ICustomizableInput.Input => Input;
         public void Prepare() => Input.Prepare();
         public void Update() => Input.Update();
+        public void Reset() => Input.Reset();
     }
 
     public class CustomizableInput<TInput, TValue> : CustomizableInput<TInput>, ICustomizableInput<TInput, TValue>
