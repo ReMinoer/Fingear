@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Fingear.Inputs.Base;
 using Fingear.Utils;
 
@@ -8,8 +9,14 @@ namespace Fingear.Converters.Value
     {
         public ICursorInput CursorInput { get; set; }
         public Axis Axis { get; set; }
+
         public override string DisplayName => CursorInput != null ? $"{CursorInput.DisplayName} {EnumUtils.GetDisplayName(Axis)}" : "";
         public override IInputSource Source => CursorInput?.Source;
+
+        protected override IEnumerable<IInput> BaseInputs
+        {
+            get { yield return CursorInput; }
+        }
 
         public float Maximum
         {

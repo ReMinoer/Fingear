@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Collections.Generic;
+using System.Numerics;
 
 namespace Fingear
 {
@@ -7,6 +8,7 @@ namespace Fingear
         string DisplayName { get; }
         InputActivity Activity { get; }
         IInputSource Source { get; }
+        IEnumerable<IInput> BaseInputs { get; }
         bool Updated { get; }
         void Prepare();
         void Update();

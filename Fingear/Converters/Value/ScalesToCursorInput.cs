@@ -10,7 +10,8 @@ namespace Fingear.Converters.Value
     {
         public IScaleInput X { get; set; }
         public IScaleInput Y { get; set; }
-
+        
+        protected override IEnumerable<IInput> BaseInputs => Scales;
         public IEnumerable<IScaleInput> Scales
         {
             get

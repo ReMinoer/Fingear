@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Fingear.Inputs.Base;
 using Fingear.Utils;
@@ -9,8 +10,14 @@ namespace Fingear.Converters.Value
     {
         public ICursorInput CursorInput { get; set; }
         public Predicate<Vector2> ValueSelector { get; set; }
+
         public override IInputSource Source => CursorInput?.Source;
         public override bool Value => CursorInput != null && ValueSelector(CursorInput.Value);
+
+        protected override IEnumerable<IInput> BaseInputs
+        {
+            get { yield return CursorInput; }
+        }
 
         public override string DisplayName
         {

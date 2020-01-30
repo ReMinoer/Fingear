@@ -7,6 +7,7 @@ namespace Fingear
     {
         string Name { get; set; }
         IEnumerable<IInput> Inputs { get; }
+        IEnumerable<IInput> BaseInputs { get; }
         bool IsActive { get; }
         void Update(float elapsedTime);
         void Reset();

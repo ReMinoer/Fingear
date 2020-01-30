@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Diese;
 using Stave;
@@ -13,6 +14,8 @@ namespace Fingear.Controls.Base
         public string Name { get; set; }
         public bool IsActive { get; private set; }
         public abstract IEnumerable<IInput> Inputs { get; }
+
+        public IEnumerable<IInput> BaseInputs => Inputs.SelectMany(x => x.BaseInputs);
 
         protected ComponentBase()
         {

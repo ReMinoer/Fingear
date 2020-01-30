@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Fingear.Inputs.Base;
 using Fingear.Utils;
 
@@ -8,9 +9,15 @@ namespace Fingear.Converters.Value
     {
         public IIntensityInput IntensityInput { get; set; }
         public Predicate<float> ValueSelector { get; set; }
+
         public override bool IdleValue => IntensityInput != null && ValueSelector(IntensityInput.IdleValue);
         public override IInputSource Source => IntensityInput?.Source;
         public override bool Value => IntensityInput != null && ValueSelector(IntensityInput.Value);
+
+        protected override IEnumerable<IInput> BaseInputs
+        {
+            get { yield return IntensityInput; }
+        }
 
         public override string DisplayName
         {

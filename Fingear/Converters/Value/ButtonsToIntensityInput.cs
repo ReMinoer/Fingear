@@ -9,6 +9,7 @@ namespace Fingear.Converters.Value
         public IButtonInput Positive { get; set; }
         public IButtonInput Negative { get; set; }
 
+        protected override IEnumerable<IInput> BaseInputs => Buttons;
         public IEnumerable<IButtonInput> Buttons
         {
             get

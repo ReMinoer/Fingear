@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using Fingear.Inputs.Base;
 using Fingear.Utils;
@@ -9,9 +10,15 @@ namespace Fingear.Converters.Value
     {
         public IJoystickInput JoystickInput { get; set; }
         public Predicate<Vector2> ValueSelector { get; set; }
+
         public override IInputSource Source => JoystickInput?.Source;
         public override bool Value => JoystickInput != null && ValueSelector(JoystickInput.Value);
         public override bool IdleValue => JoystickInput != null && ValueSelector(JoystickInput.IdleValue);
+
+        protected override IEnumerable<IInput> BaseInputs
+        {
+            get { yield return JoystickInput; }
+        }
 
         public override string DisplayName
         {

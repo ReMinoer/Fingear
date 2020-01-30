@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -10,6 +11,12 @@ namespace Fingear.Inputs.Base
         public InputActivity Activity { get; protected set; }
         public abstract IInputSource Source { get; }
         public bool Updated { get; private set; }
+
+        IEnumerable<IInput> IInput.BaseInputs => BaseInputs;
+        protected virtual IEnumerable<IInput> BaseInputs
+        {
+            get { yield return this; }
+        }
 
         protected InputBase()
         {

@@ -16,7 +16,8 @@ namespace Fingear.Converters.Value
         public ISwitchInput Right { get; set; }
         public ISwitchInput Up { get; set; }
         public ISwitchInput Down { get; set; }
-
+        
+        protected override IEnumerable<IInput> BaseInputs => Switches;
         public IEnumerable<ISwitchInput> Switches
         {
             get

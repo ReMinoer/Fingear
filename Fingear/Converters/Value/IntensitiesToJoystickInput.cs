@@ -10,7 +10,8 @@ namespace Fingear.Converters.Value
     {
         public IIntensityInput X { get; set; }
         public IIntensityInput Y { get; set; }
-
+        
+        protected override IEnumerable<IInput> BaseInputs => Intensities;
         public IEnumerable<IIntensityInput> Intensities
         {
             get
