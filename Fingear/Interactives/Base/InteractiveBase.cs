@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Diese;
+using Fingear.Controls;
 using Stave;
 using IComponent = Stave.IComponent;
 

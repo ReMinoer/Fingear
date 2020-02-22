@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Numerics;
+using Fingear.Controls;
+using Fingear.Inputs;
 using Fingear.Interactives.Interfaces.Base;
 
 namespace Fingear.Interactives.Interfaces

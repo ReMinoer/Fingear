@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Fingear.Inputs;
 using Fingear.MonoGame.Inputs;
 using Microsoft.Xna.Framework.Input;
 

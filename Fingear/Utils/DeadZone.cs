@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Numerics;
-using Fingear.Converters;
+using Fingear.Inputs.Converters;
 
 namespace Fingear.Utils
 {

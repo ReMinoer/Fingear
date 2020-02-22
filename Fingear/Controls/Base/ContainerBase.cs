@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Fingear.Inputs;
 using Stave;
 
 namespace Fingear.Controls.Base

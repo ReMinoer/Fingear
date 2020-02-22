@@ -1,5 +1,6 @@
 ﻿using System;
 using Fingear.Inputs;
+using Fingear.Inputs.Base;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Vector2 = System.Numerics.Vector2;

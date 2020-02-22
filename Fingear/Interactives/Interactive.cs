@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Diese.Collections.ReadOnly;
+using Fingear.Controls;
 using Fingear.Interactives.Base;
 
 namespace Fingear.Interactives

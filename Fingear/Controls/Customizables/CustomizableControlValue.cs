@@ -5,6 +5,8 @@ using System.Linq;
 using Diese.Collections;
 using Diese.Collections.Observables;
 using Fingear.Controls.Base;
+using Fingear.Inputs;
+using Fingear.Utils;
 
 namespace Fingear.Controls.Customizables
 {

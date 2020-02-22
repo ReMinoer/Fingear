@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Fingear.Controls.Base;
+using Fingear.Inputs;
 
 namespace Fingear.Controls
 {

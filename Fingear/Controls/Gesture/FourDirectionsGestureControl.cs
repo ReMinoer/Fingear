@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 using Fingear.Controls.Base;
+using Fingear.Inputs;
 
 namespace Fingear.Controls.Gesture
 {

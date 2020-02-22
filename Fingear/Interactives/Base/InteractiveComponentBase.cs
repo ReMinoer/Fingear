@@ -1,4 +1,5 @@
-﻿using Stave;
+﻿using Fingear.Controls;
+using Stave;
 
 namespace Fingear.Interactives.Base
 {

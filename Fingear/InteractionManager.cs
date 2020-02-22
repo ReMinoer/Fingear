@@ -1,4 +1,6 @@
-﻿using Fingear.Interactives;
+﻿using Fingear.Inputs;
+using Fingear.Interactives;
+using Fingear.Interactives.Containers;
 
 namespace Fingear
 {

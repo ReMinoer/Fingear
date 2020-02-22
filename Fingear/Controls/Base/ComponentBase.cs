@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Diese;
+using Fingear.Inputs;
 using Stave;
 using IComponent = Stave.IComponent;
 

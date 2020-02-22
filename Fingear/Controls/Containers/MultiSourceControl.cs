@@ -2,6 +2,8 @@
 using System.Linq;
 using Diese.Collections;
 using Fingear.Controls.Base;
+using Fingear.Inputs;
+using Fingear.Utils;
 
 namespace Fingear.Controls.Containers
 {

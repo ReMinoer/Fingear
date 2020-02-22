@@ -1,4 +1,6 @@
-﻿namespace Fingear.MonoGame
+﻿using Fingear.Controls;
+
+namespace Fingear.MonoGame
 {
     static public class Vector2Extension
     {

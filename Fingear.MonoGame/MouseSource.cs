@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Fingear.Inputs;
 using Fingear.MonoGame.Inputs;
 
 namespace Fingear.MonoGame
