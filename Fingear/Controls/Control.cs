@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Fingear.Controls.Base;
 
 namespace Fingear.Controls
@@ -50,6 +51,7 @@ namespace Fingear.Controls
     public class Control<TValue> : ControlBase<TValue>
     {
         public IInput<TValue> Input { get; set; }
+        public Predicate<IInput<TValue>> DesiredActivityPredicate { get; set; }
 
         public override IEnumerable<IInput> Inputs
         {
@@ -60,27 +62,23 @@ namespace Fingear.Controls
         {
         }
 
-        public Control(IInput<TValue> input)
+        public Control(IInput<TValue> input, Predicate<IInput<TValue>> desiredActivityPredicate = null)
         {
             Input = input;
+            DesiredActivityPredicate = desiredActivityPredicate ?? (x => x.Activity.IsPressed());
         }
 
-        public Control(string name, IInput<TValue> input)
-            : this(input)
+        public Control(string name, IInput<TValue> input, Predicate<IInput<TValue>> desiredActivityPredicate = null)
+            : this(input, desiredActivityPredicate)
         {
             Name = name;
         }
 
         protected override sealed bool UpdateControlValue(float elapsedTime, out TValue value)
         {
-            if (Input == null || Input.Activity.NotPressed())
-            {
-                value = default(TValue);
-                return false;
-            }
-
-            value = GetValue();
-            return true;
+            bool isActive = Input != null && DesiredActivityPredicate(Input);
+            value = isActive ? GetValue() : default(TValue);
+            return isActive;
         }
 
         protected virtual TValue GetValue() => Input.Value;
