@@ -62,7 +62,8 @@
     <Compile Include="Interactives\Base\InteractiveContainerBase.cs" />
     <Compile Include="Interactives\Interactive.cs" />
     <Compile Include="IInteractive.cs" />
-    <Compile Include="Interactives\InteractiveInterface.cs" />
+    <Compile Include="Interactives\Interfaces\IInteractiveInterface.cs" />
+    <Compile Include="Interactives\Interfaces\InteractiveInterfaceRoot.cs" />
     <Compile Include="Controls\Containers\HybridControl.cs" />
     <Compile Include="Controls\Containers\MultiSourceControl.cs" />
     <Compile Include="Controls\Customizables\CustomizableControl.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Inputs\Base\InputBase.cs" />
     <Compile Include="InteractionManager.cs" />
     <Compile Include="Interactives\InteractiveToggle.cs" />
+    <Compile Include="Interactives\Interfaces\Base\InteractiveInterfaceCompositeBase.cs" />
     <Compile Include="IVirtualInput.cs" />
     <Compile Include="Selector.cs" />
     <Compile Include="Controls\Control.cs" />
