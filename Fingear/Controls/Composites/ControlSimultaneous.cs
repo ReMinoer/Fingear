@@ -66,7 +66,12 @@ namespace Fingear.Controls.Composites
                 values.Add(componentValue);
             }
 
-            value = _valueSelector != null ? _valueSelector.Invoke(values) : values[0];
+            value = _valueSelector != null
+                ? _valueSelector.Invoke(values)
+                : values != null
+                    ? values[0]
+                    : default(TValue);
+
             return true;
         }
     }

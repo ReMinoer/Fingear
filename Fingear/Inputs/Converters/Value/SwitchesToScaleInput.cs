@@ -7,7 +7,7 @@ namespace Fingear.Inputs.Converters.Value
     public class SwitchesToScaleInput : PositionInputBase<float>, IScaleInput
     {
         private float _value;
-        private float _minimum = 0;
+        private float _minimum;
         private float _maximum = 1;
 
         public ISwitchInput Positive { get; set; }
