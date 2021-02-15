@@ -6,8 +6,6 @@
     <ProjectReference Include="..\External\Stave\Diese.Collections %28Stave%29\Diese.Collections %28Stave%29.csproj" />
     <ProjectReference Include="..\External\Stave\Stave\Stave.csproj" />
     <ProjectReference Include="..\External\Taskete\Diese %28Taskete%29\Diese %28Taskete%29.csproj" />
-    <ProjectReference Include="..\External\Taskete\External\OverGraphed\OverGraphed\OverGraphed.csproj" />
-    <ProjectReference Include="..\External\Taskete\Taskete\Taskete.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fody" Version="2.1.0" />
