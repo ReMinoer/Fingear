@@ -13,15 +13,15 @@ namespace Fingear.Inputs
 
         private readonly List<IInput> _inputs = new List<IInput>();
         public IReadOnlyCollection<IInput> Inputs { get; }
-        public IReadOnlyCollection<IInputSource> InputSources { get; private set; }
+        public IReadOnlyCollection<IInputSource> PressedInputSources { get; private set; }
         public IInputStates InputStates { get; set; }
 
-        public event Action<IEnumerable<IInputSource>> InputSourcesChanged;
+        public event Action<IReadOnlyCollection<IInputSource>> InputSourcesUsed;
 
         private InputManager()
         {
             Inputs = _inputs.AsReadOnly();
-            InputSources = ReadOnlyCollection<IInputSource>.Empty;
+            PressedInputSources = ReadOnlyCollection<IInputSource>.Empty;
         }
 
         internal void Register(IInput input)
@@ -38,13 +38,12 @@ namespace Fingear.Inputs
 
             foreach (IInput input in Inputs)
                 input.Update();
+            
+            IInputSource[] changedInputSources = Inputs.Where(x => x.Activity.IsChanged()).Select(x => x.Source).Distinct().ToArray();
+            if (changedInputSources.Length > 0)
+                InputSourcesUsed?.Invoke(changedInputSources);
 
-            IInputSource[] sources = Inputs.Where(x => x.Activity.IsPressed()).Select(x => x.Source).Distinct().ToArray();
-            if (!InputSources.SetEquals(sources))
-            {
-                InputSources = sources.AsReadOnly();
-                InputSourcesChanged?.Invoke(InputSources);
-            }
+            PressedInputSources = Inputs.Where(x => x.Activity.IsPressed()).Select(x => x.Source).Distinct().ToArray().AsReadOnly();
         }
 
         public void Reset()
