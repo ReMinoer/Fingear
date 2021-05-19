@@ -4,11 +4,6 @@ namespace Fingear.Utils
 {
     static public class MathUtils
     {
-        static public bool FloatEquals(this float a, float b)
-        {
-            return System.Math.Abs(a - b) < float.Epsilon;
-        }
-
         static public float Norm(this float a)
         {
             return System.Math.Abs(a);
