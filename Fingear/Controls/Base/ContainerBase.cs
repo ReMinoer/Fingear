@@ -43,23 +43,30 @@ namespace Fingear.Controls.Base
 
         protected IContainer ContainerImplementationT0 => ContainerImplementation;
         protected IContainer<IControl> ContainerImplementationT1 => ContainerImplementation;
+        protected IContainer<IControl, IControlContainer> ContainerImplementationT2 => ContainerImplementation;
 
-        public event Event<TControls> ComponentAdded
+        public event Event<IComponentsChangedEventArgs<IControl, IControlContainer, TControls>> ComponentsChanged
         {
-            add => ContainerImplementation.ComponentAdded += value;
-            remove => ContainerImplementation.ComponentAdded -= value;
+            add => ContainerImplementation.ComponentsChanged += value;
+            remove => ContainerImplementation.ComponentsChanged -= value;
         }
 
-        event Event<IControl> IContainer<IControl>.ComponentAdded
+        event Event<IComponentsChangedEventArgs> IContainer.ComponentsChanged
         {
-            add => ContainerImplementationT1.ComponentAdded += value;
-            remove => ContainerImplementationT1.ComponentAdded -= value;
+            add => ContainerImplementationT0.ComponentsChanged += value;
+            remove => ContainerImplementationT0.ComponentsChanged -= value;
         }
 
-        event Event<IComponent> IContainer.ComponentAdded
+        event Event<IComponentsChangedEventArgs<IControl>> IContainer<IControl>.ComponentsChanged
         {
-            add => ContainerImplementationT0.ComponentAdded += value;
-            remove => ContainerImplementationT0.ComponentAdded -= value;
+            add => ContainerImplementationT1.ComponentsChanged += value;
+            remove => ContainerImplementationT1.ComponentsChanged -= value;
+        }
+
+        event Event<IComponentsChangedEventArgs<IControl, IControlContainer>> IContainer<IControl, IControlContainer>.ComponentsChanged
+        {
+            add => ContainerImplementationT2.ComponentsChanged += value;
+            remove => ContainerImplementationT2.ComponentsChanged -= value;
         }
     }
 }

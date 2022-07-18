@@ -63,10 +63,10 @@ namespace Fingear.Controls.Base
             remove => ComponentImplementation.HierarchyChanged -= value;
         }
 
-        public event Event<IHierarchyComponentAddedEventArgs<IControl, IControlContainer>> HierarchyComponentAdded
+        public event Event<IComponentsChangedEventArgs<IControl, IControlContainer>> HierarchyComponentsChanged
         {
-            add => ComponentImplementation.HierarchyComponentAdded += value;
-            remove => ComponentImplementation.HierarchyComponentAdded -= value;
+            add => ComponentImplementation.HierarchyComponentsChanged += value;
+            remove => ComponentImplementation.HierarchyComponentsChanged -= value;
         }
 
         event Event<IControl> IComponent<IControl>.ParentChanged
@@ -81,10 +81,10 @@ namespace Fingear.Controls.Base
             remove => ComponentImplementationT1.HierarchyChanged -= value;
         }
 
-        event Event<IHierarchyComponentAddedEventArgs<IControl>> IComponent<IControl>.HierarchyComponentAdded
+        event Event<IComponentsChangedEventArgs<IControl>> IComponent<IControl>.HierarchyComponentsChanged
         {
-            add => ComponentImplementationT1.HierarchyComponentAdded += value;
-            remove => ComponentImplementationT1.HierarchyComponentAdded -= value;
+            add => ComponentImplementationT1.HierarchyComponentsChanged += value;
+            remove => ComponentImplementationT1.HierarchyComponentsChanged -= value;
         }
 
         event Event<IComponent> IComponent.ParentChanged
@@ -99,10 +99,10 @@ namespace Fingear.Controls.Base
             remove => ComponentImplementationT0.HierarchyChanged -= value;
         }
 
-        event Event<IHierarchyComponentAddedEventArgs> IComponent.HierarchyComponentAdded
+        event Event<IComponentsChangedEventArgs> IComponent.HierarchyComponentsChanged
         {
-            add => ComponentImplementationT0.HierarchyComponentAdded += value;
-            remove => ComponentImplementationT0.HierarchyComponentAdded -= value;
+            add => ComponentImplementationT0.HierarchyComponentsChanged += value;
+            remove => ComponentImplementationT0.HierarchyComponentsChanged -= value;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

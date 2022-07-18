@@ -38,23 +38,30 @@ namespace Fingear.Interactives.Base
 
         private IContainer ContainerImplementationT0 => ContainerImplementation;
         private IContainer<IInteractive> ContainerImplementationT1 => ContainerImplementation;
+        protected IContainer<IInteractive, IInteractiveContainer> ContainerImplementationT2 => ContainerImplementation;
 
-        public event Event<TComponent> ComponentAdded
+        public event Event<IComponentsChangedEventArgs<IInteractive, IInteractiveContainer, TComponent>> ComponentsChanged
         {
-            add => ContainerImplementation.ComponentAdded += value;
-            remove => ContainerImplementation.ComponentAdded -= value;
+            add => ContainerImplementation.ComponentsChanged += value;
+            remove => ContainerImplementation.ComponentsChanged -= value;
         }
 
-        event Event<IComponent> IContainer.ComponentAdded
+        event Event<IComponentsChangedEventArgs> IContainer.ComponentsChanged
         {
-            add => ContainerImplementationT0.ComponentAdded += value;
-            remove => ContainerImplementationT0.ComponentAdded -= value;
+            add => ContainerImplementationT0.ComponentsChanged += value;
+            remove => ContainerImplementationT0.ComponentsChanged -= value;
         }
 
-        event Event<IInteractive> IContainer<IInteractive>.ComponentAdded
+        event Event<IComponentsChangedEventArgs<IInteractive>> IContainer<IInteractive>.ComponentsChanged
         {
-            add => ContainerImplementationT1.ComponentAdded += value;
-            remove => ContainerImplementationT1.ComponentAdded -= value;
+            add => ContainerImplementationT1.ComponentsChanged += value;
+            remove => ContainerImplementationT1.ComponentsChanged -= value;
+        }
+
+        event Event<IComponentsChangedEventArgs<IInteractive, IInteractiveContainer>> IContainer<IInteractive, IInteractiveContainer>.ComponentsChanged
+        {
+            add => ContainerImplementationT2.ComponentsChanged += value;
+            remove => ContainerImplementationT2.ComponentsChanged -= value;
         }
     }
 }

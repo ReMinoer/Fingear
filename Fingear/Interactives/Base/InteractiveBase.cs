@@ -77,10 +77,10 @@ namespace Fingear.Interactives.Base
             remove => ComponentImplementation.HierarchyChanged -= value;
         }
 
-        public event Event<IHierarchyComponentAddedEventArgs<IInteractive, IInteractiveContainer>> HierarchyComponentAdded
+        public event Event<IComponentsChangedEventArgs<IInteractive, IInteractiveContainer>> HierarchyComponentsChanged
         {
-            add => ComponentImplementation.HierarchyComponentAdded += value;
-            remove => ComponentImplementation.HierarchyComponentAdded -= value;
+            add => ComponentImplementation.HierarchyComponentsChanged += value;
+            remove => ComponentImplementation.HierarchyComponentsChanged -= value;
         }
 
         event Event<IComponent> IComponent.ParentChanged
@@ -107,16 +107,16 @@ namespace Fingear.Interactives.Base
             remove => ComponentImplementationT1.HierarchyChanged -= value;
         }
 
-        event Event<IHierarchyComponentAddedEventArgs> IComponent.HierarchyComponentAdded
+        event Event<IComponentsChangedEventArgs> IComponent.HierarchyComponentsChanged
         {
-            add => ComponentImplementationT0.HierarchyComponentAdded += value;
-            remove => ComponentImplementationT0.HierarchyComponentAdded -= value;
+            add => ComponentImplementationT0.HierarchyComponentsChanged += value;
+            remove => ComponentImplementationT0.HierarchyComponentsChanged -= value;
         }
 
-        event Event<IHierarchyComponentAddedEventArgs<IInteractive>> IComponent<IInteractive>.HierarchyComponentAdded
+        event Event<IComponentsChangedEventArgs<IInteractive>> IComponent<IInteractive>.HierarchyComponentsChanged
         {
-            add => ComponentImplementationT1.HierarchyComponentAdded += value;
-            remove => ComponentImplementationT1.HierarchyComponentAdded -= value;
+            add => ComponentImplementationT1.HierarchyComponentsChanged += value;
+            remove => ComponentImplementationT1.HierarchyComponentsChanged -= value;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
