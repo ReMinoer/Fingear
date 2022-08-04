@@ -2,9 +2,10 @@
 
 namespace Fingear.Interactives.Interfaces
 {
-    public interface IInteractiveInterface : IInteractiveComposite<IInteractiveInterface>
+    public interface IInteractiveInterface : IInteractive
     {
         void OnCursorMoved(Vector2 cursorPosition);
+        IInteractiveInterface OnCursorHovering(Vector2 cursorPosition);
         IInteractiveInterface OnTouchStarted(Vector2 cursorPosition);
         void OnTouching(Vector2 cursorPosition);
         void OnTouchEnded(Vector2 cursorPosition);
@@ -12,5 +13,12 @@ namespace Fingear.Interactives.Interfaces
         bool OnConfirmed();
         bool OnCancelled();
         bool OnExited();
+    }
+
+    public interface IInteractiveInterface<TComponent> : IInteractiveComposite<TComponent>, IInteractiveInterface
+        where TComponent : class, IInteractiveInterface<TComponent>
+    {
+        new TComponent OnCursorHovering(Vector2 cursorPosition);
+        new TComponent OnTouchStarted(Vector2 cursorPosition);
     }
 }

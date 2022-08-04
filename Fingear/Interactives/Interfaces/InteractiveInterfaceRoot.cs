@@ -6,10 +6,9 @@ using Fingear.Interactives.Interfaces.Base;
 
 namespace Fingear.Interactives.Interfaces
 {
-    public class InteractiveInterfaceRoot : InteractiveInterfaceCompositeBase
+    public class InteractiveInterfaceRoot<TComponent> : InteractiveInterfaceCompositeBase<TComponent>
+        where TComponent : class, IInteractiveInterface<TComponent>
     {
-        private IInteractiveInterface _touchHandler;
-
         public IControl<Vector2> Cursor { get; set; }
         public IControl<InputActivity> Touch { get; set; }
 
@@ -17,6 +16,9 @@ namespace Fingear.Interactives.Interfaces
         public IControl Confirm { get; set; }
         public IControl Cancel { get; set; }
         public IControl Exit { get; set; }
+
+        public TComponent Hovered { get; private set; }
+        public TComponent Touching { get; private set; }
 
         protected override IEnumerable<IControl> ReadOnlyControls
         {
@@ -41,6 +43,9 @@ namespace Fingear.Interactives.Interfaces
             bool cursorMoved = Cursor.IsActive(out Vector2 cursor);
             if (cursorMoved)
                 OnCursorMoved(cursor);
+
+            Hovered = OnCursorHovering(cursor);
+
             if (Direction.IsActive(out Vector2 direction))
                 OnDirectionMoved(direction);
 
@@ -54,14 +59,14 @@ namespace Fingear.Interactives.Interfaces
             if (Touch.IsActive(out InputActivity touch))
             {
                 if (touch.IsTriggered())
-                    _touchHandler = OnTouchStarted(cursor);
+                    Touching = OnTouchStarted(cursor);
                 else if (touch.IsPressed())
-                    _touchHandler.OnTouching(cursor);
+                    Touching.OnTouching(cursor);
                 else if (touch.IsReleased())
-                    _touchHandler.OnTouchEnded(cursor);
+                    Touching.OnTouchEnded(cursor);
             }
             else
-                _touchHandler = null;
+                Touching = null;
         }
 
         public override void Reset()
@@ -71,7 +76,8 @@ namespace Fingear.Interactives.Interfaces
         }
 
         protected override void OnLocalCursorMoved(Vector2 cursorPosition) {}
-        protected override IInteractiveInterface OnLocalTouchStarted(Vector2 cursorPosition) => null;
+        protected override TComponent OnLocalCursorHovering(Vector2 cursorPosition) => null;
+        protected override TComponent OnLocalTouchStarted(Vector2 cursorPosition) => null;
         protected override void OnLocalTouching(Vector2 cursorPosition) {}
         protected override void OnLocalTouchEnded(Vector2 cursorPosition) {}
         protected override bool OnLocalDirectionMoved(Vector2 direction) => false;
