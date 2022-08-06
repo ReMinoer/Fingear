@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Reflection;
 using Fingear.Inputs.Converters;
 using Fingear.Utils;
 
@@ -23,13 +24,13 @@ namespace Fingear.Inputs.Utils
             result = input as T;
             if (result != null)
                 return true;
-
-            Type outType = typeof(T);
+            
+            TypeInfo outTypeInfo = typeof(T).GetTypeInfo();
 
             // First pass : Position to force input
 
             bool isForceInput = input is IForceInput;
-            if (!isForceInput && typeof(IForceInput).IsAssignableFrom(outType))
+            if (!isForceInput && typeof(IForceInput).GetTypeInfo().IsAssignableFrom(outTypeInfo))
             {
                 switch (input)
                 {
@@ -59,13 +60,13 @@ namespace Fingear.Inputs.Utils
                 {
                     case IJoystickInput joystickInput:
                     {
-                        if (typeof(IScalarInput).IsAssignableFrom(outType))
+                        if (typeof(IScalarInput).GetTypeInfo().IsAssignableFrom(outTypeInfo))
                         {
                             result = joystickInput.Scalar(GetAxis(joystickInput)) as T;
                             return true;
                         }
 
-                        if (typeof(IBooleanInput).IsAssignableFrom(outType))
+                        if (typeof(IBooleanInput).GetTypeInfo().IsAssignableFrom(outTypeInfo))
                         {
                             result = joystickInput.Boolean(GetVectorDeadZone(joystickInput)) as T;
                             return true;
@@ -74,7 +75,7 @@ namespace Fingear.Inputs.Utils
                     break;
                     case IIntensityInput intensityInput:
                     {
-                        if (typeof(IBooleanInput).IsAssignableFrom(outType))
+                        if (typeof(IBooleanInput).GetTypeInfo().IsAssignableFrom(outTypeInfo))
                         {
                             result = intensityInput.Boolean(GetDeadZone()) as T;
                             return true;
@@ -89,13 +90,13 @@ namespace Fingear.Inputs.Utils
                 {
                     case ICursorInput cursorInputBis:
                     {
-                        if (typeof(IScalarInput).IsAssignableFrom(outType))
+                        if (typeof(IScalarInput).GetTypeInfo().IsAssignableFrom(outTypeInfo))
                         {
                             result = cursorInputBis.Scalar(GetAxis(cursorInputBis)) as T;
                             return true;
                         }
 
-                        if (typeof(IBooleanInput).IsAssignableFrom(outType))
+                        if (typeof(IBooleanInput).GetTypeInfo().IsAssignableFrom(outTypeInfo))
                         {
                             result = cursorInputBis.Boolean(GetVectorDeadZone(cursorInputBis)) as T;
                             return true;
@@ -104,7 +105,7 @@ namespace Fingear.Inputs.Utils
                     break;
                     case IScaleInput scaleInputBis:
                     {
-                        if (typeof(IBooleanInput).IsAssignableFrom(outType))
+                        if (typeof(IBooleanInput).GetTypeInfo().IsAssignableFrom(outTypeInfo))
                         {
                             result = scaleInputBis.Boolean(GetDeadZone()) as T;
                             return true;

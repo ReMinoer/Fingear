@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Reflection;
 using Fingear.Inputs.Base;
 using Fingear.Utils;
 
@@ -27,7 +28,7 @@ namespace Fingear.Inputs.Converters.Value
                 if (JoystickInput == null)
                     return "";
 
-                string name = ValueSelector.Method.GetDelegateName();
+                string name = ValueSelector.GetMethodInfo().GetDelegateName();
                 return string.IsNullOrEmpty(name) ? $"{JoystickInput.DisplayName}" : $"{JoystickInput.DisplayName} {name}";
             }
         }

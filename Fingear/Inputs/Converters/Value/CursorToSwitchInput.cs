@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Reflection;
 using Fingear.Inputs.Base;
 using Fingear.Utils;
 
@@ -26,7 +27,7 @@ namespace Fingear.Inputs.Converters.Value
                 if (CursorInput == null)
                     return "";
 
-                string name = ValueSelector.Method.GetDelegateName();
+                string name = ValueSelector.GetMethodInfo().GetDelegateName();
                 if (string.IsNullOrEmpty(name))
                     return $"{CursorInput.DisplayName}";
 

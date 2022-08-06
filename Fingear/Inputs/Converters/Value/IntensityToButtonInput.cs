@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Fingear.Inputs.Base;
 using Fingear.Utils;
 
@@ -26,7 +27,7 @@ namespace Fingear.Inputs.Converters.Value
                 if (IntensityInput == null)
                     return "";
 
-                string name = ValueSelector.Method.GetDelegateName();
+                string name = ValueSelector.GetMethodInfo().GetDelegateName();
                 if (string.IsNullOrEmpty(name))
                     return $"{IntensityInput.DisplayName}";
 
