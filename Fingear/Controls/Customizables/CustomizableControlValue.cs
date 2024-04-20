@@ -10,24 +10,24 @@ using Fingear.Utils;
 
 namespace Fingear.Controls.Customizables
 {
-    public class CustomizableControlValue<TValue> : CustomizableControlValue<IInput, TValue>
+    public class CustomizableControlValue<TValue> : CustomizableControlValue<IInput<TValue>, TValue>
     {
-        public CustomizableControlValue(Func<IInput, IControl<TValue>> controlFactory, IEnumerable<IInput> defaultInputs = null)
+        public CustomizableControlValue(Func<IInput<TValue>, IControl<TValue>> controlFactory, IEnumerable<IInput<TValue>> defaultInputs = null)
             : base(controlFactory, defaultInputs)
         {
         }
 
-        public CustomizableControlValue(string name, Func<IInput, IControl<TValue>> controlFactory, IEnumerable<IInput> defaultInputs = null)
+        public CustomizableControlValue(string name, Func<IInput<TValue>, IControl<TValue>> controlFactory, IEnumerable<IInput<TValue>> defaultInputs = null)
             : base(name, controlFactory, defaultInputs)
         {
         }
 
-        public CustomizableControlValue(Func<IInput, IControl<TValue>> controlFactory, Selector<TValue> valueSelector, IEnumerable<IInput> defaultInputs = null)
+        public CustomizableControlValue(Func<IInput<TValue>, IControl<TValue>> controlFactory, Selector<TValue> valueSelector, IEnumerable<IInput<TValue>> defaultInputs = null)
             : base(controlFactory, valueSelector, defaultInputs)
         {
         }
 
-        public CustomizableControlValue(string name, Func<IInput, IControl<TValue>> controlFactory, Selector<TValue> valueSelector, IEnumerable<IInput> defaultInputs = null)
+        public CustomizableControlValue(string name, Func<IInput<TValue>, IControl<TValue>> controlFactory, Selector<TValue> valueSelector, IEnumerable<IInput<TValue>> defaultInputs = null)
             : base(name, controlFactory, valueSelector, defaultInputs)
         {
         }
