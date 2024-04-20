@@ -15,12 +15,22 @@ namespace Fingear.MonoGame.Inputs
         public override Vector2 Maximum => new Vector2(float.PositiveInfinity, float.PositiveInfinity);
         public override Vector2 Minimum => Vector2.Zero;
         public Vector2 DefaultValue { get; set; }
-        public Range<Vector2>? ClampBounds { get; set; }
+
+        private Range<Vector2>? _clampBounds;
+        public Range<Vector2>? ClampBounds
+        {
+            get => _clampBounds;
+            set
+            {
+                _clampBounds = value;
+                SetMousePosition(CurrentValue.AsMonoGamePoint());
+            }
+        }
 
         Vector2 IVirtualInput<Vector2>.Value
         {
             get => Value;
-            set => SetMousePosition(value);
+            set => SetMousePosition(value.AsMonoGamePoint());
         }
         
         internal MouseCursorInput()
@@ -29,26 +39,26 @@ namespace Fingear.MonoGame.Inputs
 
         protected override void UpdateValues()
         {
+            SetMousePosition(Value.AsMonoGamePoint());
             base.UpdateValues();
-            if (ClampBounds.HasValue)
-                SetMousePosition(Vector2.Clamp(CurrentValue, ClampBounds.Value.Minimum, ClampBounds.Value.Maximum));
         }
 
         public void SetToDefault()
         {
-            SetMousePosition(DefaultValue);
+            SetMousePosition(DefaultValue.AsMonoGamePoint());
         }
 
         public void SetMousePosition(Point position)
         {
-            Mouse.SetPosition(position.X, position.Y);
-            CurrentValue = position.AsSystemVector();
-        }
+            if (ClampBounds.HasValue)
+            {
+                position = Vector2.Clamp(position.AsSystemVector(), ClampBounds.Value.Minimum, ClampBounds.Value.Maximum).AsMonoGamePoint();
+            }
 
-        private void SetMousePosition(Vector2 position)
-        {
-            Mouse.SetPosition((int)position.X, (int)position.Y);
-            CurrentValue = position;
+            if (position == Value.AsMonoGamePoint())
+                return;
+
+            Mouse.SetPosition(position.X, position.Y);
         }
     }
 }
